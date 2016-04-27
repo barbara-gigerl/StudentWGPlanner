@@ -1,5 +1,9 @@
 # Most part of this file is created by https://www.gitignore.io
 
+**/dist/
+
+ios/**/*.xcodeproj
+
 ### Node ###
 # Logs
 logs
