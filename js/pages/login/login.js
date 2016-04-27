@@ -8,6 +8,7 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+var alert = require('react-native-alert')
 
 export default class Login extends Component {
 
@@ -15,10 +16,8 @@ export default class Login extends Component {
   {
     super(props);
     this.state = {
-      loginData: {
-        username: 'username',
-        passwd: ''
-      }
+      username: '',
+      passwd: ''
     };
 
     this.onPressLogin = this.onPressLogin.bind(this);
@@ -28,6 +27,12 @@ export default class Login extends Component {
   onPressLogin()
   {
     console.log(this.state);
+    if(this.state.username === '' || this.state.passwd === '')
+      {
+        return (
+          alert("hello");
+      )}
+    console.log("nach if");
   }
 
   onPressRegister()
@@ -55,7 +60,7 @@ export default class Login extends Component {
         <TextInput
           ref="passwd"
           onChangeText={(text) => this.setState({
-            password: text
+            passwd: text
           })}
           secureTextEntry={true}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
