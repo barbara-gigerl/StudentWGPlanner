@@ -8,22 +8,71 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  TextInput,
+  View,
+  TouchableHighlight,
 } from 'react-native';
 
+
+
 class StudentWGPlanner extends Component {
+
+  constructor(props)
+  {
+    super(props);
+
+    this.state = {
+      loginData: {
+        username: 'username',
+        passwd: ''
+      }
+    };
+
+    this.onPressLogin = this.onPressLogin.bind(this);
+    this.onPressRegister = this.onPressRegister.bind(this);
+  }
+  onPressLogin()
+  {
+    console.log(this.state);
+  }
+
+  onPressRegister()
+  {
+    //TODO: implement function!
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Student WG Planner
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
+        <Text style={styles.inputlabel}>
+        Username:
         </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+        <TextInput
+          ref="username"
+          onChangeText={(text) => this.setState({
+            username: text
+          })}
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        />
+        <Text style={styles.inputlabel}>
+          Password:
+          </Text>
+          <TextInput
+          ref="passwd"
+          onChangeText={(text) => this.setState({
+            password: text
+          })}
+          secureTextEntry={true}
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+/>
+<TouchableHighlight onPress={this.onPressLogin}
+ ><Text >Login</Text></TouchableHighlight>
+ <TouchableHighlight onPress={this.onPressRegister}
+  ><Text >Register</Text></TouchableHighlight>
+
       </View>
     );
   }
@@ -41,8 +90,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
-    textAlign: 'center',
+  inputlabel: {
+    textAlign: 'left',
     color: '#333333',
     marginBottom: 5,
   },
