@@ -1,3 +1,4 @@
-var {applyMiddleware, createStore} = require('redux');
+import { applyMiddleware, createStore } from 'redux';
+import api from './api';
 
-export default applyMiddleware()(createStore);
+export default applyMiddleware(api)(createStore);

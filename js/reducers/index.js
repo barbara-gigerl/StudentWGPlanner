@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
+import wgReducer from './wg';
+
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  wg: wgReducer
 });
 
 export default rootReducer;
