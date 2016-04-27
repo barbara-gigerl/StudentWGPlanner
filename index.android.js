@@ -13,33 +13,10 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
-
+var Login = require('./js/pages/login/login')
 
 class StudentWGPlanner extends Component {
 
-  constructor(props)
-  {
-    super(props);
-
-    this.state = {
-      loginData: {
-        username: 'username',
-        passwd: ''
-      }
-    };
-
-    this.onPressLogin = this.onPressLogin.bind(this);
-    this.onPressRegister = this.onPressRegister.bind(this);
-  }
-  onPressLogin()
-  {
-    console.log(this.state);
-  }
-
-  onPressRegister()
-  {
-    //TODO: implement function!
-  }
 
   render() {
     return (
@@ -47,32 +24,7 @@ class StudentWGPlanner extends Component {
         <Text style={styles.welcome}>
           Student WG Planner
         </Text>
-        <Text style={styles.inputlabel}>
-        Username:
-        </Text>
-        <TextInput
-          ref="username"
-          onChangeText={(text) => this.setState({
-            username: text
-          })}
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        />
-        <Text style={styles.inputlabel}>
-          Password:
-          </Text>
-          <TextInput
-          ref="passwd"
-          onChangeText={(text) => this.setState({
-            password: text
-          })}
-          secureTextEntry={true}
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-/>
-<TouchableHighlight onPress={this.onPressLogin}
- ><Text >Login</Text></TouchableHighlight>
- <TouchableHighlight onPress={this.onPressRegister}
-  ><Text >Register</Text></TouchableHighlight>
-
+        <Login/>
       </View>
     );
   }
