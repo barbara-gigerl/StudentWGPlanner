@@ -13,10 +13,9 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
-var Login = require('./js/pages/login/login')
+import Login from './js/pages/login/login';
 
 class StudentWGPlanner extends Component {
-
 
   render() {
     return (
@@ -24,7 +23,7 @@ class StudentWGPlanner extends Component {
         <Text style={styles.welcome}>
           Student WG Planner
         </Text>
-        <Login/>
+        <Login />
       </View>
     );
   }

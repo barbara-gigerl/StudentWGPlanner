@@ -9,7 +9,7 @@ import React, {
 } from 'react-native';
 
 
-class Login extends Component {
+export default class Login extends Component {
 
   constructor(props)
   {
@@ -25,36 +25,6 @@ class Login extends Component {
     this.onPressRegister = this.onPressRegister.bind(this);
   }
 
-  render()
-  {
-    return   (<div><Text style={styles.inputlabel}>
-      Username:
-      </Text>
-      <TextInput
-        ref="username"
-        onChangeText={(text) => this.setState({
-          username: text
-        })}
-        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-      />
-      <Text style={styles.inputlabel}>
-        Password:
-        </Text>
-        <TextInput
-        ref="passwd"
-        onChangeText={(text) => this.setState({
-          password: text
-        })}
-        secureTextEntry={true}
-        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        />
-        <TouchableHighlight onPress={this.onPressLogin}>
-          <Text >Login</Text>
-          </TouchableHighlight>
-<TouchableHighlight onPress={this.onPressRegister}
-><Text >Register</Text></TouchableHighlight></div>);
-  }
-
   onPressLogin()
   {
     console.log(this.state);
@@ -65,7 +35,40 @@ class Login extends Component {
     //TODO: implement function!
   }
 
-
+  render()
+  {
+    return (
+      <View>
+        <Text style={styles.inputlabel}>
+          Username:
+        </Text>
+        <TextInput
+          ref="username"
+          onChangeText={(text) => this.setState({
+            username: text
+          })}
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        />
+        <Text style={styles.inputlabel}>
+          Password:
+        </Text>
+        <TextInput
+          ref="passwd"
+          onChangeText={(text) => this.setState({
+            password: text
+          })}
+          secureTextEntry={true}
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        />
+        <TouchableHighlight onPress={this.onPressLogin}>
+          <Text>Login</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.onPressRegister}>
+          <Text >Register</Text>
+        </TouchableHighlight>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -86,5 +89,3 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
-AppRegistry.registerComponent('Login', () => Login);
