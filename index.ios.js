@@ -10,7 +10,12 @@ import React, {
   Text,
   View
 } from 'react-native';
+/*
+import { Provider } from 'react-redux';
 
+import reducers from './js/reducers';
+import createStoreWithMiddleware from './js/store/configureStore';
+*/
 class StudentWGPlanner extends Component {
   render() {
     return (
