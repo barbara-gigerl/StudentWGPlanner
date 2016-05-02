@@ -49,9 +49,15 @@ export default class Login extends Component {
     //TODO: implement function!
   }
 
+
+    sum(a, b) {
+      return a + b;
+    }
+
   render()
   {
       console.log("render.");
+      console.log("jest test - correct function.");
 
     return (
       <View>
@@ -87,6 +93,7 @@ export default class Login extends Component {
       </View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
@@ -110,4 +117,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#B0171F'
   }
+
 });
+
+module.exports = Login;
