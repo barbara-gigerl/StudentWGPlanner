@@ -26,6 +26,7 @@ export default class Login extends Component {
 
   onPressLogin()
   {
+    console.log("YOUMADEIT");
     console.log(this.state);
     this.state.errormessage = '';
     if(this.state.username === '' || this.state.password === '')
@@ -57,11 +58,9 @@ export default class Login extends Component {
   render()
   {
       console.log("render.");
-      console.log("jest test - correct function.");
 
     return (
       <View>
-
         <Text style={styles.inputlabel}>
           Username:
         </Text>
