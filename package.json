@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "babel-node ./server/server.js",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
     "import-data": "babel-node ./scripts/import-data-from-parse.js",
     "update-schema": "babel-node ./server/schema/updateSchema.js",
     "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest",
