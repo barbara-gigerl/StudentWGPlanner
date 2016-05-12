@@ -27,7 +27,6 @@ export default class Login extends Component {
   onPressLogin()
   {
     console.log("YOUMADEIT");
-    console.log(this.state);
     this.state.errormessage = '';
     if(this.state.username === '' || this.state.password === '')
     {
@@ -41,6 +40,7 @@ export default class Login extends Component {
                      password: this.state.password,
                      errormessage: this.state.errormessage
     })
+    console.log(this.state);
   }
 
   onPressRegister()
@@ -80,7 +80,7 @@ export default class Login extends Component {
           secureTextEntry={true}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
-        <Text ref='ref2' style={styles.errormessage}>{this.state.errormessage}</Text>
+        <Text ref='ref' style={styles.errormessage}>{this.state.errormessage}</Text>
         <TouchableHighlight onPress={this.onPressLogin}>
           <Text>Login</Text>
         </TouchableHighlight>

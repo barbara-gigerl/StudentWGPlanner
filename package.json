@@ -6,7 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "import-data": "babel-node ./scripts/import-data-from-parse.js",
     "update-schema": "babel-node ./server/schema/updateSchema.js",
-    "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest",
+    "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest --verbose",
     "lint": "eslint ."
   },
   "dependencies": {

@@ -8,8 +8,6 @@ import TouchableHighlight from 'react'*/
 //const ReactDom = require('react-dom');
 //const TestUtils = require('react-addons-test-utils');
 
-
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
@@ -27,11 +25,11 @@ describe('Login test', () => {
   let login_test;
 
   function renderScreen(props, states) {
-    const renderer = TestUtils.createRenderer();
+    var renderer = TestUtils.createRenderer();
     renderer.render(<Login {...props || {}}/>);
-    const instance = renderer._instance._instance;
+    var instance = renderer._instance._instance;
     instance.setState(states || {});
-    const output = renderer.getRenderOutput();
+    var output = renderer.getRenderOutput();
 
     return {
       output,
@@ -84,38 +82,69 @@ describe('Login test', () => {
 });
 */
 
+
+  it('click button', () =>{
+    var states = {
+          username: '',
+          password: '',
+          errormessage: ''};
+    login_test = renderScreen({}, states);
+    var wrapper = shallow(<Login />);
+    var {output} = login_test;
+    const loginfunction = output.props.children[5].props.onPress;
+    loginfunction();
+
+    TestUtils.Simulate.click(output.props.children[5].props);
+
+    //console.log(output.props.children[4]);
+
+    //doesn't update output but WHY?
+    expect(wrapper.contains('Please enter username and password')).toBe(true)
+    console.log(output.props.children[4].props);
+  //  expect(this.state.errormessage).toEqual('Please enter username and password')
+  });
+
+/*
   it('control login button', () => {
-    const wrapper = shallow(<Login />);
-    expect(wrapper.find(<Text ref='ref2'></Text>))
+    var controlloginbtntest = renderScreen();
+    var {output} = controlloginbtntest;
+    var renderer = TestUtils.createRenderer();
 
-    var {output} = login_test
-
-    var loginbtn = output.props.children[5].props;
+    var wrapper = shallow(<Login />);
+    var loginbtn = output.props.children[5];
     var usernamefield = output.props.children[1].props;
     var passwordfield = output.props.children[3].props;
+    var errormessage = output.props.children[4].props.children;
+
+    //expect(output.props.children[4].props.children).toEqual('hello');
+    expect(errormessage).toBe('');
+  //  expect(wrapper.contains(<Text ref='ref'></Text>)).toEqual(true)
+  //  expect(wrapper.contains(<Text ref='ref2'>Please enter username and password</Text>)).toEqual(false)
 
     //empty username and password field
-    TestUtils.Simulate.click(loginbtn);
-    expect(wrapper.find(<Text ref='ref2'>Please enter username and password</Text>))
+    TestUtils.Simulate.click(output.props.children[1]);
+    expect(wrapper.contains(<Text ref='ref'>Please enter username and password</Text>)).toEqual(true)
+//    expect(output.props.children[4].props.children).toEqual('Please enter username and password');
+//    expect(wrapper.contains(<Text ref='ref2'>Please enter username and password</Text>)).toEqual(true)
 
     //only username
     TestUtils.Simulate.change(usernamefield, 'MaxMuster');
     TestUtils.Simulate.click(loginbtn);
-    expect(wrapper.find(<Text ref='ref2'>Please enter username and password</Text>))
+//    expect(wrapper.contains(<Text ref='ref2'>Please enter username and password</Text>)).toEqual(true)
 
     //only password
     TestUtils.Simulate.change(usernamefield, '');
     TestUtils.Simulate.change(passwordfield, 'Password');
     TestUtils.Simulate.click(loginbtn);
-    expect(wrapper.find(<Text ref='ref2'>Please enter username and password</Text>))
+//    expect(wrapper.contains(<Text ref='ref2'>Please enter username and password</Text>)).toEqual(true)
 
     //TODO: change this test if database connection is working
     //successful login: username and password
     TestUtils.Simulate.change(usernamefield, 'MaxMuster');
     TestUtils.Simulate.change(passwordfield, 'Password');
     TestUtils.Simulate.click(loginbtn);
-    expect(wrapper.find(<Text ref='ref2'></Text>))
-  });
+//    expect(wrapper.contains(<Text ref='ref2'>Please enter username and password</Text>)).toEqual(true)
+  });*/
 
 
 
