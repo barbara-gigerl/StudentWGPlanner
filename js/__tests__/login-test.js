@@ -1,21 +1,28 @@
 jest.unmock('../pages/login/login'); // unmock to use the actual implementation of sum
-const React = require('react');
+//const React = require('react');
 /*import View from 'react'
 import Text from 'react'
 import TextInput from 'react'
 import TouchableHighlight from 'react'*/
 
-const ReactDom = require('react-dom');
-const TestUtils = require('react-addons-test-utils');
+//const ReactDom = require('react-dom');
+//const TestUtils = require('react-addons-test-utils');
+
+
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
 import Login from '../pages/login/login';
-var TouchableHighlight = require('react')
+import {shallow} from 'enzyme'; //Install with: sudo npm i --save-dev enzyme
+
 /*import TextInput from "../pages/login/login";
 import Stylesheet from "../pages/login/login";
 import TouchableHighlight from "../pages/login/login";
 import Text from "../pages/login/login";*/
 
 
-describe('Login', () => {
+describe('Login test', () => {
 
   let login_test;
 
@@ -29,16 +36,16 @@ describe('Login', () => {
     return {
       output,
       instance,
-
     };
   }
 
   it('should display correct and complete GUI', () => {
-    const states = {       username: '',
+    const states = {
+          username: '',
           password: '',
           errormessage: ''};
     login_test = renderScreen({}, states);
-    const {output} = login_test;
+    var {output} = login_test;
     expect(output.type.name).toBe("View");
 
     expect(output.props.children[0].type.name).toBe("Text");
@@ -58,8 +65,10 @@ describe('Login', () => {
     expect(output.props.children[6].type.name).toBe("TouchableHighlight");
     expect(output.props.children[6].props.children.props.children).toBe('Register');
 });
+/*
     it('empty username', () => {
-      const states = {       username: '',
+      const states = {
+            username: '',
             password: '',
             errormessage: ''};
       login_test = renderScreen({}, states);
@@ -73,5 +82,42 @@ describe('Login', () => {
 
 
 });
+*/
+
+  it('control login button', () => {
+    const wrapper = shallow(<Login />);
+    expect(wrapper.find(<Text ref='ref2'></Text>))
+
+    var {output} = login_test
+
+    var loginbtn = output.props.children[5].props;
+    var usernamefield = output.props.children[1].props;
+    var passwordfield = output.props.children[3].props;
+
+    //empty username and password field
+    TestUtils.Simulate.click(loginbtn);
+    expect(wrapper.find(<Text ref='ref2'>Please enter username and password</Text>))
+
+    //only username
+    TestUtils.Simulate.change(usernamefield, 'MaxMuster');
+    TestUtils.Simulate.click(loginbtn);
+    expect(wrapper.find(<Text ref='ref2'>Please enter username and password</Text>))
+
+    //only password
+    TestUtils.Simulate.change(usernamefield, '');
+    TestUtils.Simulate.change(passwordfield, 'Password');
+    TestUtils.Simulate.click(loginbtn);
+    expect(wrapper.find(<Text ref='ref2'>Please enter username and password</Text>))
+
+    //TODO: change this test if database connection is working
+    //successful login: username and password
+    TestUtils.Simulate.change(usernamefield, 'MaxMuster');
+    TestUtils.Simulate.change(passwordfield, 'Password');
+    TestUtils.Simulate.click(loginbtn);
+    expect(wrapper.find(<Text ref='ref2'></Text>))
+  });
+
+
+
 
 });

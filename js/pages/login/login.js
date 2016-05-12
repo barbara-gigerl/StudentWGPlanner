@@ -30,19 +30,17 @@ export default class Login extends Component {
     console.log(this.state);
     this.state.errormessage = '';
     if(this.state.username === '' || this.state.password === '')
-      {
-        console.log("error.");
-        this.state.errormessage = 'Please enter username and password'
-
-      }
-      else {
-        console.log("will now connect to server");
-        helloWorld();
-      }
-      this.setState( { username: this.state.username,
-                       password: this.state.password,
-                       errormessage: this.state.errormessage
-                      })
+    {
+      console.log("error.");
+      this.state.errormessage = 'Please enter username and password'
+    }
+    else {
+      console.log("will now connect to server");
+    }
+    this.setState( { username: this.state.username,
+                     password: this.state.password,
+                     errormessage: this.state.errormessage
+    })
   }
 
   onPressRegister()
@@ -57,7 +55,7 @@ export default class Login extends Component {
 
   render()
   {
-      console.log("render.");
+    console.log("render.");
 
     return (
       <View>
@@ -82,7 +80,7 @@ export default class Login extends Component {
           secureTextEntry={true}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
-      <Text style={styles.errormessage}>{this.state.errormessage}</Text>
+        <Text ref='ref2' style={styles.errormessage}>{this.state.errormessage}</Text>
         <TouchableHighlight onPress={this.onPressLogin}>
           <Text>Login</Text>
         </TouchableHighlight>
@@ -92,8 +90,8 @@ export default class Login extends Component {
       </View>
     );
   }
-
 }
+
 
 const styles = StyleSheet.create({
   container: {
