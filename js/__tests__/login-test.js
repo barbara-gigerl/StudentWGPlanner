@@ -62,6 +62,7 @@ describe('Login', () => {
       const states = {       username: '',
             password: '',
             errormessage: ''};
+      //
       login_test = renderScreen({}, states);
       const {output} = login_test;
       let onPressLogin_ = output.props.children[5].props.onPress;
@@ -70,8 +71,6 @@ describe('Login', () => {
       login_test = renderScreen(output.props, output.states);
       console.log(output.states);
       //expect(outputnew.props.children[4].props.children).toBe('Please enter username and password');
-
-
 });
 
 });
