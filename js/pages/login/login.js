@@ -1,12 +1,15 @@
 import React, {
   AppRegistry,
   Component,
+  BackAndroid,
+  Navigator,
   StyleSheet,
   Text,
   TextInput,
   View,
   TouchableHighlight,
 } from 'react-native';
+
 
 import axios from 'axios'
 import * as dummy from './dummy.js';
@@ -36,6 +39,7 @@ export default class Login extends Component {
     this.onPressLogin = this.onPressLogin.bind(this);
     this.onPressRegister = this.onPressRegister.bind(this);
   }
+
 
   onPressLogin()
   {
@@ -68,6 +72,10 @@ export default class Login extends Component {
 
 
           console.log("got result");
+
+          this.props.navigator.push({
+             name:"Home"});
+
       }
       this.setState( { username: this.state.username,
                        password: this.state.password,
@@ -79,7 +87,10 @@ export default class Login extends Component {
 
   onPressRegister()
   {
-    //TODO: implement function!
+     console.log("going to register view...");
+
+     this.props.navigator.push({
+        name:"Register"    });
   }
 
 
@@ -87,6 +98,8 @@ export default class Login extends Component {
   {
       console.log("render.");
       console.log(this.state);
+
+
     return (
       <View>
         <Text style={styles.inputlabel}>
@@ -146,5 +159,3 @@ const styles = StyleSheet.create({
   }
 
 });
-
-module.exports = Login;
