@@ -15,13 +15,23 @@ export default class Login extends Component {
   {
     super(props);
     this.state = {
-      username: '',
+      username: 'hello',
       password: '',
       errormessage: ''
     };
 
     this.onPressLogin = this.onPressLogin.bind(this);
     this.onPressRegister = this.onPressRegister.bind(this);
+    this.setUsername = this.setUsername.bind(this);
+    this.setPassword = this.setPassword.bind(this);
+  }
+
+  setUsername(name){
+    this.setState ( { username: name })
+  }
+
+  setPassword(pw){
+    this.setState ( { password: pw })
   }
 
   onPressLogin()
@@ -34,13 +44,13 @@ export default class Login extends Component {
       this.state.errormessage = 'Please enter username and password'
     }
     else {
-      console.log("will now connect to server");
+      //console.log("will now connect to server");
     }
     this.setState( { username: this.state.username,
                      password: this.state.password,
                      errormessage: this.state.errormessage
     })
-    console.log(this.state);
+  //  console.log(this.state);
   }
 
   onPressRegister()
@@ -55,8 +65,6 @@ export default class Login extends Component {
 
   render()
   {
-    console.log("render.");
-
     return (
       <View>
         <Text style={styles.inputlabel}>
@@ -64,9 +72,7 @@ export default class Login extends Component {
         </Text>
         <TextInput
           ref="username"
-          onChangeText={(text) => this.setState({
-            username: text
-          })}
+          onChangeText={(text) => this.setUsername(text)}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
         <Text style={styles.inputlabel}>
@@ -74,9 +80,7 @@ export default class Login extends Component {
         </Text>
         <TextInput
           ref="password"
-          onChangeText={(text) => this.setState({
-            password: text
-          })}
+          onChangeText={(text) => this.setPassword(text)}
           secureTextEntry={true}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
