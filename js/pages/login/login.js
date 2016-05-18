@@ -10,8 +10,7 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
-
-
+import axios from 'axios';
 
 const API_URL = 'http://localhost:1337/parse/';
 const HEADERS = {
@@ -35,7 +34,6 @@ export default class Login extends Component {
     this.onPressRegister = this.onPressRegister.bind(this);
     this.setUsername = this.setUsername.bind(this);
     this.setPassword = this.setPassword.bind(this);
-    //this.testfunction = this.testfunction.bind(this);
   }
 
   setUsername(name){
@@ -45,33 +43,8 @@ export default class Login extends Component {
   setPassword(pw){
     this.setState ( { password: pw })
   }
-/*
-  testfunction() {
-    var sha512 = Crypto.createHash('sha512');
-    var h = sha512.update('abc', 'utf8').digest('hex');
-    console.log(h);
 
-    var instance = axios.create({
-  baseURL: 'http://10.0.2.2:1337/parse/classes/Users/',
-  headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
-            'X-Parse-Master-Key': 'asdf'}
-});
-      instance.get('', {
-        params: {
-          "where": {"username" : this.state.username,
-                    "password" : this.state.password}
-        }
-      })
-                .then(function (response) {
-                  let myresult = JSON.parse(response.request.response);
-                  console.log(myresult.results[0].teststr);
-                })
-                .catch(function (response) {
-                  console.log(response);
-                });
 
-    console.log("got result");
-    }
 
   /*testfunction2() {
     let request = new XMLHttpRequest();
@@ -106,39 +79,41 @@ export default class Login extends Component {
       }
       else {
         console.log("will now connect to server");
-        this.testfunction();
-        console.log("ready.");
+        var instance = axios.create({
+          baseURL: 'http://10.0.2.2:1337/parse/classes/UserData/',
+          headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
+                    'X-Parse-Master-Key': 'asdf'}
+        });
+        instance.get('', {
+            params: {
+            "where": {"Username" : this.state.username,
+                      "Password" : this.state.password}
+            }
+        })
+        .then(function (response) {
+          console.log(response)
+          if(response.data.results.length == 1) {
+            this.props.navigator.push({
+               name:"Home"});
+          }
+          else {
+            console.log("HEERE WRONG USER")
+            this.state.errormessage = 'Wrong username or password.'
+          }
 
-        dummy.startImport();
-
-           axios.post("http://localhost:1337/parse/login/", {
-            username: this.state.username,
-            password: this.state.passsword,
-          }, { headers: { 'X-Parse-Application-Id': 'StudentWGPlanner', 'X-Parse-Master-Key': 'asdf' }})
-          .then(function (response) {
-            console.log("aa");
-            console.log(response);
-          })
-          .catch(function (response) {
-            console.log("aa");
-
-            console.log(response);
-          });
-
-
-          console.log("got result");
-
-          this.props.navigator.push({
-             name:"Home"});
+        }.bind(this))
+        .catch(function (response) {
+          console.log(response);
+        });
 
       }
       this.setState( { username: this.state.username,
                        password: this.state.password,
                        errormessage: this.state.errormessage
-                      })
-      console.log(this.state);
-
+                     })
+                     console.log(this.state)
   }
+
 
   onPressRegister()
   {
@@ -151,11 +126,6 @@ export default class Login extends Component {
 
   render()
   {
-
-      console.log("render.");
-      console.log(this.state);
-
-
     return (
       <View>
         <Text style={styles.inputlabel}>
