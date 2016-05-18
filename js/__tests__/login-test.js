@@ -48,9 +48,8 @@ describe('Login test', () => {
 
     expect(output.props.children[6].type.name).toBe("TouchableHighlight");
     expect(output.props.children[6].props.children.props.children).toBe('Register');
-<<<<<<< HEAD
 });
-    it('empty username', () => {
+    /*it('empty username', () => {
       const states = {       username: '',
             password: '',
             errormessage: ''};
@@ -63,9 +62,9 @@ describe('Login test', () => {
       login_test = renderScreen(output.props, output.states);
       console.log(output.states);
       //expect(outputnew.props.children[4].props.children).toBe('Please enter username and password');
-});
+});*/
 
-=======
+
   });
 
   it('test states and errormessages', () =>{
@@ -108,5 +107,3 @@ describe('Login test', () => {
     test = renderer.getRenderOutput();
     expect(test.props.children[4].props.children).toEqual("");
   });
->>>>>>> 031cceeb09a19ecadb0f446623bcbe3d8d71a71f
-});

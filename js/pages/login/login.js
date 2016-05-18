@@ -8,21 +8,19 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+
 import axios from 'axios'
-import * as dummy from './dummy.js';
+import Crypto from 'react-native-crypto';
 
 
 const API_URL = 'http://localhost:1337/parse/';
 const HEADERS = {
   'X-Parse-Application-Id': 'StudentWGPlanner',
-  'X-Parse-Master-Key': 'asdf'
-};
+  'X-Parse-Master-Key': 'asdf'};
 
 const OPTIONS = { headers: HEADERS };
 
 export default class Login extends Component {
-
-
 
   constructor(props)
   {
@@ -37,6 +35,7 @@ export default class Login extends Component {
     this.onPressRegister = this.onPressRegister.bind(this);
     this.setUsername = this.setUsername.bind(this);
     this.setPassword = this.setPassword.bind(this);
+    this.testfunction = this.testfunction.bind(this);
   }
 
   setUsername(name){
@@ -46,6 +45,53 @@ export default class Login extends Component {
   setPassword(pw){
     this.setState ( { password: pw })
   }
+
+  testfunction() {
+    var sha512 = Crypto.createHash('sha512');
+    var h = sha512.update('abc', 'utf8').digest('hex');
+    console.log(h);
+    
+    var instance = axios.create({
+  baseURL: 'http://10.0.2.2:1337/parse/classes/Users/',
+  headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
+            'X-Parse-Master-Key': 'asdf'}
+});
+      instance.get('', {
+        params: {
+          "where": {"username" : this.state.username,
+                    "password" : this.state.password}
+        }
+      })
+                .then(function (response) {
+                  let myresult = JSON.parse(response.request.response);
+                  console.log(myresult.results[0].teststr);
+                })
+                .catch(function (response) {
+                  console.log(response);
+                });
+
+    console.log("got result");
+    }
+
+  /*testfunction2() {
+    let request = new XMLHttpRequest();
+    request.open('GET', 'http://10.0.2.2:1337/parse/classes/Test/');
+    request.setRequestHeader('X-Parse-Application-Id', 'StudentWGPlanner');
+    request.setRequestHeader('X-Parse-Master-Key', 'asdf');
+    request.onreadystatechange = (e) => {
+    if (request.readyState !== 4) {
+        return;
+    }
+
+    if (request.status === 200) {
+        console.log('success', request.responseText);
+    } else {
+        console.log("received error. " + request.status + request.responseText)
+        console.warn('error');
+    }
+    };
+    request.send();
+}*/
 
   onPressLogin()
   {
@@ -60,13 +106,8 @@ export default class Login extends Component {
       }
       else {
         console.log("will now connect to server");
-
-        dummy.startImport();
-
-
-
-
-          console.log("got result");
+        this.testfunction();
+        console.log("ready.");
       }
       this.setState( { username: this.state.username,
                        password: this.state.password,
@@ -74,22 +115,6 @@ export default class Login extends Component {
                       })
       console.log(this.state);
 
-=======
-    this.state.errormessage = '';
-    if(this.state.username === '' || this.state.password === '')
-    {
-      console.log("error.");
-      this.state.errormessage = 'Please enter username and password'
-    }
-    else {
-      //console.log("will now connect to server");
-    }
-    this.setState( { username: this.state.username,
-                     password: this.state.password,
-                     errormessage: this.state.errormessage
-    })
-  //  console.log(this.state);
->>>>>>> 031cceeb09a19ecadb0f446623bcbe3d8d71a71f
   }
 
   onPressRegister()
@@ -100,11 +125,10 @@ export default class Login extends Component {
 
   render()
   {
-<<<<<<< HEAD
+
       console.log("render.");
       console.log(this.state);
-=======
->>>>>>> 031cceeb09a19ecadb0f446623bcbe3d8d71a71f
+
     return (
       <View>
         <Text style={styles.inputlabel}>
@@ -124,11 +148,8 @@ export default class Login extends Component {
           secureTextEntry={true}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
-<<<<<<< HEAD
-        <Text style={styles.errormessage}>{ this.state.errormessage }</Text>
-=======
         <Text ref='ref' style={styles.errormessage}>{this.state.errormessage}</Text>
->>>>>>> 031cceeb09a19ecadb0f446623bcbe3d8d71a71f
+
         <TouchableHighlight onPress={this.onPressLogin}>
           <Text>Login</Text>
         </TouchableHighlight>
