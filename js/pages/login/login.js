@@ -11,13 +11,6 @@ import React, {
 } from 'react-native';
 
 
-<<<<<<< HEAD
-//import axios from 'axios'
-//import Crypto from 'react-native-crypto';
-=======
-import axios from 'axios'
-import * as dummy from './dummy.js';
->>>>>>> 0583a9d38de5a9c8ad81dea0800d7e58759f577c
 
 
 const API_URL = 'http://localhost:1337/parse/';
@@ -49,7 +42,6 @@ export default class Login extends Component {
     this.setState ( { username: name })
   }
 
-<<<<<<< HEAD
   setPassword(pw){
     this.setState ( { password: pw })
   }
@@ -100,8 +92,6 @@ export default class Login extends Component {
     };
     request.send();
 }*/
-=======
->>>>>>> 0583a9d38de5a9c8ad81dea0800d7e58759f577c
 
   onPressLogin()
   {
@@ -116,10 +106,8 @@ export default class Login extends Component {
       }
       else {
         console.log("will now connect to server");
-<<<<<<< HEAD
         this.testfunction();
         console.log("ready.");
-=======
 
         dummy.startImport();
 
@@ -143,7 +131,6 @@ export default class Login extends Component {
           this.props.navigator.push({
              name:"Home"});
 
->>>>>>> 0583a9d38de5a9c8ad81dea0800d7e58759f577c
       }
       this.setState( { username: this.state.username,
                        password: this.state.password,
@@ -168,10 +155,7 @@ export default class Login extends Component {
       console.log("render.");
       console.log(this.state);
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 0583a9d38de5a9c8ad81dea0800d7e58759f577c
     return (
       <View>
         <Text style={styles.inputlabel}>
