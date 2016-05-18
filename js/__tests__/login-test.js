@@ -1,11 +1,11 @@
 jest.unmock('../pages/login/login'); // unmock to use the actual implementation of sum
 jest.unmock('axios');
 
+import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import Login from '../pages/login/login';
-
 
 describe('Login test', () => {
 
@@ -49,21 +49,7 @@ describe('Login test', () => {
 
     expect(output.props.children[6].type.name).toBe("TouchableHighlight");
     expect(output.props.children[6].props.children.props.children).toBe('Register');
-});
-    /*it('empty username', () => {
-      const states = {       username: '',
-            password: '',
-            errormessage: ''};
-      //
-      login_test = renderScreen({}, states);
-      const {output} = login_test;
-      let onPressLogin_ = output.props.children[5].props.onPress;
-      onPressLogin_();
-      console.log("here in test.");
-      login_test = renderScreen(output.props, output.states);
-      console.log(output.states);
-      //expect(outputnew.props.children[4].props.children).toBe('Please enter username and password');
-});*/
+  });
 
   it('test only username', () =>{
     var renderer = TestUtils.createRenderer();
@@ -112,7 +98,6 @@ describe('Login test', () => {
     expect(test.props.children[4].props.children).toEqual("Please enter username and password");
   });
 
-
   it('test username and password', () =>{
     var renderer = TestUtils.createRenderer();
     renderer.render(<Login />)
@@ -120,6 +105,7 @@ describe('Login test', () => {
 
     // test.props.children[4] -> errormessage text
     var loginfunction = test.props.children[5].props.onPress;
+    console.log(test.props.children[5].props);
     var registerfunction = test.props.children[6].props.onPress;
 
     var changeUsername = test.props.children[1].props.onChangeText;
@@ -127,12 +113,12 @@ describe('Login test', () => {
 
     expect(test.props.children[4].props.children).toEqual("");
 
-    //TODO: change if server connection works
+    //TODO: SERVER CONNECTION TEST
     //Passwort and Username
     changeUsername("MaxMuster")
     changePassword("Passwort")
     loginfunction()
     test = renderer.getRenderOutput();
-    expect(test.props.children[4].props.children).toEqual("");
+    expect(test.props.children[4].props.children).toEqual("Wrong username or password.");
   });
 });

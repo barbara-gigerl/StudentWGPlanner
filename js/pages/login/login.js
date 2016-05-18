@@ -34,6 +34,7 @@ export default class Login extends Component {
     this.onPressRegister = this.onPressRegister.bind(this);
     this.setUsername = this.setUsername.bind(this);
     this.setPassword = this.setPassword.bind(this);
+    this.handleLoginResult = this.handleLoginResult.bind(this);
   }
 
   setUsername(name){
@@ -66,6 +67,17 @@ export default class Login extends Component {
     request.send();
 }*/
 
+  handleLoginResult(response) {
+    console.log(response)
+    if(response.data.results.length == 1) {
+      this.props.navigator.push({
+         name:"Home"});
+    }
+    else {
+      this.setState({errormessage : 'Wrong username or password.'});
+    }
+  }
+
   onPressLogin()
   {
     console.log("YOUMADEIT");
@@ -84,6 +96,7 @@ export default class Login extends Component {
           headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                     'X-Parse-Master-Key': 'asdf'}
         });
+        console.log("here")
         instance.get('', {
             params: {
             "where": {"Username" : this.state.username,
@@ -91,29 +104,18 @@ export default class Login extends Component {
             }
         })
         .then(function (response) {
-          console.log(response)
-          if(response.data.results.length == 1) {
-            this.props.navigator.push({
-               name:"Home"});
-          }
-          else {
-            console.log("HEERE WRONG USER")
-            this.state.errormessage = 'Wrong username or password.'
-          }
-
+            this.handleLoginResult(response)
         }.bind(this))
         .catch(function (response) {
           console.log(response);
         });
-
       }
       this.setState( { username: this.state.username,
                        password: this.state.password,
                        errormessage: this.state.errormessage
                      })
-                     console.log(this.state)
+      console.log(this.state)
   }
-
 
   onPressRegister()
   {
@@ -145,8 +147,7 @@ export default class Login extends Component {
           secureTextEntry={true}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
-        <Text ref='ref' style={styles.errormessage}>{this.state.errormessage}</Text>
-
+        <Text style={styles.errormessage}>{this.state.errormessage}</Text>
         <TouchableHighlight onPress={this.onPressLogin}>
           <Text>Login</Text>
         </TouchableHighlight>
