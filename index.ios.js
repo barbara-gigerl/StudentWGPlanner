@@ -3,7 +3,7 @@
  * https://github.com/facebook/react-native
  */
 
-import React, {
+/*import React, {
   AppRegistry,
   Component,
 } from 'react-native';
@@ -24,5 +24,19 @@ class StudentWGPlanner extends Component {
     );
   }
 }
+
+AppRegistry.registerComponent('StudentWGPlanner', () => StudentWGPlanner);
+*/
+
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ */
+
+import React, {
+  AppRegistry
+} from 'react-native';
+
+import StudentWGPlanner from './js/index';
 
 AppRegistry.registerComponent('StudentWGPlanner', () => StudentWGPlanner);
