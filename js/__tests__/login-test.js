@@ -64,10 +64,7 @@ describe('Login test', () => {
       //expect(outputnew.props.children[4].props.children).toBe('Please enter username and password');
 });*/
 
-
-  });
-
-  it('test states and errormessages', () =>{
+  it('test only username', () =>{
     var renderer = TestUtils.createRenderer();
     renderer.render(<Login />)
     var test = renderer.getRenderOutput();
@@ -85,19 +82,49 @@ describe('Login test', () => {
     test = renderer.getRenderOutput();
     expect(test.props.children[4].props.children).toEqual("Please enter username and password");
 
+    //only Username set
+    changeUsername("MaxMuster")
+    loginfunction()
+    test = renderer.getRenderOutput();
+    expect(test.props.children[4].props.children).toEqual("Please enter username and password");
+  });
+
+  it('test only password', () =>{
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<Login />)
+    var test = renderer.getRenderOutput();
+
+    // test.props.children[4] -> errormessage text
+    var loginfunction = test.props.children[5].props.onPress;
+    var registerfunction = test.props.children[6].props.onPress;
+
+    var changeUsername = test.props.children[1].props.onChangeText;
+    var changePassword = test.props.children[3].props.onChangeText;
+
+    expect(test.props.children[4].props.children).toEqual("");
+
     //only Passwort set
     changeUsername("")
     changePassword("Passwort")
     loginfunction()
     test = renderer.getRenderOutput();
     expect(test.props.children[4].props.children).toEqual("Please enter username and password");
+  });
 
-    //only Username set
-    changeUsername("MaxMuster")
-    changePassword("")
-    loginfunction()
-    test = renderer.getRenderOutput();
-    expect(test.props.children[4].props.children).toEqual("Please enter username and password");
+
+  it('test username and password', () =>{
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<Login />)
+    var test = renderer.getRenderOutput();
+
+    // test.props.children[4] -> errormessage text
+    var loginfunction = test.props.children[5].props.onPress;
+    var registerfunction = test.props.children[6].props.onPress;
+
+    var changeUsername = test.props.children[1].props.onChangeText;
+    var changePassword = test.props.children[3].props.onChangeText;
+
+    expect(test.props.children[4].props.children).toEqual("");
 
     //TODO: change if server connection works
     //Passwort and Username
@@ -107,3 +134,4 @@ describe('Login test', () => {
     test = renderer.getRenderOutput();
     expect(test.props.children[4].props.children).toEqual("");
   });
+});

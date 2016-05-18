@@ -9,8 +9,8 @@ import React, {
 } from 'react-native';
 
 
-import axios from 'axios'
-import Crypto from 'react-native-crypto';
+//import axios from 'axios'
+//import Crypto from 'react-native-crypto';
 
 
 const API_URL = 'http://localhost:1337/parse/';
@@ -26,16 +26,16 @@ export default class Login extends Component {
   {
     super(props);
     this.state = {
-      username: 'hello',
+      username: '',
       password: '',
-      errormessage: ' '
+      errormessage: ''
     };
 
     this.onPressLogin = this.onPressLogin.bind(this);
     this.onPressRegister = this.onPressRegister.bind(this);
     this.setUsername = this.setUsername.bind(this);
     this.setPassword = this.setPassword.bind(this);
-    this.testfunction = this.testfunction.bind(this);
+    //this.testfunction = this.testfunction.bind(this);
   }
 
   setUsername(name){
@@ -45,12 +45,12 @@ export default class Login extends Component {
   setPassword(pw){
     this.setState ( { password: pw })
   }
-
+/*
   testfunction() {
     var sha512 = Crypto.createHash('sha512');
     var h = sha512.update('abc', 'utf8').digest('hex');
     console.log(h);
-    
+
     var instance = axios.create({
   baseURL: 'http://10.0.2.2:1337/parse/classes/Users/',
   headers: {'X-Parse-Application-Id': 'StudentWGPlanner',

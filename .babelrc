@@ -1,9 +1,6 @@
 {
   "passPerPreset": true,
   "presets": [
-    "stage-3",
-    "es2015",
     "react-native"
-
   ]
 }
