@@ -10,6 +10,8 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+GLOBAL = require('../../auth');
+
 import axios from 'axios';
 
 const API_URL = 'http://localhost:1337/parse/';
@@ -70,11 +72,13 @@ export default class Login extends Component {
   handleLoginResult(response) {
     console.log(response)
     if(response.data.results.length == 1) {
+      GLOBAL.USERID = response.data.results[0].objectId;
+      console.log(GLOBAL.USERID)
       this.props.navigator.push({
-         name:"Home"});
+         name: "Home"});
     }
     else {
-      this.setState({errormessage : 'Wrong username or password.'});
+      this.setState({errormessage: 'Wrong username or password.'});
     }
   }
 
