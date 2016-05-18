@@ -23,8 +23,8 @@ export default class StudentWGPlanner extends Component {
   constructor(props)
   {
     super(props);
-
   }
+  
   renderScene(route, navigator)
   {
     console.log("renderScene");

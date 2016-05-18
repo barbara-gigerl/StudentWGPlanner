@@ -24,6 +24,7 @@ export default class Home extends Component {
         this.onPressShoppingList = this.onPressSearchWG.bind(this);
         this.onPressShowRoommates = this.onPressSearchWG.bind(this);
         this.onPressLeaveWG = this.onPressSearchWG.bind(this);
+        this.onPressLogout = this.onPressLogout.bind(this);
   }
 
   onPressCreateWG()
@@ -60,6 +61,12 @@ export default class Home extends Component {
         name:"LeaveWG"    });
   }
 
+  onPressLogout()
+  {
+     this.props.navigator.push({
+        name:"Login"    });
+  }
+
   render()
   {
     return (
@@ -72,6 +79,7 @@ export default class Home extends Component {
         <TouchableHighlight  onPress={this.onPressShoppingList}><Text>Shopping List</Text></TouchableHighlight>
         <TouchableHighlight onPress={this.onPressShowRoommates}><Text>Show Roommates</Text></TouchableHighlight>
         <TouchableHighlight onPress={this.onPressLeaveWG}><Text>Leave WG</Text></TouchableHighlight>
+        <TouchableHighlight onPress={this.onPressLogout}><Text>Logout</Text></TouchableHighlight>
       </View>
     );
   }
