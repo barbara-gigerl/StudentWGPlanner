@@ -1,11 +1,11 @@
 jest.unmock('../pages/login/login'); // unmock to use the actual implementation of sum
-jest.unmock('axios');
 
-import axios from 'axios';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import Login from '../pages/login/login';
+
 
 describe('Login test', () => {
 
@@ -99,6 +99,8 @@ describe('Login test', () => {
   });
 
   it('test username and password', () =>{
+
+
     var renderer = TestUtils.createRenderer();
     renderer.render(<Login />)
     var test = renderer.getRenderOutput();
@@ -113,12 +115,12 @@ describe('Login test', () => {
 
     expect(test.props.children[4].props.children).toEqual("");
 
-    //TODO: SERVER CONNECTION TEST
     //Passwort and Username
     changeUsername("MaxMuster")
     changePassword("Passwort")
     loginfunction()
     test = renderer.getRenderOutput();
+
     expect(test.props.children[4].props.children).toEqual("Wrong username or password.");
   });
 });

@@ -70,10 +70,9 @@ export default class Login extends Component {
 }*/
 
   handleLoginResult(response) {
-    console.log(response)
+    console.log(response.data.results.length); //@jest: gives 0
     if(response.data.results.length == 1) {
       GLOBAL.USERID = response.data.results[0].objectId;
-      console.log(GLOBAL.USERID)
       this.props.navigator.push({
          name: "Home"});
     }
@@ -84,33 +83,29 @@ export default class Login extends Component {
 
   onPressLogin()
   {
-    console.log("YOUMADEIT");
-
-    this.state.errormessage = ' ';
+    this.state.errormessage = '';
 
     if(this.state.username === '' || this.state.password === '')
       {
-        console.log("error.");
         this.state.errormessage = 'Please enter username and password'
       }
       else {
         console.log("will now connect to server");
-        var instance = axios.create({
-          baseURL: 'http://10.0.2.2:1337/parse/classes/UserData/',
+        axios.get('http://10.0.2.2:1337/parse/classes/UserData/', {
           headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
-                    'X-Parse-Master-Key': 'asdf'}
-        });
-        console.log("here")
-        instance.get('', {
+                    'X-Parse-Master-Key': 'asdf'},
             params: {
             "where": {"Username" : this.state.username,
                       "Password" : this.state.password}
             }
         })
         .then(function (response) {
+            console.log("in then.");
+            console.log(response);
             this.handleLoginResult(response)
         }.bind(this))
         .catch(function (response) {
+          console.log("in catch.");
           console.log(response);
         });
       }
@@ -118,7 +113,6 @@ export default class Login extends Component {
                        password: this.state.password,
                        errormessage: this.state.errormessage
                      })
-      console.log(this.state)
   }
 
   onPressRegister()
@@ -132,6 +126,7 @@ export default class Login extends Component {
 
   render()
   {
+    console.log("render: " + this.state.errormessage);
     return (
       <View>
         <Text style={styles.inputlabel}>
