@@ -1,6 +1,11 @@
 jest.unmock('../pages/login/login'); // unmock to use the actual implementation of sum
 
 
+GLOBAL = require('../auth');
+
+import axios from 'axios';
+
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
@@ -98,9 +103,18 @@ describe('Login test', () => {
     expect(test.props.children[4].props.children).toEqual("Please enter username and password");
   });
 
-  it('test username and password', () =>{
+  it('testing server connection', () =>{
+    axios.get('http://10.0.2.2:1337/parse/classes/UserData/', {
+      headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
+                'X-Parse-Master-Key': 'asdf'}
+    })
+    .catch(function (err) {
+      throw err;
+    });
+  })
 
 
+  it('test wrong username and password', () =>{
     var renderer = TestUtils.createRenderer();
     renderer.render(<Login />)
     var test = renderer.getRenderOutput();

@@ -120,7 +120,8 @@ export default class Login extends Component {
      console.log("going to register view...");
 
      this.props.navigator.push({
-        name:"Register"    });
+        name:"Register"
+    });
   }
 
 
