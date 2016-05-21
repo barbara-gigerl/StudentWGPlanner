@@ -70,6 +70,7 @@ export default class Login extends Component {
 }*/
 
   handleLoginResult(response) {
+    console.log("handleLoginResult");
     console.log(response.data.results.length); //@jest: gives 0
     if(response.data.results.length == 1) {
       GLOBAL.USERID = response.data.results[0].objectId;
@@ -79,6 +80,7 @@ export default class Login extends Component {
     else {
       this.setState({errormessage: 'Wrong username or password.'});
     }
+    return true;
   }
 
   onPressLogin()
@@ -102,7 +104,8 @@ export default class Login extends Component {
         .then(function (response) {
             console.log("in then.");
             console.log(response);
-            this.handleLoginResult(response)
+            var wait = this.handleLoginResult(response)
+            while(wait != true) {}
         }.bind(this))
         .catch(function (response) {
           console.log("in catch.");

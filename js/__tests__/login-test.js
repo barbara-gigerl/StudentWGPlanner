@@ -5,11 +5,11 @@ GLOBAL = require('../auth');
 
 import axios from 'axios';
 
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import Login from '../pages/login/login';
+
 
 
 describe('Login test', () => {
@@ -103,6 +103,38 @@ describe('Login test', () => {
     expect(test.props.children[4].props.children).toEqual("Please enter username and password");
   });
 
+});
+
+
+describe("Testing with Serverconnection (asynctest)", () => {
+  var renderer = TestUtils.createRenderer();
+  renderer.render(<Login />)
+  var test = renderer.getRenderOutput();
+
+  beforeEach(function (done) {
+    // test.props.children[4] -> errormessage text
+    var loginfunction = test.props.children[5].props.onPress;
+    var registerfunction = test.props.children[6].props.onPress;
+
+    var changeUsername = test.props.children[1].props.onChangeText;
+    var changePassword = test.props.children[3].props.onChangeText;
+
+    expect(test.props.children[4].props.children).toEqual("");
+
+    console.log("------------------------------------")
+    console.log(test);
+    console.log("------------------------------------")
+
+    //Passwort and Username
+    changeUsername("MaxMuster")
+    changePassword("Passwort")
+
+    loginfunction(); //still need something that waits for the result of login
+
+    //invoke special done callback
+    done();
+  })
+
   it('testing server connection', () =>{
     axios.get('http://10.0.2.2:1337/parse/classes/UserData/', {
       headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
@@ -113,28 +145,10 @@ describe('Login test', () => {
     });
   })
 
-
   it('test wrong username and password', () =>{
-    var renderer = TestUtils.createRenderer();
-    renderer.render(<Login />)
-    var test = renderer.getRenderOutput();
-
-    // test.props.children[4] -> errormessage text
-    var loginfunction = test.props.children[5].props.onPress;
-    console.log(test.props.children[5].props);
-    var registerfunction = test.props.children[6].props.onPress;
-
-    var changeUsername = test.props.children[1].props.onChangeText;
-    var changePassword = test.props.children[3].props.onChangeText;
-
-    expect(test.props.children[4].props.children).toEqual("");
-
-    //Passwort and Username
-    changeUsername("MaxMuster")
-    changePassword("Passwort")
-    loginfunction()
-    test = renderer.getRenderOutput();
-
+    console.log("begin wrong test--------------------")
+    test = renderer.getRenderOutput()
     expect(test.props.children[4].props.children).toEqual("Wrong username or password.");
+
   });
 });
