@@ -72,8 +72,6 @@ describe('Login test', () => {
     //expect(outputnew.props.children[4].props.children).toBe('Please enter username and password');
   });
 
-  });
-
   it('test only username', () =>{
     var renderer = TestUtils.createRenderer();
     renderer.render(<Login />)

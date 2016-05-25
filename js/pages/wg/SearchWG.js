@@ -98,9 +98,7 @@ export default class SearchWG extends Component {
 
   insertDatabase(resultObject)
   {
-    console.log("insert in Database");
-    console.log(resultObject);
-    console.log(resultObject.users)
+    console.log("insert new user");
 
     for(var i = 0; i < resultObject.users.length; i++)
     {
@@ -109,9 +107,24 @@ export default class SearchWG extends Component {
         return true;
       }
     }
+    /*
+    resultObject.users
+    console.log(resultObject.users)
 
-    
+/*
+    //not joined this specific wg: now update database
+    var query = new Parse.Query(WGObject);
+    query.equalTo("objectId", resultObject.objectId);
+    query.each(function(obj) {
+      obj.set("otherField", "otherValue");
+  return obj.save();
+}).then(function() {
+  // All objects updated.
+}, function(err) {
+  console.log(err);
+});
 
+*/
   }
 
 
