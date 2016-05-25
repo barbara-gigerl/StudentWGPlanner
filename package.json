@@ -7,6 +7,7 @@
     "import-data": "babel-node ./scripts/import-data-from-parse.js",
     "update-schema": "babel-node ./server/schema/updateSchema.js",
     "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest",
+    "test-win": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -47,7 +48,7 @@
     "babel-polyfill": "~6.7.2",
     "eslint": "~1.10.3",
     "eslint-plugin-react": "~3.16.1",
-    "jest-cli": "~0.9.2"
+    "jest-cli": "^0.9.2"
   },
   "jest": {
     "scriptPreprocessor": "node_modules/babel-jest",
