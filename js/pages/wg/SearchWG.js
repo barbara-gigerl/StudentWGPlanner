@@ -11,6 +11,8 @@ import React, {
 } from 'react-native';
 
 
+import axios from 'axios';
+
 GLOBAL = require('../../auth');
 import Parse from "parse/react-native"
 
@@ -28,10 +30,13 @@ export default class SearchWG extends Component {
       searchterm: "",
       wgs: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1.id !== r2.id
-      })
+      }),
+      joinbutton: ""
     }
 
     this.onPressLogout = this.onPressLogout.bind(this);
+    this.onJoinWG = this.onJoinWG.bind(this);
+    this.insertDatabase = this.insertDatabase.bind(this);
 
   }
 
@@ -45,7 +50,7 @@ export default class SearchWG extends Component {
 
   textchangehandler(text)
   {
-    console.log(text);
+    //console.log(text);
 
     let query = new Parse.Query(WGObject)
 
@@ -53,12 +58,62 @@ export default class SearchWG extends Component {
     query.matches("name", new RegExp(`${text}`, "ig"));
     query.find().then((results) => {
       this.setState({
-        wgs: this.state.wgs.cloneWithRows([...results])
+        wgs: this.state.wgs.cloneWithRows([...results]),
       })
     }).catch((error) => {
       console.log(error)
     })
+
+    //TODO: need to change this if searchWG is finally working
+    if(this.state.searchterm !== ""){
+      this.setState({joinbutton: "Join this WG"});
+    }
+    else {
+      this.setState({joinbutton: ""});
+    }
+
   }
+
+  onJoinWG()
+  {
+    if(this.state.searchterm !== ""){
+      console.log("will now connect to server");
+      axios.get('http://10.0.2.2:1337/parse/classes/wgs/', {
+        headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
+                  'X-Parse-Master-Key': 'asdf'},
+          params: {
+          "where": {"name" : this.state.searchterm }
+          }
+      })
+      .then(function (response) {
+        console.log(response)
+        if(response.data.results.length === 1)
+          this.insertDatabase(response.data.results[0]);
+      }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+  }
+
+  insertDatabase(resultObject)
+  {
+    console.log("insert in Database");
+    console.log(resultObject);
+    console.log(resultObject.users)
+
+    for(var i = 0; i < resultObject.users.length; i++)
+    {
+      if(resultObject.users[i] === GLOBAL.USERID){
+        console.log("Datensatz vorhanden")
+        return true;
+      }
+    }
+
+    
+
+  }
+
 
   renderWg(wg)
   {
@@ -69,6 +124,7 @@ export default class SearchWG extends Component {
 
   render()
   {
+    console.log(this.state.searchterm);
     return (
       <View>
         <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
@@ -76,6 +132,9 @@ export default class SearchWG extends Component {
         </TouchableHighlight>
         <TextInput onChangeText={this.textchangehandler.bind(this)} value={this.state.searchterm}></TextInput>
         <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
+        <TouchableHighlight onPress={(this.onJoinWG)}>
+          <Text>{this.state.joinbutton}</Text>
+        </TouchableHighlight>
       </View>
     );
   }
