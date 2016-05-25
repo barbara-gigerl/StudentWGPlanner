@@ -54,6 +54,24 @@ describe('Login test', () => {
 
     expect(output.props.children[6].type.name).toBe("TouchableHighlight");
     expect(output.props.children[6].props.children.props.children).toBe('Register');
+
+  });
+
+  it('empty username', () => {
+    const states = {       username: '',
+          password: '',
+          errormessage: ''};
+    //
+    login_test = renderScreen({}, states);
+    const {output} = login_test;
+    let onPressLogin_ = output.props.children[5].props.onPress;
+    onPressLogin_();
+    console.log("here in test.");
+    login_test = renderScreen(output.props, output.states);
+    console.log(output.states);
+    //expect(outputnew.props.children[4].props.children).toBe('Please enter username and password');
+  });
+
   });
 
   it('test only username', () =>{
@@ -121,9 +139,6 @@ describe("Testing with Serverconnection (asynctest)", () => {
 
     expect(test.props.children[4].props.children).toEqual("");
 
-    console.log("------------------------------------")
-    console.log(test);
-    console.log("------------------------------------")
 
     //Passwort and Username
     changeUsername("MaxMuster")
