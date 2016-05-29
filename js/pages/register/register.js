@@ -46,9 +46,17 @@ export default class Register extends Component {
         <Text>Password</Text>
         <TextInput style={styles.inputField}
           secureTextEntry={true}
-          value={this.state.password}></TextInput>
+          value={this.state.password}
+          onChangeText={(text) => this.onChange(text, 'password')}></TextInput>
+        <Text>repeat Password</Text>
         <TextInput style={styles.inputField}
-          value={this.state.email}></TextInput>
+          secureTextEntry={true}
+          value={this.state.password2}
+          onChangeText={(text) => this.onChange(text, 'password2')}></TextInput>
+        <Text>Email</Text>
+        <TextInput style={styles.inputField}
+          value={this.state.email}
+          onChangeText={(text) => this.onChange(text, 'email')}></TextInput>
         <TouchableHighlight onPress={this.onSubmit.bind(this)}><Text>Register</Text></TouchableHighlight>
       </View>
     );
