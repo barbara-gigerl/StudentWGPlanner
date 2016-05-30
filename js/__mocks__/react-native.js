@@ -37,7 +37,6 @@ class TextInput extends React.Component {
 
 }
 
-
 ReactNative.View = View;
 ReactNative.ScrollView = View;
 ReactNative.ListView = ListView;

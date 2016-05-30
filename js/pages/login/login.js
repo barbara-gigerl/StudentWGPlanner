@@ -10,22 +10,18 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+GLOBAL = require('../../auth');
 
-import axios from 'axios'
-import * as dummy from './dummy.js';
-
+import axios from 'axios';
 
 const API_URL = 'http://localhost:1337/parse/';
 const HEADERS = {
   'X-Parse-Application-Id': 'StudentWGPlanner',
-  'X-Parse-Master-Key': 'asdf'
-};
+  'X-Parse-Master-Key': 'asdf'};
 
 const OPTIONS = { headers: HEADERS };
 
 export default class Login extends Component {
-
-
 
   constructor(props)
   {
@@ -33,56 +29,93 @@ export default class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      errormessage: ' '
+      errormessage: ''
     };
 
     this.onPressLogin = this.onPressLogin.bind(this);
     this.onPressRegister = this.onPressRegister.bind(this);
+    this.setUsername = this.setUsername.bind(this);
+    this.setPassword = this.setPassword.bind(this);
+    this.handleLoginResult = this.handleLoginResult.bind(this);
+  }
+
+  setUsername(name){
+    this.setState ( { username: name })
+  }
+
+  setPassword(pw){
+    this.setState ( { password: pw })
   }
 
 
+
+  /*testfunction2() {
+    let request = new XMLHttpRequest();
+    request.open('GET', 'http://10.0.2.2:1337/parse/classes/Test/');
+    request.setRequestHeader('X-Parse-Application-Id', 'StudentWGPlanner');
+    request.setRequestHeader('X-Parse-Master-Key', 'asdf');
+    request.onreadystatechange = (e) => {
+    if (request.readyState !== 4) {
+        return;
+    }
+
+    if (request.status === 200) {
+        console.log('success', request.responseText);
+    } else {
+        console.log("received error. " + request.status + request.responseText)
+        console.warn('error');
+    }
+    };
+    request.send();
+}*/
+
+  handleLoginResult(response) {
+    console.log("handleLoginResult");
+    console.log(response.data.results.length); //@jest: gives 0
+    if(response.data.results.length == 1) {
+      GLOBAL.USERID = response.data.results[0].objectId;
+      this.props.navigator.push({
+         name: "Home"});
+    }
+    else {
+      this.setState({errormessage: 'Wrong username or password.'});
+    }
+    return true;
+  }
+
   onPressLogin()
   {
-    console.log("YOUMADEIT");
-    this.state.errormessage = ' ';
+    this.state.errormessage = '';
 
     if(this.state.username === '' || this.state.password === '')
       {
-        console.log("error.");
         this.state.errormessage = 'Please enter username and password'
       }
       else {
         console.log("will now connect to server");
-
-        dummy.startImport();
-
-           axios.post("http://localhost:1337/parse/login/", {
-            username: this.state.username,
-            password: this.state.passsword,
-          }, { headers: { 'X-Parse-Application-Id': 'StudentWGPlanner', 'X-Parse-Master-Key': 'asdf' }})
-          .then(function (response) {
-            console.log("aa");
+        axios.get('http://10.0.2.2:1337/parse/classes/UserData/', {
+          headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
+                    'X-Parse-Master-Key': 'asdf'},
+            params: {
+            "where": {"Username" : this.state.username,
+                      "Password" : this.state.password}
+            }
+        })
+        .then(function (response) {
+            console.log("in then.");
             console.log(response);
-          })
-          .catch(function (response) {
-            console.log("aa");
-
-            console.log(response);
-          });
-
-
-          console.log("got result");
-
-          this.props.navigator.push({
-             name:"Home"});
-
+            var wait = this.handleLoginResult(response)
+            while(wait != true) {}
+        }.bind(this))
+        .catch(function (response) {
+          console.log("in catch.");
+          console.log(response);
+        });
       }
       this.setState( { username: this.state.username,
                        password: this.state.password,
                        errormessage: this.state.errormessage
-                      })
-      console.log(this.state);
-
+                     })
   }
 
   onPressRegister()
@@ -90,16 +123,14 @@ export default class Login extends Component {
      console.log("going to register view...");
 
      this.props.navigator.push({
-        name:"Register"    });
+        name:"Register"
+    });
   }
 
 
   render()
   {
-      console.log("render.");
-      console.log(this.state);
-
-
+    console.log("render: " + this.state.errormessage);
     return (
       <View>
         <Text style={styles.inputlabel}>
@@ -107,9 +138,7 @@ export default class Login extends Component {
         </Text>
         <TextInput
           ref="username"
-          onChangeText={(text) => this.setState({
-            username: text
-          })}
+          onChangeText={(text) => this.setUsername(text)}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
         <Text style={styles.inputlabel}>
@@ -117,13 +146,11 @@ export default class Login extends Component {
         </Text>
         <TextInput
           ref="password"
-          onChangeText={(text) => this.setState({
-            password: text
-          })}
+          onChangeText={(text) => this.setPassword(text)}
           secureTextEntry={true}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
-        <Text style={styles.errormessage}>{ this.state.errormessage }</Text>
+        <Text style={styles.errormessage}>{this.state.errormessage}</Text>
         <TouchableHighlight onPress={this.onPressLogin}>
           <Text>Login</Text>
         </TouchableHighlight>
@@ -133,8 +160,8 @@ export default class Login extends Component {
       </View>
     );
   }
-
 }
+
 
 const styles = StyleSheet.create({
   container: {

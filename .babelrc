@@ -1,6 +1,6 @@
 {
   "passPerPreset": true,
   "presets": [
-    "react-native",
+    "react-native"
   ]
 }
