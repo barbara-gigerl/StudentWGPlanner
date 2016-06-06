@@ -9,16 +9,20 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+GLOBAL = require('../../auth');
+
+const SERVER_URL = "http://172.20.10.5:1337/parse"
+
 export default class Register extends Component {
 
   constructor(props)
   {
     super(props);
     this.state = {
-      username: '',
-      password: '',
-      password2: '',
-      email: ''
+      username: 'jan',
+      password: 'jan',
+      password2: 'jan',
+      email: 'jan'
     };
   }
 
@@ -29,7 +33,36 @@ export default class Register extends Component {
   }
 
   onSubmit() {
-    console.log(this.state);
+    if (this.state.password !== this.state.password2) {
+      alert("Passwords not equal");
+      return;
+    }
+
+    fetch(SERVER_URL + '/users', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-Parse-Application-Id': 'StudentWGPlanner'
+        },
+        body: JSON.stringify({
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email
+        })
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response.error) {
+          alert(response.error);
+        } else {
+          GLOBAL.USERID = response.objectId;
+          this.props.navigator.replace('SearchWG');
+        }
+      })
+      .catch(error => {
+        console.log('error', error);
+      })
   }
 
   render()

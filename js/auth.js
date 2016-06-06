@@ -34,6 +34,11 @@ export default {
   }
 };
 
+module.exports = {
+  USERID: '',
+  WGID: ''
+};
+
 /*
 module.exports = {
   login(name, password, cb) {
