@@ -112,7 +112,8 @@ export default class SearchWG extends Component {
     var query = new Parse.Query(WGObject);
     query.equalTo("objectId", resultObject.objectId);
     query.each(function(obj) {
-      obj.set("users", resultObject.users.push(GLOBAL.USERID));
+      resultObject.users.push(GLOBAL.USERID);
+      obj.set("users", resultObject.users);
       return obj.save();
     }).then(function() {
       // All objects updated.
