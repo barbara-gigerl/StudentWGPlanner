@@ -31,58 +31,43 @@ export default class Login extends Component {
   {
     super(props);
     this.state = {
-      username: '',
+      username: 'hello',
       password: '',
       errormessage: ' '
     };
 
     this.onPressLogin = this.onPressLogin.bind(this);
     this.onPressRegister = this.onPressRegister.bind(this);
+    this.setUsername = this.setUsername.bind(this);
+    this.setPassword = this.setPassword.bind(this);
+  }
+
+  setUsername(name){
+    this.setState ( { username: name })
+  }
+
+  setPassword(pw){
+    this.setState ( { password: pw })
   }
 
 
   onPressLogin()
   {
     console.log("YOUMADEIT");
-    this.state.errormessage = ' ';
-
+    this.state.errormessage = '';
     if(this.state.username === '' || this.state.password === '')
-      {
-        console.log("error.");
-        this.state.errormessage = 'Please enter username and password'
-      }
-      else {
-        console.log("will now connect to server");
-
-        dummy.startImport();
-
-           axios.post("http://localhost:1337/parse/login/", {
-            username: this.state.username,
-            password: this.state.passsword,
-          }, { headers: { 'X-Parse-Application-Id': 'StudentWGPlanner', 'X-Parse-Master-Key': 'asdf' }})
-          .then(function (response) {
-            console.log("aa");
-            console.log(response);
-          })
-          .catch(function (response) {
-            console.log("aa");
-
-            console.log(response);
-          });
-
-
-          console.log("got result");
-
-          this.props.navigator.push({
-             name:"Home"});
-
-      }
-      this.setState( { username: this.state.username,
-                       password: this.state.password,
-                       errormessage: this.state.errormessage
-                      })
-      console.log(this.state);
-
+    {
+      console.log("error.");
+      this.state.errormessage = 'Please enter username and password'
+    }
+    else {
+      //console.log("will now connect to server");
+    }
+    this.setState( { username: this.state.username,
+                     password: this.state.password,
+                     errormessage: this.state.errormessage
+    })
+  //  console.log(this.state);
   }
 
   onPressRegister()
@@ -96,10 +81,6 @@ export default class Login extends Component {
 
   render()
   {
-      console.log("render.");
-      console.log(this.state);
-
-
     return (
       <View>
         <Text style={styles.inputlabel}>
@@ -107,9 +88,7 @@ export default class Login extends Component {
         </Text>
         <TextInput
           ref="username"
-          onChangeText={(text) => this.setState({
-            username: text
-          })}
+          onChangeText={(text) => this.setUsername(text)}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
         <Text style={styles.inputlabel}>
@@ -117,13 +96,11 @@ export default class Login extends Component {
         </Text>
         <TextInput
           ref="password"
-          onChangeText={(text) => this.setState({
-            password: text
-          })}
+          onChangeText={(text) => this.setPassword(text)}
           secureTextEntry={true}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
-        <Text style={styles.errormessage}>{ this.state.errormessage }</Text>
+        <Text ref='ref' style={styles.errormessage}>{this.state.errormessage}</Text>
         <TouchableHighlight onPress={this.onPressLogin}>
           <Text>Login</Text>
         </TouchableHighlight>
@@ -133,8 +110,8 @@ export default class Login extends Component {
       </View>
     );
   }
-
 }
+
 
 const styles = StyleSheet.create({
   container: {
