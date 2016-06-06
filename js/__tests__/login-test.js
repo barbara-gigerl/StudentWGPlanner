@@ -121,8 +121,6 @@ describe('Login test', () => {
 
 });
 
-/*
-
 describe("Testing with Serverconnection (asynctest)", () => {
   var renderer = TestUtils.createRenderer();
   renderer.render(<Login />)
@@ -158,10 +156,12 @@ describe("Testing with Serverconnection (asynctest)", () => {
     });
   })
 
+  /*
   it('test wrong username and password', () =>{
     console.log("begin wrong test--------------------")
     test = renderer.getRenderOutput()
     expect(test.props.children[4].props.children).toEqual("Wrong username or password.");
 
   });
-});*/
+  */
+});

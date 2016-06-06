@@ -113,7 +113,7 @@ export default class SearchWG extends Component {
     query.equalTo("objectId", resultObject.objectId);
     query.each(function(obj) {
       obj.set("users", resultObject.users.push(GLOBAL.USERID));
-      obj.save();
+      return obj.save();
     }).then(function() {
       // All objects updated.
       console.log("update");
