@@ -24,7 +24,8 @@
     "parse": "^1.8.5",
     "parse-dashboard": "~1.0.8",
     "parse-server": "~2.2.6",
-    "react": "^0.14.8",
+    "react": "~0.14.5",
+    "react-dom": "^15.1.0",
     "react-native": "0.23.1",
     "react-native-code-push": "~1.7.3-beta",
     "react-native-fbsdk": "github:facebook/react-native-fbsdk#0.1.0-alpha.1",
@@ -56,20 +57,18 @@
     "react-native-mock": "^0.1.0"
   },
   "jest": {
-    "scriptPreprocessor": "node_modules/babel-jest",
-    "testFileExtensions": [
-      "es6",
-      "js"
+    "scriptPreprocessor": "node_modules/react-native/jestSupport/preprocessor.js",
+    "setupEnvScriptFile": "node_modules/react-native/jestSupport/env.js",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "packager/react-packager/src/Activity/"
     ],
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "es6"
+    "testFileExtensions": [
+      "js"
     ],
     "unmockedModulePathPatterns": [
       "node_modules/react",
-      "node_modules/fbjs",
-      "enzyme"
+      "node_modules/fbjs"
     ],
     "verbose": true
   }

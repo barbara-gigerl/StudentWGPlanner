@@ -5,10 +5,8 @@ import Text from 'react'
 import TextInput from 'react'
 import TouchableHighlight from 'react'*/
 
-const ReactDom = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 import SearchWG from '../pages/wg/SearchWG';
-var TouchableHighlight = require('react')
 /*import TextInput from "../pages/login/login";
 import Stylesheet from "../pages/login/login";
 import TouchableHighlight from "../pages/login/login";
@@ -38,21 +36,5 @@ describe('SearchWG', () => {
 
     expect(output.props.children[0].type.name).toBe("TextInput");
     expect(output.props.children[0].value).toBe("");
-  });
-  it('empty username', () => {
-    const states = {
-      username: '',
-      password: '',
-      errormessage: ''
-    };
-    //
-    searchwg_test = renderScreen({}, states);
-    const {output} = searchwg_test;
-    /*let onPressLogin_ = output.props.children[5].props.onPress;
-    onPressLogin_();
-    console.log("here in test.");
-    searchwg_test = renderScreen(output.props, output.states);
-    console.log(output.states);*/
-    //expect(outputnew.props.children[4].props.children).toBe('Please enter username and password');
   });
 });
