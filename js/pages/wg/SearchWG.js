@@ -107,24 +107,21 @@ export default class SearchWG extends Component {
         return true;
       }
     }
-    /*
-    resultObject.users
-    console.log(resultObject.users)
 
-/*
     //not joined this specific wg: now update database
     var query = new Parse.Query(WGObject);
     query.equalTo("objectId", resultObject.objectId);
     query.each(function(obj) {
-      obj.set("otherField", "otherValue");
-  return obj.save();
-}).then(function() {
-  // All objects updated.
-}, function(err) {
-  console.log(err);
-});
+      obj.set("users", resultObject.users.push(GLOBAL.USERID));
+      obj.save();
+    }).then(function() {
+      // All objects updated.
+      console.log("update");
+    }, function(err) {
+      console.log(err);
+    });
 
-*/
+
   }
 
 
