@@ -1,6 +1,10 @@
 # Most part of this file is created by https://www.gitignore.io
 
 android/local.properties
+android/.gradle/2.4/taskArtifacts/cache.properties.lock
+android/.gradle/2.4/taskArtifacts/fileHashes.bin
+android/.gradle/2.4/taskArtifacts/fileSnapshots.bin
+android/.gradle/2.4/taskArtifacts/taskArtifacts.bin
 
 **/dist/
 
