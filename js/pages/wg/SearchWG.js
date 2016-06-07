@@ -1,6 +1,7 @@
 import React, {
   AppRegistry,
   Component,
+  BackAndroid,
   Navigator,
   StyleSheet,
   Text,
