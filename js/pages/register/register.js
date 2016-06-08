@@ -1,13 +1,16 @@
 import React, {
-  AppRegistry,
   Component,
   Navigator,
   StyleSheet,
   Text,
   TextInput,
   View,
-  TouchableHighlight,
+  TouchableHighlight
 } from 'react-native';
+
+GLOBAL = require('../../auth');
+
+const SERVER_URL = "http://10.0.2.2:1337/parse"
 
 export default class Register extends Component {
 
@@ -15,10 +18,10 @@ export default class Register extends Component {
   {
     super(props);
     this.state = {
-      username: '',
-      password: '',
-      password2: '',
-      email: ''
+      username: 'jan',
+      password: 'jan',
+      password2: 'jan',
+      email: 'jan'
     };
   }
 
@@ -29,7 +32,38 @@ export default class Register extends Component {
   }
 
   onSubmit() {
-    console.log(this.state);
+    if (this.state.password !== this.state.password2) {
+      alert("Passwords not equal");
+      return;
+    }
+
+    fetch(SERVER_URL + '/users', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-Parse-Application-Id': 'StudentWGPlanner'
+        },
+        body: JSON.stringify({
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email
+        })
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response.error) {
+          alert(response.error);
+        } else {
+          GLOBAL.USERID = response.objectId;
+          this.props.navigator.push({
+             name:"Home"
+         });
+       }
+      })
+      .catch(error => {
+        console.log('error', error);
+      })
   }
 
   render()
@@ -46,9 +80,17 @@ export default class Register extends Component {
         <Text>Password</Text>
         <TextInput style={styles.inputField}
           secureTextEntry={true}
-          value={this.state.password}></TextInput>
+          value={this.state.password}
+          onChangeText={(text) => this.onChange(text, 'password')}></TextInput>
+        <Text>repeat Password</Text>
         <TextInput style={styles.inputField}
-          value={this.state.email}></TextInput>
+          secureTextEntry={true}
+          value={this.state.password2}
+          onChangeText={(text) => this.onChange(text, 'password2')}></TextInput>
+        <Text>Email</Text>
+        <TextInput style={styles.inputField}
+          value={this.state.email}
+          onChangeText={(text) => this.onChange(text, 'email')}></TextInput>
         <TouchableHighlight onPress={this.onSubmit.bind(this)}><Text>Register</Text></TouchableHighlight>
       </View>
     );
