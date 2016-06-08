@@ -11,8 +11,6 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import Login from '../pages/login/login';
 
-
-
 describe('Login test', () => {
 
   let login_test;
