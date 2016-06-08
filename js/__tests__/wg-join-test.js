@@ -36,8 +36,8 @@ describe('JoinWG test', () => {
       joinbutton: ""
     }
 
-    login_test = renderScreen({}, states);
-    var {output} = login_test;
+    joinwg_test = renderScreen({}, states);
+    var {output} = joinwg_test;
     expect(output.type.name).toBe("View");
 
     //this is how you check the correct Logout button
@@ -56,4 +56,25 @@ describe('JoinWG test', () => {
     expect(output.props.children[3].props.children.type.name).toBe('Text');
     expect(output.props.children[3].props.children.props.children).toBe('');
   });
+
+  it('check if logout button is working', () => {
+    const states = {
+      searchterm: "",
+      wgs: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1.id !== r2.id
+      }),
+      joinbutton: ""
+    }
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<SearchWG />);
+    var instance = renderer._instance._instance;
+    instance.setState(states || {});
+    var output = renderer.getRenderOutput();
+
+    var logoutfunction = output.props.children[0].props.onPress;
+    //logoutfunction();
+    output = renderer.getRenderOutput();
+
+  });
+
 });

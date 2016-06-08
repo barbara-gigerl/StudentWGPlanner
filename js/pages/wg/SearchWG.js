@@ -87,7 +87,7 @@ export default class SearchWG extends Component {
         headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                   'X-Parse-Master-Key': 'asdf'},
           params: {
-          "where": {"name" : this.state.searchterm, "$options": 'i' }
+          "where": {"name" : this.state.searchterm }
           }
       })
       .then(function (response) {
@@ -114,27 +114,22 @@ export default class SearchWG extends Component {
         return true;
       }
     }
+    resultObject.users.push(GLOBAL.USERID);
 
-    //not joined this specific wg: now update database
-
-
-    /*var query = new Parse.Query(WGObject);
-    query.equalTo("objectId", resultObject.objectId);
-    query.each(function(obj) {
-      resultObject.users.push(GLOBAL.USERID);
-      obj.set("users", resultObject.users);
-      return obj.save();
-    }).then(function() {
-      console.log("update");
-      GLOBAL.WGID = resultObject.objectId;
-      console.log(GLOBAL.WGID);
-    }, function(err) {
-      console.log(err);
+    axios.put(API_URL + resultObject.objectId,
+      { 'users': resultObject.users },
+      { headers: {
+        'X-Parse-Application-Id': 'StudentWGPlanner',
+        'X-Parse-Master-Key': 'asdf'}}
+    )
+    .then(response => {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-*/
 
   }
-
 
   renderWg(wg)
   {
