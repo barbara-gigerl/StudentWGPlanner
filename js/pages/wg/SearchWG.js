@@ -16,6 +16,8 @@ import axios from 'axios';
 
 GLOBAL = require('../../auth');
 
+const API_URL = 'http://10.0.2.2:1337/parse/classes/wgs/';
+
 export default class SearchWG extends Component {
 
   constructor(props)
@@ -33,7 +35,7 @@ export default class SearchWG extends Component {
     this.onPressLogout = this.onPressLogout.bind(this);
     this.onJoinWG = this.onJoinWG.bind(this);
     this.insertDatabase = this.insertDatabase.bind(this);
-
+    this.textchangehandler = this.textchangehandler.bind(this)
   }
 
   onPressLogout(){
@@ -46,22 +48,24 @@ export default class SearchWG extends Component {
 
   textchangehandler(text)
   {
-    //console.log(text);
+    console.log("will now connect to server");
     this.setState({searchterm: text})
-    axios.get('http://172.20.10.8:1337/parse/classes/wgs/', {
+    axios.get(API_URL, {
       headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                 'X-Parse-Master-Key': 'asdf'},
       params: {
         "where": {"name": {"$regex": text}}
       }
     })
-    .then(response => response.data.results)
-    .then(results => {
+    //.then(response => response.data.results)
+    .then(function(response) {
+      var results = response.data.results;
       console.log(results);
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results]),
       })
-    }).catch((error) => {
+    }.bind(this))
+    .catch((error) => {
       console.log(error)
     })
 
@@ -79,7 +83,7 @@ export default class SearchWG extends Component {
   {
     if(this.state.searchterm !== ""){
       console.log("will now connect to server");
-      axios.get('http://172.20.10.8:1337/parse/classes/wgs/', {
+      axios.get(API_URL, {
         headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                   'X-Parse-Master-Key': 'asdf'},
           params: {
@@ -144,7 +148,7 @@ export default class SearchWG extends Component {
         <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
           <Text>Logout</Text>
         </TouchableHighlight>
-        <TextInput style={{backgroundColor: 'red', height: 20}} onChangeText={this.textchangehandler.bind(this)} value={this.state.searchterm}></TextInput>
+        <TextInput onChangeText={(text) => this.textchangehandler(text)} value={this.state.searchterm}></TextInput>
         <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
         <TouchableHighlight onPress={(this.onJoinWG)}>
           <Text>{this.state.joinbutton}</Text>

@@ -97,7 +97,7 @@ export default class Login extends Component {
       axios.get('http://10.0.2.2:1337/parse/classes/UserData/', {
         headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                   'X-Parse-Master-Key': 'asdf'},
-          params: {
+        params: {
           "where": {"Username" : this.state.username,
                     "Password" : this.state.password}
           }

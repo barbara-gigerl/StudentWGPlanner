@@ -28,16 +28,18 @@ describe('JoinWG test', () => {
   }
 
   it('display correct and complete GUI', () => {
-    /*const states = {
+    const states = {
       searchterm: "",
       wgs: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1.id !== r2.id
       }),
       joinbutton: ""
-    };
-    join_wg_test = renderScreen({}, states);
-    var {output} = join_wg_test;*/
+    }
 
-    expect(true).toBe(true);
+    login_test = renderScreen({}, states);
+    var {output} = login_test;
+    expect(output.type.name).toBe("View");
+
+    console.log(output);
   });
 });
