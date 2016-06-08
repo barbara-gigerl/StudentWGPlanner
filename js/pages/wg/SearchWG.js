@@ -104,7 +104,8 @@ export default class SearchWG extends Component {
   insertDatabase(resultObject)
   {
     console.log("insert new user");
-    console.log(resultObject);
+
+    //TODO: check if user is already in a WG
 
     for(var i = 0; i < resultObject.users.length; i++)
     {
@@ -115,6 +116,8 @@ export default class SearchWG extends Component {
     }
 
     //not joined this specific wg: now update database
+
+
     /*var query = new Parse.Query(WGObject);
     query.equalTo("objectId", resultObject.objectId);
     query.each(function(obj) {
@@ -127,8 +130,8 @@ export default class SearchWG extends Component {
       console.log(GLOBAL.WGID);
     }, function(err) {
       console.log(err);
-    });*/
-
+    });
+*/
 
   }
 

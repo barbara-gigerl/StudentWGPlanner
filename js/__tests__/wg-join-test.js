@@ -5,7 +5,7 @@ GLOBAL = require('../auth');
 import axios from 'axios';
 // import Parse from 'parse/react-native';
 
-import React from 'react';
+import React, {ListView} from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import SearchWG from '../pages/wg/SearchWG';
@@ -40,6 +40,20 @@ describe('JoinWG test', () => {
     var {output} = login_test;
     expect(output.type.name).toBe("View");
 
-    console.log(output);
+    //this is how you check the correct Logout button
+    expect(output.props.children[0].type.name).toBe('TouchableHighlight');
+    expect(output.props.children[0].props.class).toBe('Logout');
+    expect(output.props.children[0].props.children.type.name).toBe('Text');
+    expect(output.props.children[0].props.children.props.children).toBe('Logout');
+
+    expect(output.props.children[1].type.name).toBe('TextInput');
+    expect(output.props.children[1].props.value).toBe('');
+
+    expect(output.props.children[2].type.name).toBe('ListView');
+    expect(output.props.children[2].props.dataSource).toBe(states.wgs);
+
+    expect(output.props.children[3].type.name).toBe('TouchableHighlight');
+    expect(output.props.children[3].props.children.type.name).toBe('Text');
+    expect(output.props.children[3].props.children.props.children).toBe('');
   });
 });
