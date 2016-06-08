@@ -6,10 +6,8 @@ import React, {
   Text,
   TextInput,
   View,
-  TouchableHighlight,
+  TouchableHighlight
 } from 'react-native';
-
-
 
 export default class CreateWG extends Component {
 
@@ -17,7 +15,6 @@ export default class CreateWG extends Component {
   {
     super(props);
   }
-
 
   render()
   {
