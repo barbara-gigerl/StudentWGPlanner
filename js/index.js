@@ -56,11 +56,7 @@ export default class StudentWGPlanner extends Component {
        <Text style={styles.welcome}>
          Student WG Planner
        </Text>
-<<<<<<< HEAD
        <Navigator initialRoute={{name:'Login'}}
-=======
-       <Navigator initialRoute={{name:'SearchWG'}}
->>>>>>> feature-searchwg
        renderScene={this.renderScene.bind(this)}>
        </Navigator>
        </View>

@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import SearchWG from '../pages/wg/SearchWG';
 
-describe('SearchWG test', () => {
+describe('JoinWG test', () => {
 
   let join_wg_test;
 

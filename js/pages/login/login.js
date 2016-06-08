@@ -51,6 +51,21 @@ export default class Login extends Component {
     this.setState({password: pw})
   }
 
+
+  handleLoginResult(response) {
+    console.log("handleLoginResult");
+    console.log(response.data.results.length); //@jest: gives 0
+    if(response.data.results.length == 1) {
+      GLOBAL.USERID = response.data.results[0].objectId;
+      this.props.navigator.push({
+         name: "Home"});
+    }
+    else {
+      this.setState({errormessage: 'Wrong username or password.'});
+    }
+    return true;
+  }
+
   onPressLogin()
   {
     this.state.errormessage = '';
@@ -83,8 +98,13 @@ export default class Login extends Component {
         <Text style={styles.inputlabel}>
           Password:
         </Text>
-        <TextInput ref="password" onChangeText={(text) => this.setPassword(text)} secureTextEntry={true} style={styles.basic}/>
-        <Text ref='ref' style={styles.errormessage}>{this.state.errormessage}</Text>
+        <TextInput
+          ref="password"
+          onChangeText={(text) => this.setPassword(text)}
+          secureTextEntry={true}
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        />
+        <Text style={styles.errormessage}>{this.state.errormessage}</Text>
         <TouchableHighlight onPress={this.onPressLogin}>
           <Text>Login</Text>
         </TouchableHighlight>
