@@ -39,6 +39,7 @@ export default class Login extends Component {
     this.handleLoginResult = this.handleLoginResult.bind(this);
   }
 
+
   setUsername(name){
     this.setState ( { username: name })
   }
@@ -77,45 +78,45 @@ export default class Login extends Component {
       this.props.navigator.push({
          name: "Home"});
     }
-    else {
-      this.setState({errormessage: 'Wrong username or password.'});
-    }
+    else
+      this.setState({ errormessage: 'Wrong username or password.'})
     return true;
   }
+
 
   onPressLogin()
   {
     this.state.errormessage = '';
 
     if(this.state.username === '' || this.state.password === '')
-      {
-        this.state.errormessage = 'Please enter username and password'
-      }
-      else {
-        console.log("will now connect to server");
-        axios.get('http://10.0.2.2:1337/parse/classes/UserData/', {
-          headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
-                    'X-Parse-Master-Key': 'asdf'},
-            params: {
-            "where": {"Username" : this.state.username,
-                      "Password" : this.state.password}
-            }
-        })
-        .then(function (response) {
-            console.log("in then.");
-            console.log(response);
-            var wait = this.handleLoginResult(response)
-            while(wait != true) {}
-        }.bind(this))
-        .catch(function (response) {
-          console.log("in catch.");
+    {
+      this.state.errormessage = 'Please enter username and password'
+    }
+    else {
+      console.log("will now connect to server");
+      axios.get('http://10.0.2.2:1337/parse/classes/UserData/', {
+        headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
+                  'X-Parse-Master-Key': 'asdf'},
+          params: {
+          "where": {"Username" : this.state.username,
+                    "Password" : this.state.password}
+          }
+      })
+      .then(function (response) {
+          console.log("in then.");
           console.log(response);
-        });
-      }
-      this.setState( { username: this.state.username,
-                       password: this.state.password,
-                       errormessage: this.state.errormessage
-                     })
+          var wait = this.handleLoginResult(response)
+          while(wait != true) {}
+      }.bind(this))
+      .catch(function (response) {
+        console.log("in catch.");
+        console.log(response);
+      });
+    }
+    this.setState( { username: this.state.username,
+                     password: this.state.password,
+                     errormessage: this.state.errormessage
+                   })
   }
 
   onPressRegister()
@@ -130,7 +131,6 @@ export default class Login extends Component {
 
   render()
   {
-    console.log("render: " + this.state.errormessage);
     return (
       <View>
         <Text style={styles.inputlabel}>
@@ -161,7 +161,6 @@ export default class Login extends Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

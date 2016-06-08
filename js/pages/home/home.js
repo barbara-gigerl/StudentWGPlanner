@@ -25,6 +25,7 @@ export default class Home extends Component {
         this.onPressShowRoommates = this.onPressShowRoommates.bind(this);
         this.onPressLeaveWG = this.onPressSearchWG.bind(this);
         this.onPressLogout = this.onPressLogout.bind(this);
+        this.onPressJoinWG = this.onPressJoinWG.bind(this);
   }
 
   onPressCreateWG()
@@ -67,6 +68,10 @@ export default class Home extends Component {
     });
   }
 
+  onPressJoinWG(){
+
+  }
+
   render()
   {
     return (
@@ -76,6 +81,7 @@ export default class Home extends Component {
         <TouchableHighlight onPress={this.onPressCreateWG}><Text>Create WG</Text></TouchableHighlight>
         <TouchableHighlight onPress={this.onPressSearchWG}><Text>Search WG</Text></TouchableHighlight>
         <Text>[[Display this when user does belong to WG: ]]</Text>
+        <TouchableHighlight onPress={this.onPressJoinWG}><Text>Join WG (tmp should be in Search WG)</Text></TouchableHighlight>
         <TouchableHighlight onPress={this.onPressShoppingList}><Text>Shopping List</Text></TouchableHighlight>
         <TouchableHighlight onPress={this.onPressShowRoommates}><Text>Show Roommates</Text></TouchableHighlight>
         <TouchableHighlight onPress={this.onPressLeaveWG}><Text>Leave WG</Text></TouchableHighlight>
