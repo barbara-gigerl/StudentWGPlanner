@@ -1,15 +1,12 @@
 import React, {
-  AppRegistry,
   Component,
   Navigator,
   StyleSheet,
   Text,
   TextInput,
   View,
-  TouchableHighlight,
+  TouchableHighlight
 } from 'react-native';
-
-
 
 export default class Register extends Component {
 
@@ -22,7 +19,8 @@ export default class Register extends Component {
   {
     return (
       <View>
-        <Text> Todo Implement Register
+        <Text>
+          Todo Implement Register
         </Text>
       </View>
     );

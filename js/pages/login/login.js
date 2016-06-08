@@ -1,5 +1,4 @@
 import React, {
-  AppRegistry,
   Component,
   BackAndroid,
   Navigator,
@@ -7,13 +6,13 @@ import React, {
   Text,
   TextInput,
   View,
-  TouchableHighlight,
+  TouchableHighlight
 } from 'react-native';
 
+import styles from "../../styles/index";
 
-import axios from 'axios'
+import axios from 'axios';
 import * as dummy from './dummy.js';
-
 
 const API_URL = 'http://localhost:1337/parse/';
 const HEADERS = {
@@ -21,11 +20,11 @@ const HEADERS = {
   'X-Parse-Master-Key': 'asdf'
 };
 
-const OPTIONS = { headers: HEADERS };
+const OPTIONS = {
+  headers: HEADERS
+};
 
 export default class Login extends Component {
-
-
 
   constructor(props)
   {
@@ -42,42 +41,34 @@ export default class Login extends Component {
     this.setPassword = this.setPassword.bind(this);
   }
 
-  setUsername(name){
-    this.setState ( { username: name })
+  setUsername(name) {
+    this.setState({username: name})
   }
 
-  setPassword(pw){
-    this.setState ( { password: pw })
+  setPassword(pw) {
+    this.setState({password: pw})
   }
-
 
   onPressLogin()
   {
     console.log("YOUMADEIT");
     this.state.errormessage = '';
-    if(this.state.username === '' || this.state.password === '')
-    {
+    if (this.state.username === '' || this.state.password === '') {
       console.log("error.");
       this.state.errormessage = 'Please enter username and password'
-    }
-    else {
+    } else {
       //console.log("will now connect to server");
     }
-    this.setState( { username: this.state.username,
-                     password: this.state.password,
-                     errormessage: this.state.errormessage
-    })
-  //  console.log(this.state);
+    this.setState({username: this.state.username, password: this.state.password, errormessage: this.state.errormessage})
+    //  console.log(this.state);
   }
 
   onPressRegister()
   {
-     console.log("going to register view...");
+    console.log("going to register view...");
 
-     this.props.navigator.push({
-        name:"Register"    });
+    this.props.navigator.push({name: "Register"});
   }
-
 
   render()
   {
@@ -86,53 +77,19 @@ export default class Login extends Component {
         <Text style={styles.inputlabel}>
           Username:
         </Text>
-        <TextInput
-          ref="username"
-          onChangeText={(text) => this.setUsername(text)}
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        />
+        <TextInput ref="username" onChangeText={(text) => this.setUsername(text)} style={styles.basic}/>
         <Text style={styles.inputlabel}>
           Password:
         </Text>
-        <TextInput
-          ref="password"
-          onChangeText={(text) => this.setPassword(text)}
-          secureTextEntry={true}
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        />
+        <TextInput ref="password" onChangeText={(text) => this.setPassword(text)} secureTextEntry={true} style={styles.basic}/>
         <Text ref='ref' style={styles.errormessage}>{this.state.errormessage}</Text>
         <TouchableHighlight onPress={this.onPressLogin}>
           <Text>Login</Text>
         </TouchableHighlight>
         <TouchableHighlight onPress={this.onPressRegister}>
-          <Text >Register</Text>
+          <Text>Register</Text>
         </TouchableHighlight>
       </View>
     );
   }
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  inputlabel: {
-    textAlign: 'left',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  errormessage: {
-    textAlign: 'center',
-    color: '#B0171F'
-  }
-
-});

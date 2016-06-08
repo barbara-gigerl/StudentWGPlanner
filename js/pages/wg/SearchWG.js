@@ -10,6 +10,7 @@ import React, {
   ListView
 } from 'react-native';
 
+import styles from '../../styles';
 import Parse from "parse/react-native"
 
 Parse.initialize("StudentWGPlanner")
