@@ -9,9 +9,11 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+import axios from 'axios';
+
 GLOBAL = require('../../auth');
 
-const SERVER_URL = "http://172.20.10.5:1337/parse"
+const SERVER_URL = "http://172.20.10.8:1337/parse"
 
 export default class Register extends Component {
 
@@ -22,7 +24,8 @@ export default class Register extends Component {
       username: 'jan',
       password: 'jan',
       password2: 'jan',
-      email: 'jan'
+      email: 'jan',
+      error: ''
     };
   }
 
@@ -34,36 +37,28 @@ export default class Register extends Component {
 
   onSubmit() {
     if (this.state.password !== this.state.password2) {
-      alert("Passwords not equal");
+      this.setState({ error: 'Passwords are not equal' });
       return;
+    } else {
+      this.setState({ error: '' });
     }
 
-    fetch(SERVER_URL + '/users', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'X-Parse-Application-Id': 'StudentWGPlanner'
-        },
-        body: JSON.stringify({
+    axios.post(SERVER_URL + '/users', {
           username: this.state.username,
           password: this.state.password,
           email: this.state.email
-        })
-      })
-      .then(response => response.json())
+        }, { headers: { 'X-Parse-Application-Id': 'StudentWGPlanner' }}
+      )
       .then(response => {
-        if (response.error) {
-          alert(response.error);
-        } else {
-          GLOBAL.USERID = response.objectId;
-          this.props.navigator.push({
-             name:"Register"
-         });
-       }
+        GLOBAL.USERID = response.data.objectId;
+        this.props.navigator.push({
+           name:"SearchWG"
+        });
       })
       .catch(error => {
-        console.log('error', error);
+        if (error.data.error) {
+          this.setState({ error: error.data.error });
+        }
       })
   }
 
@@ -92,6 +87,7 @@ export default class Register extends Component {
         <TextInput style={styles.inputField}
           value={this.state.email}
           onChangeText={(text) => this.onChange(text, 'email')}></TextInput>
+        <Text>{this.state.error}</Text>
         <TouchableHighlight onPress={this.onSubmit.bind(this)}><Text>Register</Text></TouchableHighlight>
       </View>
     );
