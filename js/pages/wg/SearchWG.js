@@ -25,11 +25,12 @@ export default class SearchWG extends Component {
     super(props);
 
     this.state = {
-      searchterm: "",
+      searchterm: '',
       wgs: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1.id !== r2.id
       }),
-      joinbutton: ""
+      joinbutton: '',
+      errormessage: ''
     }
 
     this.onPressLogout = this.onPressLogout.bind(this);
@@ -48,7 +49,6 @@ export default class SearchWG extends Component {
 
   textchangehandler(text)
   {
-    console.log("will now connect to server");
     this.setState({searchterm: text})
     axios.get(API_URL, {
       headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
@@ -60,7 +60,6 @@ export default class SearchWG extends Component {
     //.then(response => response.data.results)
     .then(function(response) {
       var results = response.data.results;
-      console.log(results);
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results]),
       })
@@ -82,7 +81,6 @@ export default class SearchWG extends Component {
   onJoinWG()
   {
     if(this.state.searchterm !== ""){
-      console.log("will now connect to server");
       axios.get(API_URL, {
         headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                   'X-Parse-Master-Key': 'asdf'},
@@ -91,26 +89,25 @@ export default class SearchWG extends Component {
           }
       })
       .then(function (response) {
-        console.log(response)
         if(response.data.results.length === 1)
           this.insertDatabase(response.data.results[0]);
       }.bind(this))
       .catch(function (error) {
-        console.log(error);
+        this.setState({errormessage: "Couldn't connect to server."});
       });
+    }
+    else
+    {
+      this.setState({errormessage: 'Please enter a searchterm.'});
     }
   }
 
   insertDatabase(resultObject)
   {
-    console.log("insert new user");
-
-    //TODO: check if user is already in a WG
-
     for(var i = 0; i < resultObject.users.length; i++)
     {
       if(resultObject.users[i] === GLOBAL.USERID){
-        console.log("Datensatz vorhanden")
+        this.setState({errormessage: 'You are already a member of this WG.'});
         return true;
       }
     }
@@ -126,6 +123,7 @@ export default class SearchWG extends Component {
       console.log(response)
     })
     .catch(function (error) {
+      this.setState({errormessage: "Couldn't connect to server."});
       console.log(error);
     });
 
@@ -147,6 +145,7 @@ export default class SearchWG extends Component {
           <Text>Logout</Text>
         </TouchableHighlight>
         <TextInput onChangeText={(text) => this.textchangehandler(text)} value={this.state.searchterm}></TextInput>
+        <Text style={styles.errormessage}>{this.state.errormessage}</Text>
         <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
         <TouchableHighlight onPress={(this.onJoinWG)}>
           <Text>{this.state.joinbutton}</Text>
@@ -155,3 +154,27 @@ export default class SearchWG extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  inputlabel: {
+    textAlign: 'left',
+    color: '#333333',
+    marginBottom: 5,
+  },
+  errormessage: {
+    textAlign: 'center',
+    color: '#B0171F'
+  }
+
+});
