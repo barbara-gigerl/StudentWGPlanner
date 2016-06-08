@@ -102,7 +102,6 @@ describe('Login test', () => {
     test = renderer.getRenderOutput();
     expect(test.props.children[4].props.children).toEqual("Please enter username and password");
   });
-
 });
 
 /*
