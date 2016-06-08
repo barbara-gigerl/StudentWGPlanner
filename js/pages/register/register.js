@@ -57,8 +57,10 @@ export default class Register extends Component {
           alert(response.error);
         } else {
           GLOBAL.USERID = response.objectId;
-          this.props.navigator.replace('SearchWG');
-        }
+          this.props.navigator.push({
+             name:"Register"
+         });
+       }
       })
       .catch(error => {
         console.log('error', error);
