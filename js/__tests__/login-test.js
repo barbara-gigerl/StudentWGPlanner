@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 jest.unmock('../pages/login/login'); // unmock to use the actual implementation of sum
 
 

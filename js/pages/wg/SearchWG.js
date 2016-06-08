@@ -15,11 +15,6 @@ import React, {
 import axios from 'axios';
 
 GLOBAL = require('../../auth');
-import Parse from "parse/react-native"
-
-Parse.initialize("StudentWGPlanner")
-Parse.serverURL = "http://10.0.2.2:1337/parse"
-const WGObject = Parse.Object.extend("wgs")
 
 export default class SearchWG extends Component {
 
@@ -52,12 +47,17 @@ export default class SearchWG extends Component {
   textchangehandler(text)
   {
     //console.log(text);
-
-    let query = new Parse.Query(WGObject)
-
     this.setState({searchterm: text})
-    query.matches("name", new RegExp(`${text}`, "ig"));
-    query.find().then((results) => {
+    axios.get('http://172.20.10.8:1337/parse/classes/wgs/', {
+      headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
+                'X-Parse-Master-Key': 'asdf'},
+      params: {
+        "where": {"name": {"$regex": text}}
+      }
+    })
+    .then(response => response.data.results)
+    .then(results => {
+      console.log(results);
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results]),
       })
@@ -79,11 +79,11 @@ export default class SearchWG extends Component {
   {
     if(this.state.searchterm !== ""){
       console.log("will now connect to server");
-      axios.get('http://10.0.2.2:1337/parse/classes/wgs/', {
+      axios.get('http://172.20.10.8:1337/parse/classes/wgs/', {
         headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                   'X-Parse-Master-Key': 'asdf'},
           params: {
-          "where": {"name" : this.state.searchterm }
+          "where": {"name" : this.state.searchterm, "$options": 'i' }
           }
       })
       .then(function (response) {
@@ -111,7 +111,7 @@ export default class SearchWG extends Component {
     }
 
     //not joined this specific wg: now update database
-    var query = new Parse.Query(WGObject);
+    /*var query = new Parse.Query(WGObject);
     query.equalTo("objectId", resultObject.objectId);
     query.each(function(obj) {
       resultObject.users.push(GLOBAL.USERID);
@@ -123,7 +123,7 @@ export default class SearchWG extends Component {
       console.log(GLOBAL.WGID);
     }, function(err) {
       console.log(err);
-    });
+    });*/
 
 
   }
@@ -132,7 +132,7 @@ export default class SearchWG extends Component {
   renderWg(wg)
   {
     return (
-      <Text>{wg.get("name")}</Text>
+      <Text>{wg.name}</Text>
     )
   }
 
@@ -144,7 +144,7 @@ export default class SearchWG extends Component {
         <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
           <Text>Logout</Text>
         </TouchableHighlight>
-        <TextInput onChangeText={this.textchangehandler.bind(this)} value={this.state.searchterm}></TextInput>
+        <TextInput style={{backgroundColor: 'red', height: 20}} onChangeText={this.textchangehandler.bind(this)} value={this.state.searchterm}></TextInput>
         <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
         <TouchableHighlight onPress={(this.onJoinWG)}>
           <Text>{this.state.joinbutton}</Text>
