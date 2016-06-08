@@ -51,16 +51,12 @@ export default class StudentWGPlanner extends Component {
   }
 
   render() {
-    let render_value = (
-       <View style={styles.container}>
-       <Text style={styles.welcome}>
-         Student WG Planner
-       </Text>
-       <Navigator initialRoute={{name:'Login'}}
-       renderScene={this.renderScene.bind(this)}>
-       </Navigator>
-       </View>
+    return (
+      <View style={{flex: 1}}>
+        <Navigator initialRoute={{name:'Login'}}
+          renderScene={this.renderScene.bind(this)}>
+        </Navigator>
+      </View>
     );
-    return render_value;
   }
 }

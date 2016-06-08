@@ -1,6 +1,5 @@
 import React, {
   Component,
-  BackAndroid,
   Navigator,
   StyleSheet,
   Text,
