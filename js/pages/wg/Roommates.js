@@ -10,14 +10,10 @@ import React, {
   ListView
 } from 'react-native';
 
+import axios from 'axios';
+
+
 GLOBAL = require('../../auth');
-
-import Parse from "parse/react-native"
-
-Parse.initialize("StudentWGPlanner")
-Parse.serverURL = "http://10.0.2.2:1337/parse"
-const WGObject = Parse.Object.extend("wgs")
-
 
 export default class Roommate extends Component {
 
@@ -27,38 +23,46 @@ export default class Roommate extends Component {
 
     this.onPressLogout = this.onPressLogout.bind(this);
     this.showroommates = this.showroommates.bind(this);
-
+    this.renderRoommate = this.renderRoommate.bind(this);
     this.state = {
       //TODO: rename roommates
-      wgs: new ListView.DataSource({
+      roommates: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1.id !== r2.id
       }),
     }
-
+    this.showroommates();
+    console.log(this.state.roommates);
   }
 
+
+    renderRoommate(userdata)
+    {
+      console.log(userdata);
+      return (
+        <Text>{userdata.username}</Text>
+      )
+    }
 showroommates(text)
 {
-  //console.log(text);
-
-  let query = new Parse.Query(WGObject)
-  query.matches("name", new RegExp(`${text}`, "ig"));
-  query.find().then((results) => {
-    this.setState({
-      wgs: this.state.wgs.cloneWithRows([...results]),
-    })
-  }).catch((error) => {
-    console.log(error)
-  })
-
-  //TODO: need to change this if searchWG is finally working
   if(this.state.searchterm !== ""){
-    this.setState({joinbutton: "Join this WG"});
-  }
-  else {
-    this.setState({joinbutton: ""});
-  }
+    console.log("will now connect to server");
+    axios.get('http://10.0.2.2:1337/parse/classes/wgs/', {
+      headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
+                'X-Parse-Master-Key': 'asdf'},
+        params: {
+        "where": {"objectId" : "ONqbROBUg9" } //TODO replace Global.WGID
+        }
+    })
+    .then(function (response) {
+        console.log("fkfdk");
+        console.log(response.data.results[0].userarray);
+        this.setState({roommates: this.state.roommates.cloneWithRows([...response.data.results[0].userarray])});
 
+      }.bind(this))
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 }
 
   onPressLogout(){
@@ -70,10 +74,11 @@ showroommates(text)
 
   render()
   {
+    console.log(this.state.roommates[0])
     return (
       <View>
-        <Text>Your Roommates</Text>
-        <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
+        <Text>In your WG are the following people:</Text>
+        <ListView dataSource={this.state.roommates} renderRow={this.renderRoommate.bind(this)}/>
         </View>
     );
   }
