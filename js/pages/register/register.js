@@ -11,7 +11,7 @@ import React, {
 
 GLOBAL = require('../../auth');
 
-const SERVER_URL = "http://172.20.10.5:1337/parse"
+const SERVER_URL = "http://10.0.2.2:1337/parse"
 
 export default class Register extends Component {
 
@@ -58,7 +58,7 @@ export default class Register extends Component {
         } else {
           GLOBAL.USERID = response.objectId;
           this.props.navigator.push({
-             name:"Register"
+             name:"Home"
          });
        }
       })
