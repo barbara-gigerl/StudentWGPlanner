@@ -107,8 +107,33 @@ describe('Login test', () => {
     //Passwort and Username
     changeUsername("MaxMuster")
     changePassword("Passwort")
+
     loginfunction()
     test = renderer.getRenderOutput();
     expect(test.props.children[4].props.children).toEqual("");
-  });
+
+    loginfunction(); //still need something that waits for the result of login
+
+    //invoke special done callback
+  //  done();
+  })
+
+  it('testing server connection', () =>{
+    axios.get('http://10.0.2.2:1337/parse/login/', {
+      headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
+                'X-Parse-Master-Key': 'asdf'}
+    })
+    .then(function (response){})
+    .catch(function (err){
+      expect(false).toBe(true);
+    });
+  })
+
+  /*
+  it('test wrong username and password', () =>{
+    console.log("begin wrong test--------------------")
+    test = renderer.getRenderOutput()
+    expect(test.props.children[4].props.children).toEqual("Wrong username or password.");
+
+  });*/
 });
