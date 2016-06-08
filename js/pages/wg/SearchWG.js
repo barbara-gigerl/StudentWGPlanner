@@ -1,6 +1,7 @@
 import React, {
   AppRegistry,
   Component,
+  BackAndroid,
   Navigator,
   StyleSheet,
   Text,
@@ -99,6 +100,7 @@ export default class SearchWG extends Component {
   insertDatabase(resultObject)
   {
     console.log("insert new user");
+    console.log(resultObject);
 
     for(var i = 0; i < resultObject.users.length; i++)
     {
@@ -116,8 +118,9 @@ export default class SearchWG extends Component {
       obj.set("users", resultObject.users);
       return obj.save();
     }).then(function() {
-      // All objects updated.
       console.log("update");
+      GLOBAL.WGID = resultObject.objectId;
+      console.log(GLOBAL.WGID);
     }, function(err) {
       console.log(err);
     });
