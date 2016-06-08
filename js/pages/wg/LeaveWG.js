@@ -6,7 +6,7 @@ import React, {
   Text,
   TextInput,
   View,
-  TouchableHighlight,
+  TouchableHighlight
 } from 'react-native';
 
 GLOBAL = require('../../auth');

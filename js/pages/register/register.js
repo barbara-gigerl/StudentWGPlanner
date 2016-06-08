@@ -1,12 +1,11 @@
 import React, {
-  AppRegistry,
   Component,
   Navigator,
   StyleSheet,
   Text,
   TextInput,
   View,
-  TouchableHighlight,
+  TouchableHighlight
 } from 'react-native';
 
 GLOBAL = require('../../auth');

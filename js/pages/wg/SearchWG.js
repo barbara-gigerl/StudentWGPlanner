@@ -11,6 +11,7 @@ import React, {
 } from 'react-native';
 
 GLOBAL = require('../../auth');
+import styles from '../../styles';
 import Parse from "parse/react-native"
 
 Parse.initialize("StudentWGPlanner")
@@ -71,7 +72,7 @@ export default class SearchWG extends Component {
         <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
         <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
           <Text>Logout</Text>
-        </TouchableHighlight>      
+        </TouchableHighlight>
 </View>
     );
   }
