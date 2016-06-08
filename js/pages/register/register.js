@@ -10,10 +10,9 @@ import React, {
 } from 'react-native';
 
 import axios from 'axios';
+import config from '../../../config';
 
 GLOBAL = require('../../auth');
-
-const SERVER_URL = "http://172.20.10.8:1337/parse"
 
 export default class Register extends Component {
 
@@ -43,7 +42,7 @@ export default class Register extends Component {
       this.setState({ error: '' });
     }
 
-    axios.post(SERVER_URL + '/users', {
+    axios.post(config.PARSE_SERVER_URL + '/users', {
           username: this.state.username,
           password: this.state.password,
           email: this.state.email
