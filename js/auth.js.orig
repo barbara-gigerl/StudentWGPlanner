@@ -35,8 +35,12 @@ export default {
 };
 
 module.exports = {
+<<<<<<< HEAD
+  USERID: ''
+=======
   USERID: '',
   WGID: ''
+>>>>>>> origin/feature-register
 };
 
 /*

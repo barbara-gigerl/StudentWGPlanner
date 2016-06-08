@@ -10,12 +10,15 @@ import React, {
   ListView
 } from 'react-native';
 
+<<<<<<< HEAD
 GLOBAL = require('../../auth');
+=======
 import Parse from "parse/react-native"
 
 Parse.initialize("StudentWGPlanner")
 Parse.serverURL = "http://10.0.2.2:1337/parse"
 const WGObject = Parse.Object.extend("wgs")
+>>>>>>> origin/feature-register
 
 export default class SearchWG extends Component {
 
@@ -23,13 +26,22 @@ export default class SearchWG extends Component {
   {
     super(props);
 
+<<<<<<< HEAD
+    this.onPressLogout = this.onPressLogout.bind(this);
+  }
+
+  onPressLogout(){
+    GLOBAL.USERID = ''
+    this.props.navigator.push({
+       name: "Login"
+    });
+=======
     this.state = {
       searchterm: "",
       wgs: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1.id !== r2.id
       })
     }
-    this.onPressLogout = this.onPressLogout.bind(this);
   }
 
   textchangehandler(text)
@@ -54,25 +66,23 @@ export default class SearchWG extends Component {
     return (
       <Text>{wg.get("name")}</Text>
     )
-  }
-
-  onPressLogout(){
-    GLOBAL.USERID = ''
-    this.props.navigator.push({
-       name: "Login"
-    });
+>>>>>>> origin/feature-register
   }
 
   render()
   {
     return (
       <View>
-        <TextInput onChangeText={this.textchangehandler.bind(this)} value={this.state.searchterm}></TextInput>
-        <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
+<<<<<<< HEAD
+        <Text>Todo implement Search WG</Text>
         <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
           <Text>Logout</Text>
-        </TouchableHighlight>      
-</View>
+        </TouchableHighlight>
+=======
+        <TextInput onChangeText={this.textchangehandler.bind(this)} value={this.state.searchterm}></TextInput>
+        <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
+>>>>>>> origin/feature-register
+      </View>
     );
   }
 }

@@ -48,6 +48,28 @@ export default class Login extends Component {
   }
 
 
+<<<<<<< HEAD
+
+  /*testfunction2() {
+    let request = new XMLHttpRequest();
+    request.open('GET', 'http://10.0.2.2:1337/parse/classes/Test/');
+    request.setRequestHeader('X-Parse-Application-Id', 'StudentWGPlanner');
+    request.setRequestHeader('X-Parse-Master-Key', 'asdf');
+    request.onreadystatechange = (e) => {
+    if (request.readyState !== 4) {
+        return;
+    }
+
+    if (request.status === 200) {
+        console.log('success', request.responseText);
+    } else {
+        console.log("received error. " + request.status + request.responseText)
+        console.warn('error');
+    }
+    };
+    request.send();
+}*/
+
   handleLoginResult(response) {
     console.log("handleLoginResult");
     console.log(response.data.results.length); //@jest: gives 0
@@ -55,10 +77,21 @@ export default class Login extends Component {
       GLOBAL.USERID = response.data.results[0].objectId;
       this.props.navigator.push({
          name: "Home"});
+=======
+  onPressLogin()
+  {
+    console.log("YOUMADEIT");
+    this.state.errormessage = '';
+    if(this.state.username === '' || this.state.password === '')
+    {
+      console.log("error.");
+      this.state.errormessage = 'Please enter username and password'
+>>>>>>> origin/feature-register
     }
     else {
       this.setState({errormessage: 'Wrong username or password.'});
     }
+<<<<<<< HEAD
     return true;
   }
 
@@ -95,6 +128,13 @@ export default class Login extends Component {
                        password: this.state.password,
                        errormessage: this.state.errormessage
                      })
+=======
+    this.setState( { username: this.state.username,
+                     password: this.state.password,
+                     errormessage: this.state.errormessage
+    })
+  //  console.log(this.state);
+>>>>>>> origin/feature-register
   }
 
   onPressRegister()
@@ -109,7 +149,10 @@ export default class Login extends Component {
 
   render()
   {
+<<<<<<< HEAD
     console.log("render: " + this.state.errormessage);
+=======
+>>>>>>> origin/feature-register
     return (
       <View>
         <Text style={styles.inputlabel}>
@@ -129,7 +172,11 @@ export default class Login extends Component {
           secureTextEntry={true}
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         />
+<<<<<<< HEAD
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
+=======
+        <Text ref='ref' style={styles.errormessage}>{this.state.errormessage}</Text>
+>>>>>>> origin/feature-register
         <TouchableHighlight onPress={this.onPressLogin}>
           <Text>Login</Text>
         </TouchableHighlight>

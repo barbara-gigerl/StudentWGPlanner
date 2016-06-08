@@ -49,7 +49,7 @@ export default class StudentWGPlanner extends Component {
        <Text style={styles.welcome}>
          Student WG Planner
        </Text>
-       <Navigator initialRoute={{name:'Login'}}
+       <Navigator initialRoute={{name:'Register'}}
        renderScene={this.renderScene.bind(this)}>
        </Navigator>
        </View>
