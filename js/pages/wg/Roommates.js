@@ -79,7 +79,7 @@ showroommates(text)
       <View>
         <Text>In your WG are the following people:</Text>
         <ListView dataSource={this.state.roommates} renderRow={this.renderRoommate.bind(this)}/>
-        </View>
+      </View>
     );
   }
 }

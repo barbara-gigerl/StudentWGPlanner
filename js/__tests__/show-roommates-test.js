@@ -32,5 +32,6 @@ describe('Show roommates test', () => {
 
     expect(output.props.children[0].type.name).toBe("Text");
     expect(output.props.children[0].props.children).toBe('In your WG are the following people:');
-    expect(output.props.children[2].type.name).toBe("ListView");
+    expect(output.props.children[1].type.name).toBe("ListView");
   });
+});
