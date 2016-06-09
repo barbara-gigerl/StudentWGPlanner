@@ -22,7 +22,7 @@ export default class Home extends Component {
         this.onPressCreateWG = this.onPressCreateWG.bind(this);
         this.onPressSearchWG = this.onPressSearchWG.bind(this);
         this.onPressShoppingList = this.onPressShoppingList.bind(this);
-        this.onPressShowRoommates = this.onPressSearchWG.bind(this);
+        this.onPressShowRoommates = this.onPressShowRoommates.bind(this);
         this.onPressLeaveWG = this.onPressSearchWG.bind(this);
         this.onPressLogout = this.onPressLogout.bind(this);
         this.onPressJoinWG = this.onPressJoinWG.bind(this);
@@ -52,7 +52,7 @@ export default class Home extends Component {
   {
 
      this.props.navigator.push({
-        name:"ShowRoommates"    });
+        name:"Roommates"    });
   }
 
   onPressLeaveWG()
