@@ -12,6 +12,7 @@ GLOBAL = require('../../auth');
 
 import styles from "../../styles/index";
 
+import config from "../../../config";
 import axios from 'axios';
 import * as dummy from './dummy.js';
 
@@ -52,13 +53,16 @@ export default class Login extends Component {
     this.setState({password: pw})
   }
 
+
   handleLoginResult(response) {
     console.log("handleLoginResult");
     console.log(response.data.results.length); //@jest: gives 0
-    if (response.data.results.length == 1) {
+    if(response.data.results.length == 1) {
       GLOBAL.USERID = response.data.results[0].objectId;
-      this.props.navigator.push({name: "Home"});
-    } else {
+      this.props.navigator.push({
+         name: "Home"});
+    }
+    else {
       this.setState({errormessage: 'Wrong username or password.'});
     }
     return true;
@@ -68,29 +72,30 @@ export default class Login extends Component {
   {
     this.state.errormessage = '';
 
-    console.log("will now connect to server username" + this.state.username);
-    axios.get('http://10.0.2.2:1337/parse/login/', {
-      headers: {
-        'X-Parse-Application-Id': 'StudentWGPlanner',
-        'X-Parse-Master-Key': 'asdf'
-      },
-      params: {
-        "username": this.state.username,
-        "password": this.state.password
-      }
-    }).then((response) => {
-      console.log("in then.");
-      console.log(response.data.objectId);
-      GLOBAL.USERID = response.data.objectId;
-      this.props.navigator.push({name: "Home"});
-    }).catch((response) => {
-      console.log("in catch.");
-      this.setState({errormessage: response.data.error});
+    /*if (this.state.username === '' || this.state.password === '') {
+      console.log("error.");
+      this.state.errormessage = 'Please enter username and password'
+    }*/
+    //else {
+      return axios.get(config.PARSE_SERVER_URL + "login/", {
+        headers: config.PARSE_SERVER_HEADERS,
+        params: {
+                   "username" : this.state.username,
+                    "password" : this.state.password
+                }
+      })
+      .then((response) => {
 
-      console.log(response);
-    });
-
-    this.setState({username: this.state.username, password: this.state.password, errormessage: this.state.errormessage})
+          GLOBAL.USERID = response.data.objectId;
+          this.props.navigator.push({
+             name: "Home"});
+         return Promise.resolve(true);
+        }
+      )
+      .catch((response) => {
+        this.setState({errormessage: response.data.error});
+        return Promise.resolve(false);
+      });
   }
 
   onPressRegister()
@@ -101,7 +106,6 @@ export default class Login extends Component {
 
   render()
   {
-    console.log("render: " + this.state.errormessage);
     return (
       <View>
         <Text style={styles.inputlabel}>

@@ -19,7 +19,7 @@ import axios from 'axios';
 
 GLOBAL = require('../../auth');
 
-const API_URL = 'http://10.0.2.2:1337/parse/classes/wgs/';
+import config from "../../../config";
 
 export default class SearchWG extends Component {
 
@@ -50,11 +50,8 @@ export default class SearchWG extends Component {
   textchangehandler(text)
   {
     this.setState({searchterm: text})
-    axios.get(API_URL, {
-      headers: {
-        'X-Parse-Application-Id': 'StudentWGPlanner',
-        'X-Parse-Master-Key': 'asdf'
-      },
+    axios.get(config.PARSE_SERVER_URL, {
+      headers: config.PARSE_SERVER_HEADERS,
       params: {
         "where": {
           "name": {
@@ -85,11 +82,8 @@ export default class SearchWG extends Component {
   onJoinWG()
   {
     if (this.state.searchterm !== "") {
-      axios.get(API_URL, {
-        headers: {
-          'X-Parse-Application-Id': 'StudentWGPlanner',
-          'X-Parse-Master-Key': 'asdf'
-        },
+      axios.get(config.PARSE_SERVER_URL, {
+        headers: config.PARSE_SERVER_HEADERS,
         params: {
           "where": {
             "name": this.state.searchterm
@@ -117,13 +111,10 @@ export default class SearchWG extends Component {
     }
     resultObject.users.push(GLOBAL.USERID);
 
-    axios.put(API_URL + resultObject.objectId, {
+    axios.put(config.PARSE_SERVER_URL + resultObject.objectId, {
       'users': resultObject.users
     }, {
-      headers: {
-        'X-Parse-Application-Id': 'StudentWGPlanner',
-        'X-Parse-Master-Key': 'asdf'
-      }
+      headers: config.PARSE_SERVER_HEADERS
     }).then(response => {
       console.log(response)
     }).catch(function(error) {

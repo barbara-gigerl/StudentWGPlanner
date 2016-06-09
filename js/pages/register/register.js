@@ -10,7 +10,7 @@ import React, {
 
 GLOBAL = require('../../auth');
 
-const SERVER_URL = "http://10.0.2.2:1337/parse"
+import config from "../../../config";
 
 export default class Register extends Component {
 
@@ -37,13 +37,9 @@ export default class Register extends Component {
       return;
     }
 
-    fetch(SERVER_URL + '/users', {
+    fetch(PARSE_SERVER_URL + '/users', {
         method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'X-Parse-Application-Id': 'StudentWGPlanner'
-        },
+        headers: config.PARSE_SERVER_HEADERS,
         body: JSON.stringify({
           username: this.state.username,
           password: this.state.password,
