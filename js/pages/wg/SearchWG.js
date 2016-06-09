@@ -15,11 +15,8 @@ import React, {
 import axios from 'axios';
 
 GLOBAL = require('../../auth');
-import Parse from "parse/react-native"
 
-Parse.initialize("StudentWGPlanner")
-Parse.serverURL = "http://10.0.2.2:1337/parse"
-const WGObject = Parse.Object.extend("wgs")
+const API_URL = 'http://10.0.2.2:1337/parse/classes/wgs/';
 
 export default class SearchWG extends Component {
 
@@ -38,7 +35,7 @@ export default class SearchWG extends Component {
     this.onPressLogout = this.onPressLogout.bind(this);
     this.onJoinWG = this.onJoinWG.bind(this);
     this.insertDatabase = this.insertDatabase.bind(this);
-
+    this.textchangehandler = this.textchangehandler.bind(this)
   }
 
   onPressLogout(){
@@ -51,17 +48,24 @@ export default class SearchWG extends Component {
 
   textchangehandler(text)
   {
-    //console.log(text);
-
-    let query = new Parse.Query(WGObject)
-
+    console.log("will now connect to server");
     this.setState({searchterm: text})
-    query.matches("name", new RegExp(`${text}`, "ig"));
-    query.find().then((results) => {
+    axios.get(API_URL, {
+      headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
+                'X-Parse-Master-Key': 'asdf'},
+      params: {
+        "where": {"name": {"$regex": text}}
+      }
+    })
+    //.then(response => response.data.results)
+    .then(function(response) {
+      var results = response.data.results;
+      console.log(results);
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results]),
       })
-    }).catch((error) => {
+    }.bind(this))
+    .catch((error) => {
       console.log(error)
     })
 
@@ -79,7 +83,7 @@ export default class SearchWG extends Component {
   {
     if(this.state.searchterm !== ""){
       console.log("will now connect to server");
-      axios.get('http://10.0.2.2:1337/parse/classes/wgs/', {
+      axios.get(API_URL, {
         headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                   'X-Parse-Master-Key': 'asdf'},
           params: {
@@ -100,7 +104,8 @@ export default class SearchWG extends Component {
   insertDatabase(resultObject)
   {
     console.log("insert new user");
-    console.log(resultObject);
+
+    //TODO: check if user is already in a WG
 
     for(var i = 0; i < resultObject.users.length; i++)
     {
@@ -109,30 +114,27 @@ export default class SearchWG extends Component {
         return true;
       }
     }
+    resultObject.users.push(GLOBAL.USERID);
 
-    //not joined this specific wg: now update database
-    var query = new Parse.Query(WGObject);
-    query.equalTo("objectId", resultObject.objectId);
-    query.each(function(obj) {
-      resultObject.users.push(GLOBAL.USERID);
-      obj.set("users", resultObject.users);
-      return obj.save();
-    }).then(function() {
-      console.log("update");
-      GLOBAL.WGID = resultObject.objectId;
-      console.log(GLOBAL.WGID);
-    }, function(err) {
-      console.log(err);
+    axios.put(API_URL + resultObject.objectId,
+      { 'users': resultObject.users },
+      { headers: {
+        'X-Parse-Application-Id': 'StudentWGPlanner',
+        'X-Parse-Master-Key': 'asdf'}}
+    )
+    .then(response => {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error);
     });
 
-
   }
-
 
   renderWg(wg)
   {
     return (
-      <Text>{wg.get("name")}</Text>
+      <Text>{wg.name}</Text>
     )
   }
 
@@ -144,7 +146,7 @@ export default class SearchWG extends Component {
         <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
           <Text>Logout</Text>
         </TouchableHighlight>
-        <TextInput onChangeText={this.textchangehandler.bind(this)} value={this.state.searchterm}></TextInput>
+        <TextInput onChangeText={(text) => this.textchangehandler(text)} value={this.state.searchterm}></TextInput>
         <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
         <TouchableHighlight onPress={(this.onJoinWG)}>
           <Text>{this.state.joinbutton}</Text>

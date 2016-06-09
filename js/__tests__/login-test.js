@@ -145,12 +145,13 @@ describe("Testing with Serverconnection (asynctest)", () => {
     done();
   })
   it('testing server connection', () =>{
-    axios.get('http://10.0.2.2:1337/parse/classes/UserData/', {
+    axios.get('http://10.0.2.2:1337/parse/login/', {
       headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                 'X-Parse-Master-Key': 'asdf'}
     })
-    .catch(function (err) {
-      throw err;
+    .then(function (response){})
+    .catch(function (err){
+      expect(false).toBe(true);
     });
   })
 
