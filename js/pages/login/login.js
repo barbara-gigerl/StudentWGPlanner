@@ -18,7 +18,8 @@ import * as dummy from './dummy.js';
 const API_URL = 'http://localhost:1337/parse/';
 const HEADERS = {
   'X-Parse-Application-Id': 'StudentWGPlanner',
-  'X-Parse-Master-Key': 'asdf'};
+  'X-Parse-Master-Key': 'asdf'
+};
 
 const OPTIONS = {
   headers: HEADERS
@@ -105,6 +106,7 @@ export default class Login extends Component {
 
   render()
   {
+    console.log("render: " + this.state.errormessage);
     return (
       <View>
         <Text style={styles.inputlabel}>
@@ -114,18 +116,13 @@ export default class Login extends Component {
         <Text style={styles.inputlabel}>
           Password:
         </Text>
-        <TextInput
-          ref="password"
-          onChangeText={(text) => this.setPassword(text)}
-          secureTextEntry={true}
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        />
+        <TextInput ref="password" onChangeText={(text) => this.setPassword(text)} secureTextEntry={true} style={styles.basic}/>
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
         <TouchableHighlight onPress={this.onPressLogin}>
-          <Text>Login</Text>
+          <Text style={styles.button}>Login</Text>
         </TouchableHighlight>
         <TouchableHighlight onPress={this.onPressRegister}>
-          <Text>Register</Text>
+          <Text style={styles.button}>Register</Text>
         </TouchableHighlight>
       </View>
     );
