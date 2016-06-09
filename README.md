@@ -3,8 +3,11 @@
 Sources:
 
 [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-linux/](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-linux/)
+
 [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+
 [https://github.com/creationix/nvm](https://github.com/creationix/nvm)
+
 [https://facebook.github.io/react-native/docs/getting-started.html](https://facebook.github.io/react-native/docs/getting-started.html)
 
 ## MongoDB
