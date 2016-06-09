@@ -10,12 +10,28 @@ export default StyleSheet.create({
   welcome: {
     fontSize: 25,
     textAlign: 'center',
-    margin: 10
+    margin: 30
   },
   inputlabel: {
+    fontSize: 20,
     textAlign: 'left',
     color: '#333333',
-    marginBottom: 5
+    marginTop: 30,
+    marginBottom: 10,
+    marginLeft: 30
+  },
+  button: {
+    textAlign: 'center',
+    color: "gray",
+    backgroundColor: '#b3d9ff',
+    fontSize: 20,
+    marginBottom: 10,
+    marginTop: 10,
+    marginLeft: 75,
+    marginRight: 75,
+    borderStyle: "solid",
+    borderWidth: 5,
+    borderColor: "black"
   },
   instructions: {
     textAlign: 'center',
@@ -28,7 +44,8 @@ export default StyleSheet.create({
   },
   basic: {
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1
+    borderColor: 'black',
+    marginLeft: 30,
+    marginRight: 30
   }
 });

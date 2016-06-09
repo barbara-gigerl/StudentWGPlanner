@@ -18,7 +18,8 @@ import * as dummy from './dummy.js';
 const API_URL = 'http://localhost:1337/parse/';
 const HEADERS = {
   'X-Parse-Application-Id': 'StudentWGPlanner',
-  'X-Parse-Master-Key': 'asdf'};
+  'X-Parse-Master-Key': 'asdf'
+};
 
 const OPTIONS = {
   headers: HEADERS
@@ -50,16 +51,13 @@ export default class Login extends Component {
     this.setState({password: pw})
   }
 
-
   handleLoginResult(response) {
     console.log("handleLoginResult");
     console.log(response.data.results.length); //@jest: gives 0
-    if(response.data.results.length == 1) {
+    if (response.data.results.length == 1) {
       GLOBAL.USERID = response.data.results[0].objectId;
-      this.props.navigator.push({
-         name: "Home"});
-    }
-    else {
+      this.props.navigator.push({name: "Home"});
+    } else {
       this.setState({errormessage: 'Wrong username or password.'});
     }
     return true;
@@ -72,32 +70,30 @@ export default class Login extends Component {
     if (this.state.username === '' || this.state.password === '') {
       console.log("error.");
       this.state.errormessage = 'Please enter username and password'
-    }
-    else {
+    } else {
       console.log("will now connect to server");
       axios.get('http://10.0.2.2:1337/parse/classes/UserData/', {
-        headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
-                  'X-Parse-Master-Key': 'asdf'},
+        headers: {
+          'X-Parse-Application-Id': 'StudentWGPlanner',
+          'X-Parse-Master-Key': 'asdf'
+        },
         params: {
-          "where": {"Username" : this.state.username,
-                    "Password" : this.state.password}
+          "where": {
+            "Username": this.state.username,
+            "Password": this.state.password
           }
-      })
-      .then(function (response) {
-          console.log("in then.");
-          console.log(response);
-          var wait = this.handleLoginResult(response)
-          while(wait != true) {}
-      }.bind(this))
-      .catch(function (response) {
+        }
+      }).then(function(response) {
+        console.log("in then.");
+        console.log(response);
+        var wait = this.handleLoginResult(response)
+        while (wait != true) {}
+      }.bind(this)).catch(function(response) {
         console.log("in catch.");
         console.log(response);
       });
     }
-    this.setState( { username: this.state.username,
-                     password: this.state.password,
-                     errormessage: this.state.errormessage
-                   })
+    this.setState({username: this.state.username, password: this.state.password, errormessage: this.state.errormessage})
   }
 
   onPressRegister()
@@ -118,18 +114,13 @@ export default class Login extends Component {
         <Text style={styles.inputlabel}>
           Password:
         </Text>
-        <TextInput
-          ref="password"
-          onChangeText={(text) => this.setPassword(text)}
-          secureTextEntry={true}
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        />
+        <TextInput ref="password" onChangeText={(text) => this.setPassword(text)} secureTextEntry={true} style={styles.basic}/>
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
         <TouchableHighlight onPress={this.onPressLogin}>
-          <Text>Login</Text>
+          <Text style={styles.button}>Login</Text>
         </TouchableHighlight>
         <TouchableHighlight onPress={this.onPressRegister}>
-          <Text>Register</Text>
+          <Text style={styles.button}>Register</Text>
         </TouchableHighlight>
       </View>
     );
