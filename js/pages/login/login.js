@@ -12,6 +12,7 @@ GLOBAL = require('../../auth');
 
 import styles from "../../styles/index";
 
+import config from "../../../config";
 import axios from 'axios';
 import * as dummy from './dummy.js';
 
@@ -76,9 +77,8 @@ export default class Login extends Component {
       this.state.errormessage = 'Please enter username and password'
     }*/
     //else {
-      return axios.get('http://10.0.2.2:1337/parse/login/', {
-        headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
-                  'X-Parse-Master-Key': 'asdf'},
+      return axios.get(config.PARSE_SERVER_URL + "login/", {
+        headers: config.PARSE_SERVER_HEADERS,
         params: {
                    "username" : this.state.username,
                     "password" : this.state.password
@@ -106,7 +106,6 @@ export default class Login extends Component {
 
   render()
   {
-    console.log("render: " + this.state.errormessage);
     return (
       <View>
         <Text style={styles.inputlabel}>
