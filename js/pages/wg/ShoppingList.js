@@ -9,6 +9,8 @@ import React, {
   TouchableHighlight
 } from 'react-native';
 
+import styles from "../../styles/index";
+
 GLOBAL = require('../../auth');
 
 export default class ShoppingList extends Component {
@@ -20,11 +22,9 @@ export default class ShoppingList extends Component {
     this.onPressLogout = this.onPressLogout.bind(this);
   }
 
-  onPressLogout(){
+  onPressLogout() {
     GLOBAL.USERID = ''
-    this.props.navigator.push({
-       name: "Login"
-    });
+    this.props.navigator.push({name: "Login"});
   }
 
   render()
@@ -33,7 +33,9 @@ export default class ShoppingList extends Component {
       <View>
         <Text>Todo implement Shopping List</Text>
         <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
-          <Text>Logout</Text>
+          <View style={styles.logout}>
+            <Text>Logout</Text>
+          </View>
         </TouchableHighlight>
       </View>
     );

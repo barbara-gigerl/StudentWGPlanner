@@ -54,9 +54,11 @@ export default class StudentWGPlanner extends Component {
     return (
       <View style={styles.view}>
         <Navigator initialRoute={{
-          name: 'SearchWG'
+          name: 'Login'
         }} renderScene={this.renderScene.bind(this)}></Navigator>
+
       </View>
     );
   }
 }
+/*<Button style={styles.button} text="Logout" onPress={this.Logout}></Button>*/

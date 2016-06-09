@@ -11,6 +11,8 @@ import React, {
   ListView
 } from 'react-native';
 
+import Button from '../../components/Button';
+
 import styles from "../../styles/index";
 
 import axios from 'axios';
@@ -141,44 +143,19 @@ export default class SearchWG extends Component {
   render()
   {
     console.log(this.state.searchterm);
+
     return (
       <View>
         <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
-          <Text style={styles.logout}>Logout</Text>
+          <View style={styles.logout}>
+            <Text>Logout</Text>
+          </View>
         </TouchableHighlight>
         <TextInput onChangeText={(text) => this.textchangehandler(text)} value={this.state.searchterm}></TextInput>
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
         <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
-        <TouchableHighlight onPress={(this.onJoinWG)}>
-          <Text>{this.state.joinbutton}</Text>
-        </TouchableHighlight>
+        <Button text="Join WG" onPress={this.onJoinWG} show={this.state.joinbutton}/>
       </View>
     );
   }
 }
-
-/*
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10
-  },
-  inputlabel: {
-    textAlign: 'left',
-    color: '#333333',
-    marginBottom: 5
-  },
-  errormessage: {
-    textAlign: 'center',
-    color: '#B0171F'
-  }
-
-});
-*/

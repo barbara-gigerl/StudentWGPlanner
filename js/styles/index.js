@@ -21,17 +21,21 @@ export default StyleSheet.create({
     marginLeft: 30
   },
   button: {
-    textAlign: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     color: "gray",
-    backgroundColor: '#b3d9ff',
+    backgroundColor: '#b3daff',
+    padding: 5,
     fontSize: 20,
     marginBottom: 10,
     marginTop: 10,
     marginLeft: 75,
     marginRight: 75,
     borderStyle: "solid",
-    borderWidth: 5,
-    borderColor: "black"
+    borderWidth: 1,
+    borderColor: '#0069cc',
+    borderRadius: 10
   },
   instructions: {
     textAlign: 'center',
@@ -56,8 +60,15 @@ export default StyleSheet.create({
     flex: 1
   },
   logout: {
-    textAlign: 'right',
-    fontSize: 15
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 15,
+    marginLeft: 325,
+    padding: 5,
+    backgroundColor: '#b3daff',
+    borderColor: '#0069cc',
+    borderWidth: 1,
+    borderRadius: 10
 
   }
 });
