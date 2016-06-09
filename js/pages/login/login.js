@@ -75,8 +75,7 @@ export default class Login extends Component {
       this.state.errormessage = 'Please enter username and password'
     }*/
     //else {
-      console.log("will now connect to server username" + this.state.username);
-      axios.get('http://10.0.2.2:1337/parse/login/', {
+      return axios.get('http://10.0.2.2:1337/parse/login/', {
         headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                   'X-Parse-Master-Key': 'asdf'},
         params: {
@@ -85,24 +84,17 @@ export default class Login extends Component {
                 }
       })
       .then((response) => {
-          console.log("in then.");
-          console.log(response.data.objectId);
+
           GLOBAL.USERID = response.data.objectId;
           this.props.navigator.push({
              name: "Home"});
+         return Promise.resolve(true);
         }
       )
       .catch((response) => {
-        console.log("in catch.");
         this.setState({errormessage: response.data.error});
-
-        console.log(response);
+        return Promise.resolve(false);
       });
-    //}
-    this.setState( { username: this.state.username,
-                     password: this.state.password,
-                     errormessage: this.state.errormessage
-                   })
   }
 
   onPressRegister()
@@ -113,7 +105,6 @@ export default class Login extends Component {
 
   render()
   {
-    console.log("render: " + this.state.errormessage);
     return (
       <View>
         <Text style={styles.inputlabel}>

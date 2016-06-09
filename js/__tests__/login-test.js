@@ -71,7 +71,7 @@ describe('Login test', () => {
     //expect(outputnew.props.children[4].props.children).toBe('Please enter username and password');
   });
 
-  it('test states and errormessages', () =>{
+  it('test empty username and empty password', (done) =>{
     var renderer = TestUtils.createRenderer();
     renderer.render(<Login />)
     var test = renderer.getRenderOutput();
@@ -84,56 +84,103 @@ describe('Login test', () => {
     var changePassword = test.props.children[3].props.onChangeText;
 
     expect(test.props.children[4].props.children).toEqual("");
-
-    loginfunction();
-    test = renderer.getRenderOutput();
-    expect(test.props.children[4].props.children).toEqual("Please enter username and password");
-
-    //only Passwort set
     changeUsername("")
-    changePassword("Passwort")
-    loginfunction()
-    test = renderer.getRenderOutput();
-    expect(test.props.children[4].props.children).toEqual("Please enter username and password");
-
-    //only Username set
-    changeUsername("MaxMuster")
     changePassword("")
-    loginfunction()
-    test = renderer.getRenderOutput();
-    expect(test.props.children[4].props.children).toEqual("Please enter username and password");
-
-    //TODO: change if server connection works
-    //Passwort and Username
-    changeUsername("MaxMuster")
-    changePassword("Passwort")
 
     loginfunction()
-    test = renderer.getRenderOutput();
-    expect(test.props.children[4].props.children).toEqual("");
-
-    loginfunction(); //still need something that waits for the result of login
-
-    //invoke special done callback
-  //  done();
-  })
-
-  it('testing server connection', () =>{
-    axios.get('http://10.0.2.2:1337/parse/login/', {
-      headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
-                'X-Parse-Master-Key': 'asdf'}
-    })
-    .then(function (response){})
-    .catch(function (err){
-      expect(false).toBe(true);
+      .then((worked) => {
+        console.log(worked);
+        test = renderer.getRenderOutput();
+        expect(test.props.children[4].props.children).toEqual("username is required.");
+        done();
+      });
     });
-  })
 
-  /*
-  it('test wrong username and password', () =>{
-    console.log("begin wrong test--------------------")
-    test = renderer.getRenderOutput()
-    expect(test.props.children[4].props.children).toEqual("Wrong username or password.");
+    it('test empty username and filled password', (done) =>{
+      var renderer = TestUtils.createRenderer();
+      renderer.render(<Login />)
+      var test = renderer.getRenderOutput();
 
-  });*/
-});
+      // test.props.children[4] -> errormessage text
+      var loginfunction = test.props.children[5].props.onPress;
+      var registerfunction = test.props.children[6].props.onPress;
+      var changeUsername = test.props.children[1].props.onChangeText;
+      var changePassword = test.props.children[3].props.onChangeText;
+
+      changeUsername("")
+      changePassword("Passwort")
+
+      loginfunction()
+        .then((worked) => {
+          test = renderer.getRenderOutput();
+          expect(test.props.children[4].props.children).toEqual("username is required.");
+          done();
+        });
+      });
+
+      it('test filled username and empty password', (done) =>{
+        var renderer = TestUtils.createRenderer();
+        renderer.render(<Login />)
+        var test = renderer.getRenderOutput();
+
+        // test.props.children[4] -> errormessage text
+        var loginfunction = test.props.children[5].props.onPress;
+        var registerfunction = test.props.children[6].props.onPress;
+        var changeUsername = test.props.children[1].props.onChangeText;
+        var changePassword = test.props.children[3].props.onChangeText;
+
+        changeUsername("Max Mustermann")
+        changePassword("")
+
+        loginfunction()
+          .then((worked) => {
+            test = renderer.getRenderOutput();
+            expect(test.props.children[4].props.children).toEqual("password is required.");
+            done();
+          });
+        });
+
+        it('test false username and false password', (done) =>{
+          var renderer = TestUtils.createRenderer();
+          renderer.render(<Login />)
+          var test = renderer.getRenderOutput();
+
+          // test.props.children[4] -> errormessage text
+          var loginfunction = test.props.children[5].props.onPress;
+          var registerfunction = test.props.children[6].props.onPress;
+          var changeUsername = test.props.children[1].props.onChangeText;
+          var changePassword = test.props.children[3].props.onChangeText;
+
+          changeUsername("Max Mustermann")
+          changePassword("WrongOne")
+
+          loginfunction()
+            .then((worked) => {
+              test = renderer.getRenderOutput();
+              expect(test.props.children[4].props.children).toEqual("Invalid username/password.");
+              done();
+            });
+          });
+
+          it('test correct login data', (done) =>{
+            var renderer = TestUtils.createRenderer();
+            renderer.render(<Login />)
+            var test = renderer.getRenderOutput();
+
+            // test.props.children[4] -> errormessage text
+            var loginfunction = test.props.children[5].props.onPress;
+            var registerfunction = test.props.children[6].props.onPress;
+            var changeUsername = test.props.children[1].props.onChangeText;
+            var changePassword = test.props.children[3].props.onChangeText;
+
+            changeUsername("CorrectUsername")
+            changePassword("CorrectPassword")
+
+            loginfunction()
+              .catch((worked) => {
+                test = renderer.getRenderOutput();
+                expect(test.props.children[4].props.children).toEqual("");
+                done();
+              });
+            });
+  });
