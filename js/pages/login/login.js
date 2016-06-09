@@ -43,6 +43,7 @@ export default class Login extends Component {
   }
 
   setUsername(name) {
+    console.log("setting username" + name);
     this.setState({username: name})
   }
 
@@ -69,31 +70,35 @@ export default class Login extends Component {
   {
     this.state.errormessage = '';
 
-    if (this.state.username === '' || this.state.password === '') {
+    /*if (this.state.username === '' || this.state.password === '') {
       console.log("error.");
       this.state.errormessage = 'Please enter username and password'
-    }
-    else {
-      console.log("will now connect to server");
-      axios.get('http://10.0.2.2:1337/parse/classes/UserData/', {
+    }*/
+    //else {
+      console.log("will now connect to server username" + this.state.username);
+      axios.get('http://10.0.2.2:1337/parse/login/', {
         headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                   'X-Parse-Master-Key': 'asdf'},
         params: {
-          "where": {"Username" : this.state.username,
-                    "Password" : this.state.password}
-          }
+                   "username" : this.state.username,
+                    "password" : this.state.password
+                }
       })
-      .then(function (response) {
+      .then((response) => {
           console.log("in then.");
-          console.log(response);
-          var wait = this.handleLoginResult(response)
-          while(wait != true) {}
-      }.bind(this))
-      .catch(function (response) {
+          console.log(response.data.objectId);
+          GLOBAL.USERID = response.data.objectId;
+          this.props.navigator.push({
+             name: "Home"});
+        }
+      )
+      .catch((response) => {
         console.log("in catch.");
+        this.setState({errormessage: response.data.error});
+
         console.log(response);
       });
-    }
+    //}
     this.setState( { username: this.state.username,
                      password: this.state.password,
                      errormessage: this.state.errormessage
