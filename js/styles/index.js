@@ -16,7 +16,7 @@ export default StyleSheet.create({
     fontSize: 20,
     textAlign: 'left',
     color: '#333333',
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 10,
     marginLeft: 30
   },
@@ -47,5 +47,17 @@ export default StyleSheet.create({
     borderColor: 'black',
     marginLeft: 30,
     marginRight: 30
+  },
+  view: {
+    marginTop: 60,
+    marginBottom: 10,
+    marginRight: 10,
+    marginLeft: 10,
+    flex: 1
+  },
+  logout: {
+    textAlign: 'right',
+    fontSize: 15
+
   }
 });

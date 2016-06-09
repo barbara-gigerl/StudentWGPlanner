@@ -89,37 +89,37 @@ export default class Login extends Component {
 
       console.log(response);
     });
+
+    this.setState({username: this.state.username, password: this.state.password, errormessage: this.state.errormessage})
   }
-  this.setState({username: this.state.username, password: this.state.password, errormessage: this.state.errormessage})
-}
 
-onPressRegister()
-{
-  console.log("going to register view...");
-  this.props.navigator.push({name: "Register"});
-}
+  onPressRegister()
+  {
+    console.log("going to register view...");
+    this.props.navigator.push({name: "Register"});
+  }
 
-render()
-{
-  console.log("render: " + this.state.errormessage);
-  return (
-    <View>
-      <Text style={styles.inputlabel}>
-        Username:
-      </Text>
-      <TextInput ref="username" onChangeText={(text) => this.setUsername(text)} style={styles.basic}/>
-      <Text style={styles.inputlabel}>
-        Password:
-      </Text>
-      <TextInput ref="password" onChangeText={(text) => this.setPassword(text)} secureTextEntry={true} style={styles.basic}/>
-      <Text style={styles.errormessage}>{this.state.errormessage}</Text>
-      <TouchableHighlight onPress={this.onPressLogin}>
-        <Text style={styles.button}>Login</Text>
-      </TouchableHighlight>
-      <TouchableHighlight onPress={this.onPressRegister}>
-        <Text style={styles.button}>Register</Text>
-      </TouchableHighlight>
-    </View>
-  );
-}
+  render()
+  {
+    console.log("render: " + this.state.errormessage);
+    return (
+      <View>
+        <Text style={styles.inputlabel}>
+          Username:
+        </Text>
+        <TextInput ref="username" onChangeText={(text) => this.setUsername(text)} style={styles.basic}/>
+        <Text style={styles.inputlabel}>
+          Password:
+        </Text>
+        <TextInput ref="password" onChangeText={(text) => this.setPassword(text)} secureTextEntry={true} style={styles.basic}/>
+        <Text style={styles.errormessage}>{this.state.errormessage}</Text>
+        <TouchableHighlight onPress={this.onPressLogin}>
+          <Text style={styles.button}>Login</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.onPressRegister}>
+          <Text style={styles.button}>Register</Text>
+        </TouchableHighlight>
+      </View>
+    );
+  }
 }

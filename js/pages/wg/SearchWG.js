@@ -11,6 +11,8 @@ import React, {
   ListView
 } from 'react-native';
 
+import styles from "../../styles/index";
+
 import axios from 'axios';
 
 GLOBAL = require('../../auth');
@@ -38,40 +40,41 @@ export default class SearchWG extends Component {
     this.textchangehandler = this.textchangehandler.bind(this)
   }
 
-  onPressLogout(){
+  onPressLogout() {
     GLOBAL.USERID = ''
-    this.props.navigator.push({
-       name: "Login"
-    });
+    this.props.navigator.push({name: "Login"});
   }
-
 
   textchangehandler(text)
   {
     this.setState({searchterm: text})
     axios.get(API_URL, {
-      headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
-                'X-Parse-Master-Key': 'asdf'},
+      headers: {
+        'X-Parse-Application-Id': 'StudentWGPlanner',
+        'X-Parse-Master-Key': 'asdf'
+      },
       params: {
-        "where": {"name": {"$regex": text}}
+        "where": {
+          "name": {
+            "$regex": text
+          }
+        }
       }
     })
     //.then(response => response.data.results)
-    .then(function(response) {
+      .then(function(response) {
       var results = response.data.results;
       this.setState({
-        wgs: this.state.wgs.cloneWithRows([...results]),
+        wgs: this.state.wgs.cloneWithRows([...results])
       })
-    }.bind(this))
-    .catch((error) => {
+    }.bind(this)).catch((error) => {
       console.log(error)
     })
 
     //TODO: need to change this if searchWG is finally working
-    if(this.state.searchterm !== ""){
+    if (this.state.searchterm !== "") {
       this.setState({joinbutton: "Join this WG"});
-    }
-    else {
+    } else {
       this.setState({joinbutton: ""});
     }
 
@@ -79,49 +82,49 @@ export default class SearchWG extends Component {
 
   onJoinWG()
   {
-    if(this.state.searchterm !== ""){
+    if (this.state.searchterm !== "") {
       axios.get(API_URL, {
-        headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
-                  'X-Parse-Master-Key': 'asdf'},
-          params: {
-          "where": {"name" : this.state.searchterm }
+        headers: {
+          'X-Parse-Application-Id': 'StudentWGPlanner',
+          'X-Parse-Master-Key': 'asdf'
+        },
+        params: {
+          "where": {
+            "name": this.state.searchterm
           }
-      })
-      .then(function (response) {
-        if(response.data.results.length === 1)
+        }
+      }).then(function(response) {
+        if (response.data.results.length === 1)
           this.insertDatabase(response.data.results[0]);
-      }.bind(this))
-      .catch(function (error) {
+        }
+      .bind(this)).catch(function(error) {
         this.setState({errormessage: "Couldn't connect to server."});
       });
-    }
-    else
-    {
+    } else {
       this.setState({errormessage: 'Please enter a searchterm.'});
     }
   }
 
   insertDatabase(resultObject)
   {
-    for(var i = 0; i < resultObject.users.length; i++)
-    {
-      if(resultObject.users[i] === GLOBAL.USERID){
+    for (var i = 0; i < resultObject.users.length; i++) {
+      if (resultObject.users[i] === GLOBAL.USERID) {
         this.setState({errormessage: 'You are already a member of this WG.'});
         return true;
       }
     }
     resultObject.users.push(GLOBAL.USERID);
 
-    axios.put(API_URL + resultObject.objectId,
-      { 'users': resultObject.users },
-      { headers: {
+    axios.put(API_URL + resultObject.objectId, {
+      'users': resultObject.users
+    }, {
+      headers: {
         'X-Parse-Application-Id': 'StudentWGPlanner',
-        'X-Parse-Master-Key': 'asdf'}}
-    )
-    .then(response => {
+        'X-Parse-Master-Key': 'asdf'
+      }
+    }).then(response => {
       console.log(response)
-    })
-    .catch(function (error) {
+    }).catch(function(error) {
       this.setState({errormessage: "Couldn't connect to server."});
       console.log(error);
     });
@@ -141,7 +144,7 @@ export default class SearchWG extends Component {
     return (
       <View>
         <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
-          <Text>Logout</Text>
+          <Text style={styles.logout}>Logout</Text>
         </TouchableHighlight>
         <TextInput onChangeText={(text) => this.textchangehandler(text)} value={this.state.searchterm}></TextInput>
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
@@ -154,22 +157,23 @@ export default class SearchWG extends Component {
   }
 }
 
+/*
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   inputlabel: {
     textAlign: 'left',
     color: '#333333',
-    marginBottom: 5,
+    marginBottom: 5
   },
   errormessage: {
     textAlign: 'center',
@@ -177,3 +181,4 @@ const styles = StyleSheet.create({
   }
 
 });
+*/
