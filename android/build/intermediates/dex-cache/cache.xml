@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/babsi/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.2.3/1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14/jackson-core-2.2.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/jackson-core-2.2.3-c90eac18363f33ee692d6678aae2836cfc03599b.jar" />
+    </item>
+    <item
+        jar="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-e52ae92f4d2a0258059ad80a6406d3b21efa4afb.jar" />
+    </item>
+    <item
+        jar="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="845a5b3a624946b2068963ba656c117fc453701c">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-9c34430843485a0d76bd5dc3f9bc7ec345af9966.jar" />
+    </item>
+    <item
+        jar="/home/babsi/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0-3fa02b4d7e9e7cbd33e8651105ce00cffb597056.jar" />
+    </item>
+    <item
+        jar="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4af24c040b21980e0a80a505816c648e36705bd9">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-8228c40066584cd7cb6fb79033a3508c6292fd2f.jar" />
+    </item>
+    <item
+        jar="/home/babsi/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.4/129874135e6081269ace2312092031558865de12/bolts-android-1.1.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="129874135e6081269ace2312092031558865de12">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/bolts-android-1.1.4-b5ec0d7b04bc6da1f9f67bb19e6478ad4cbf4c6f.jar" />
+    </item>
+    <item
+        jar="/home/babsi/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.5.0/4de2b4ed3445c37ec1720a7d214712e845a24636/okhttp-2.5.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4de2b4ed3445c37ec1720a7d214712e845a24636">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/okhttp-2.5.0-9d485ee35358ddbfd3f09544052005b065579dbc.jar" />
+    </item>
+    <item
+        jar="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.23.1/jars/libs/infer-annotations-1.5.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="60e1da2c40a60ff372052eba4278e0cb252a3f3a">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/infer-annotations-1.5-db1ce27835b7bccdc6c46350af3227cff911a109.jar" />
+    </item>
+    <item
+        jar="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0d5d69b03cb7d68b81543f6483ed04ccb0e2235b">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-dca27477581dbe1160fa87a13609cddf21f72119.jar" />
+    </item>
+    <item
+        jar="/home/babsi/.gradle/caches/modules-2/files-2.1/com.facebook.stetho/stetho/1.2.0/1d6cdb8ce8185b8b23213fad48a83987fb6d2d67/stetho-1.2.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1d6cdb8ce8185b8b23213fad48a83987fb6d2d67">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/stetho-1.2.0-ecd49372b1e7d36ad09d0ec409f237ed83851db7.jar" />
+    </item>
+    <item
+        jar="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-0a8bcf9cb227f10e52ab1d2251f6fe91a1f26454.jar" />
+    </item>
+    <item
+        jar="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-ec702b20e9501d67e6e44f288056d242a1c8a2ea.jar" />
+    </item>
+    <item
+        jar="/home/babsi/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp-ws/2.5.0/e9753b7dcae5deca92e871c5c759067070b07bc/okhttp-ws-2.5.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0e9753b7dcae5deca92e871c5c759067070b07bc">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/okhttp-ws-2.5.0-7310f7a3cf583eae0b6817402976da690c3db7a3.jar" />
+    </item>
+    <item
+        jar="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.23.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="02f58fb4e333f5f258eedc4d1bc66032059aaf70">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-811cdb113f608bec043f8a0bbcdafa76cc21a950.jar" />
+    </item>
+    <item
+        jar="/home/babsi/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/okio-1.6.0-d81aba9fd4a1f55caeb4ed2105dfe88579683fa3.jar" />
+    </item>
+    <item
+        jar="/home/babsi/.gradle/caches/modules-2/files-2.1/com.facebook.stetho/stetho-okhttp/1.2.0/6c5c9380e245c4ff5be2b2a49dcbb0200c39798e/stetho-okhttp-1.2.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="6c5c9380e245c4ff5be2b2a49dcbb0200c39798e">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/stetho-okhttp-1.2.0-a5602385bcf26da6a82444ca80691bf387f65ee2.jar" />
+    </item>
+    <item
+        jar="/home/babsi/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-83c1181d1164d18254b9c6305b4137ebe291925b.jar" />
+    </item>
+    <item
+        jar="/home/babsi/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.2/2bf96b7aa8b611c177d329452af1dc933e14501c/commons-cli-1.2.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="2bf96b7aa8b611c177d329452af1dc933e14501c">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/commons-cli-1.2-4cad34bb796c1f40b40d83ca51a5e28c30446f47.jar" />
+    </item>
+    <item
+        jar="/home/babsi/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/library-2.4.0-443e3c3ba1d14fcc998877650957bafe306a8d01.jar" />
+    </item>
+    <item
+        jar="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3836ecca4e31e18ea8fbae8e822d49777b0db4f7">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-9ba398ddd2c42e53f3a72d2852b3e4c48afbe169.jar" />
+    </item>
+    <item
+        jar="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="9178570a3a28c95fabd3bc746cd68efe99ad2b47">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-be4ae798bac43d4f858efeb44415002c127b6891.jar" />
+    </item>
+    <item
+        jar="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/mnt/Data/Dropbox/sem4/swwm/SWG/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-521397a5bab764a25bdb52756213200e1c18d84f.jar" />
+    </item>
+
+</items>
