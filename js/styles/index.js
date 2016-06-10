@@ -8,14 +8,13 @@ export default StyleSheet.create({
     backgroundColor: '#F5FCFF'
   },
   welcome: {
-    fontSize: 25,
+    //fontSize: 25,
     textAlign: 'center',
     margin: 30
   },
   inputlabel: {
     fontSize: 20,
     textAlign: 'left',
-    color: '#333333',
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 30
@@ -24,10 +23,9 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    color: "gray",
     backgroundColor: '#b3daff',
     padding: 5,
-    fontSize: 20,
+    //fontSize: 20,
     marginBottom: 10,
     marginTop: 10,
     marginLeft: 75,
@@ -39,12 +37,10 @@ export default StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
     marginBottom: 5
   },
   errormessage: {
-    textAlign: 'center',
-    color: '#B0171F'
+    textAlign: 'center'
   },
   basic: {
     height: 40,
@@ -59,12 +55,11 @@ export default StyleSheet.create({
     marginLeft: 10,
     flex: 1
   },
-  logout: {
+  buttonLogout: {
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 15,
-    marginLeft: 325,
-    padding: 5,
+    marginLeft: 280,
+    padding: 2,
     backgroundColor: '#b3daff',
     borderColor: '#0069cc',
     borderWidth: 1,

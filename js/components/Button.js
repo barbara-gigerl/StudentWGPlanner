@@ -14,9 +14,15 @@ export default class Button extends Component {
       return <View/>
     }
 
+    let style = styles.button;
+
+    if (this.props.logout) {
+      style = styles.buttonLogout;
+    }
+
     return (
       <TouchableHighlight onPress={this.props.onPress}>
-        <View style={styles.button} >
+        <View style={style}>
           <Text>{this.props.text}</Text>
         </View>
       </TouchableHighlight>

@@ -137,11 +137,8 @@ export default class SearchWG extends Component {
 
     return (
       <View>
-        <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
-          <View style={styles.logout}>
-            <Text>Logout</Text>
-          </View>
-        </TouchableHighlight>
+        <Button text="Logout" onPress={this.onPressLogout} show={true} logout={true}></Button>
+
         <TextInput onChangeText={(text) => this.textchangehandler(text)} value={this.state.searchterm}></TextInput>
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
         <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>

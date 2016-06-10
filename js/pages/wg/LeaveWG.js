@@ -10,6 +10,7 @@ import React, {
 } from 'react-native';
 
 import styles from "../../styles/index";
+import Button from "../../components/Button.js";
 
 GLOBAL = require('../../auth');
 
@@ -31,12 +32,9 @@ export default class LeaveWG extends Component {
   {
     return (
       <View>
+        <Button text="Logout" onPress={this.onPressLogout} show={true} logout={true}></Button>
         <Text>Todo implement Leave WG</Text>
-        <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
-          <View style={styles.logout}>
-            <Text>Logout</Text>
-          </View>
-        </TouchableHighlight>
+
       </View>
     );
   }

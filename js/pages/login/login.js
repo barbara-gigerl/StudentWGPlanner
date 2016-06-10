@@ -12,6 +12,8 @@ GLOBAL = require('../../auth');
 
 import styles from "../../styles/index";
 
+import Button from "../../components/Button.js";
+
 import config from "../../../config";
 import axios from 'axios';
 import * as dummy from './dummy.js';
@@ -117,12 +119,8 @@ export default class Login extends Component {
         </Text>
         <TextInput ref="password" onChangeText={(text) => this.setPassword(text)} secureTextEntry={true} style={styles.basic}/>
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
-        <TouchableHighlight onPress={this.onPressLogin}>
-          <Text style={styles.button}>Login</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.onPressRegister}>
-          <Text style={styles.button}>Register</Text>
-        </TouchableHighlight>
+        <Button text="Login" onPress={this.onPressLogin} show={true}></Button>
+        <Button text="Register" onPress={this.onPressRegister} show={true}></Button>
       </View>
     );
   }

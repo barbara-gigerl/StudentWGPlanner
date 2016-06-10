@@ -11,6 +11,7 @@ import React, {
 GLOBAL = require('../../auth');
 
 import config from "../../../config";
+import Button from '../../components/Button';
 
 export default class Register extends Component {
 
@@ -87,12 +88,14 @@ export default class Register extends Component {
         <TextInput style={styles.inputField}
           value={this.state.email}
           onChangeText={(text) => this.onChange(text, 'email')}></TextInput>
-        <TouchableHighlight onPress={this.onSubmit.bind(this)}><Text>Register</Text></TouchableHighlight>
+
+        <Button text="Register" onPress={this.onSubmit.bind(this)} show={true}></Button>
+
       </View>
     );
   }
 }
-
+//<TouchableHighlight onPress={this.onSubmit.bind(this)}><Text>Register</Text></TouchableHighlight>
 const styles = StyleSheet.create({
   container: {
     flex: 1

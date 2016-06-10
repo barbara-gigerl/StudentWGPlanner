@@ -61,4 +61,3 @@ export default class StudentWGPlanner extends Component {
     );
   }
 }
-/*<Button style={styles.button} text="Logout" onPress={this.Logout}></Button>*/

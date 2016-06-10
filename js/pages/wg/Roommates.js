@@ -11,7 +11,7 @@ import React, {
 } from 'react-native';
 
 import axios from 'axios';
-
+import Button from "../../components/Button.js";
 
 GLOBAL = require('../../auth');
 
@@ -77,8 +77,10 @@ showroommates(text)
     console.log(this.state.roommates[0])
     return (
       <View>
+        <Button text="Logout" onPress={this.onPressLogout} show={true} logout={true}></Button>
         <Text>In your WG are the following people:</Text>
         <ListView dataSource={this.state.roommates} renderRow={this.renderRoommate.bind(this)}/>
+
       </View>
     );
   }
