@@ -37,7 +37,7 @@ export default class Register extends Component {
       return;
     }
 
-    fetch(PARSE_SERVER_URL + '/users', {
+    fetch(config.PARSE_SERVER_URL + '/users', {
         method: 'POST',
         headers: config.PARSE_SERVER_HEADERS,
         body: JSON.stringify({
