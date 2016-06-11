@@ -16,7 +16,7 @@ export default class Button extends Component {
 
     let style = styles.button;
 
-    if (this.props.logout) {
+    if (this.props.type === "logout") {
       style = styles.buttonLogout;
     }
 

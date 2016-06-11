@@ -37,9 +37,13 @@ export default class SearchWG extends Component {
     }
 
     this.onPressLogout = this.onPressLogout.bind(this);
+    this.onPressBack = this.onPressBack.bind(this);
     this.onJoinWG = this.onJoinWG.bind(this);
     this.insertDatabase = this.insertDatabase.bind(this);
     this.textchangehandler = this.textchangehandler.bind(this)
+  }
+  onPressBack() {
+    this.props.navigator.push({name: "Home"});
   }
 
   onPressLogout() {
@@ -137,12 +141,13 @@ export default class SearchWG extends Component {
 
     return (
       <View>
-        <Button text="Logout" onPress={this.onPressLogout} show={true} logout={true}></Button>
+        <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
 
         <TextInput onChangeText={(text) => this.textchangehandler(text)} value={this.state.searchterm}></TextInput>
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
         <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
         <Button text="Join WG" onPress={this.onJoinWG} show={this.state.joinbutton}/>
+        <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>
     );
   }

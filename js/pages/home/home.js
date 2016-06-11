@@ -10,10 +10,9 @@ import React, {
 } from 'react-native';
 
 GLOBAL = require('../../auth');
+import Button from '../../components/Button';
 
 export default class Home extends Component {
-
-
 
   constructor(props)
   {
@@ -76,6 +75,7 @@ export default class Home extends Component {
   {
     return (
       <View>
+        <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
         <Text>Your WG</Text>
         <Text>[[Display this when user does not yet belong to WG: ]]</Text>
         <TouchableHighlight onPress={this.onPressCreateWG}><Text>Create WG</Text></TouchableHighlight>
@@ -85,9 +85,7 @@ export default class Home extends Component {
         <TouchableHighlight onPress={this.onPressShoppingList}><Text>Shopping List</Text></TouchableHighlight>
         <TouchableHighlight onPress={this.onPressShowRoommates}><Text>Show Roommates</Text></TouchableHighlight>
         <TouchableHighlight onPress={this.onPressLeaveWG}><Text>Leave WG</Text></TouchableHighlight>
-        <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
-          <Text>Logout</Text>
-        </TouchableHighlight>
+
       </View>
     );
   }

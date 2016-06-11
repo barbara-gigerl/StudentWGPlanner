@@ -22,6 +22,7 @@ export default class Roommate extends Component {
     super(props);
 
     this.onPressLogout = this.onPressLogout.bind(this);
+    this.onPressBack = this.onPressBack.bind(this);
     this.showroommates = this.showroommates.bind(this);
     this.renderRoommate = this.renderRoommate.bind(this);
     this.state = {
@@ -64,7 +65,9 @@ showroommates(text)
     });
   }
 }
-
+  onPressBack() {
+    this.props.navigator.push({name: "Home"});
+  }
   onPressLogout(){
     GLOBAL.USERID = ''
     this.props.navigator.push({
@@ -77,10 +80,10 @@ showroommates(text)
     console.log(this.state.roommates[0])
     return (
       <View>
-        <Button text="Logout" onPress={this.onPressLogout} show={true} logout={true}></Button>
+        <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
         <Text>In your WG are the following people:</Text>
         <ListView dataSource={this.state.roommates} renderRow={this.renderRoommate.bind(this)}/>
-
+        <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>
     );
   }

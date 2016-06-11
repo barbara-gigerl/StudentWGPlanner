@@ -21,6 +21,11 @@ export default class CreateWG extends Component {
     super(props);
 
     this.onPressLogout = this.onPressLogout.bind(this);
+    this.onPressBack = this.onPressBack.bind(this);
+
+  }
+  onPressBack() {
+    this.props.navigator.push({name: "Home"});
   }
 
   onPressLogout() {
@@ -32,9 +37,9 @@ export default class CreateWG extends Component {
   {
     return (
       <View>
-        <Button text="Logout" onPress={this.onPressLogout} show={true} logout={true}></Button>
+        <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
         <Text>Todo implement Create WG</Text>
-
+        <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>
     );
   }
