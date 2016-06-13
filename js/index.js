@@ -5,6 +5,7 @@ import React, {
   Navigator,
   TextInput,
   View,
+  Image,
   TouchableHighlight
 } from 'react-native';
 
@@ -52,12 +53,14 @@ export default class StudentWGPlanner extends Component {
 
   render() {
     return (
-      <View style={styles.view}>
+      <Image source={require('../assets/login_bg.jpg')}  style={styles.backgroundImage}>
+        <View style={styles.view}>
         <Navigator initialRoute={{
           name: 'Login'
         }} renderScene={this.renderScene.bind(this)}></Navigator>
 
-      </View>
+        </View>
+      </Image>
     );
   }
 }

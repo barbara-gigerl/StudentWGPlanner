@@ -94,6 +94,7 @@ export default class Home extends Component {
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
+        <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Home</Text></View>
         <Text style={styles.textMenuHeader}>{text1}</Text>
         <Text style={styles.textMenuHeader}>{text2}</Text>
         <Button text="Create WG" onPress={this.onPressCreateWG} show={!inWG} type="menu"></Button>

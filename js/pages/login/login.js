@@ -5,6 +5,7 @@ import React, {
   Text,
   TextInput,
   View,
+  Image,
   TouchableHighlight
 } from 'react-native';
 
@@ -105,23 +106,26 @@ export default class Login extends Component {
     console.log("going to register view...");
     this.props.navigator.push({name: "Register"});
   }
-
+  //<Image source={require('../../../assets/login_bg.jpg')}  style={styles.backgroundImage} />
   render()
   {
     return (
-      <View>
-        <Text style={styles.inputlabel}>
-          Username:
-        </Text>
-        <TextInput ref="username" onChangeText={(text) => this.setUsername(text)} style={styles.basic}/>
-        <Text style={styles.inputlabel}>
-          Password:
-        </Text>
-        <TextInput ref="password" onChangeText={(text) => this.setPassword(text)} secureTextEntry={true} style={styles.basic}/>
-        <Text style={styles.errormessage}>{this.state.errormessage}</Text>
-        <Button text="Login" onPress={this.onPressLogin} show={true}></Button>
-        <Button text="Register" onPress={this.onPressRegister} show={true}></Button>
-      </View>
+
+
+        <View>
+          <Text style={styles.inputlabel}>
+            Username:
+          </Text>
+          <TextInput ref="username" onChangeText={(text) => this.setUsername(text)} style={styles.basic}/>
+          <Text style={styles.inputlabel}>
+            Password:
+          </Text>
+          <TextInput ref="password" onChangeText={(text) => this.setPassword(text)} secureTextEntry={true} style={styles.basic}/>
+          <Text style={styles.errormessage}>{this.state.errormessage}</Text>
+          <Button text="Login" onPress={this.onPressLogin} show={true}></Button>
+          <Button text="Register" onPress={this.onPressRegister} show={true}></Button>
+        </View>
+
     );
   }
 }
