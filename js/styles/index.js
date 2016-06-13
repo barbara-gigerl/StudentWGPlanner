@@ -25,13 +25,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#b3daff',
     padding: 5,
-    //fontSize: 20,
     marginBottom: 10,
     marginTop: 10,
     marginLeft: 75,
     marginRight: 75,
     borderStyle: "solid",
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#0069cc',
     borderRadius: 10
   },
@@ -55,6 +54,15 @@ export default StyleSheet.create({
     marginLeft: 10,
     flex: 1
   },
+  textMenuHeader: {
+    fontSize: 15,
+    margin: 15,
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  textButtonMenu: {
+    fontSize: 20
+  },
   buttonLogout: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -64,6 +72,30 @@ export default StyleSheet.create({
     borderColor: '#0069cc',
     borderWidth: 1,
     borderRadius: 10
-
+  },
+  buttonBack: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#b3daff',
+    padding: 5,
+    marginBottom: 10,
+    marginTop: 10,
+    marginLeft: 75,
+    marginRight: 75,
+    borderWidth: 2,
+    borderColor: '#0069cc',
+    borderRadius: 10
+  },
+  buttonMenu: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#0069cc',
+    borderRadius: 4,
+    padding: 10,
+    marginVertical: 10,
+    marginHorizontal: 15
   }
 });

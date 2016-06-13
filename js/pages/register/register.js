@@ -24,6 +24,8 @@ export default class Register extends Component {
       password2: 'jan',
       email: 'jan'
     };
+
+    this.onPressBack = this.onPressBack.bind(this);
   }
 
   onChange(text, key) {
@@ -31,7 +33,9 @@ export default class Register extends Component {
     newState[key] = text;
     this.setState(newState);
   }
-
+  onPressBack() {
+    this.props.navigator.push({name: "Login"});
+  }
   onSubmit() {
     if (this.state.password !== this.state.password2) {
       alert("Passwords not equal");
@@ -90,7 +94,7 @@ export default class Register extends Component {
           onChangeText={(text) => this.onChange(text, 'email')}></TextInput>
 
         <Button text="Register" onPress={this.onSubmit.bind(this)} show={true}></Button>
-
+        <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>
     );
   }
