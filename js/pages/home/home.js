@@ -84,7 +84,7 @@ export default class Home extends Component {
     let text2 = "You are member of the WG: ";
     text2 = text2.concat(GLOBAL.WGID.toString());
     let inWG = true;
-    if(GLOBAL.WGID !== '')
+    if(GLOBAL.WGID === '')
     {
       text1 = "You are not member of a WG!"
       text2 = "Please create a new WG or search one to join!"

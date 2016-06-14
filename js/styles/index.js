@@ -110,7 +110,7 @@ export default StyleSheet.create({
     padding: 2,
     backgroundColor: '#0096C8',
     borderColor: 'black',
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 4
   },
   buttonBack: {
