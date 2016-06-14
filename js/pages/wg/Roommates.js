@@ -12,6 +12,7 @@ import React, {
 
 import axios from 'axios';
 import Button from "../../components/Button.js";
+import styles from "../../styles/index";
 
 GLOBAL = require('../../auth');
 
@@ -81,7 +82,8 @@ showroommates(text)
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
-        <Text>In your WG are the following people:</Text>
+        <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Roommates</Text></View>
+        <Text style={styles.textMenuHeader}>In your WG are the following people:</Text>
         <ListView dataSource={this.state.roommates} renderRow={this.renderRoommate.bind(this)}/>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>

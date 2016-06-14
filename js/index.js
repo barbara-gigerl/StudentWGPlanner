@@ -50,17 +50,17 @@ export default class StudentWGPlanner extends Component {
         return <Roommates navigator={navigator}/>;
     }
   }
-
+//<Image source={require('../assets/login_bg.jpg')}  style={styles.backgroundImage}></Image>
+//<Image source={require('../assets/darkgrey.png')}  style={styles.backgroundImage}>
   render() {
     return (
-      <Image source={require('../assets/login_bg.jpg')}  style={styles.backgroundImage}>
+        <Image source={require('../assets/darkgrey.png')}  style={styles.backgroundImage}>
         <View style={styles.view}>
         <Navigator initialRoute={{
           name: 'Login'
         }} renderScene={this.renderScene.bind(this)}></Navigator>
 
-        </View>
-      </Image>
+        </View></Image>
     );
   }
 }

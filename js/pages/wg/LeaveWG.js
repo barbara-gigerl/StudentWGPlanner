@@ -36,6 +36,8 @@ export default class LeaveWG extends Component {
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
+        <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Leave WG</Text></View>
+        <Text style={styles.textMenuHeader}>You left the WG:</Text>
         <Text>Todo implement Leave WG</Text>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>

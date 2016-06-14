@@ -23,7 +23,7 @@ export default class Home extends Component {
     this.onPressSearchWG = this.onPressSearchWG.bind(this);
     this.onPressShoppingList = this.onPressShoppingList.bind(this);
     this.onPressShowRoommates = this.onPressShowRoommates.bind(this);
-    this.onPressLeaveWG = this.onPressSearchWG.bind(this);
+    this.onPressLeaveWG = this.onPressLeaveWG.bind(this);
     this.onPressLogout = this.onPressLogout.bind(this);
     this.onPressJoinWG = this.onPressJoinWG.bind(this);
 
@@ -84,7 +84,7 @@ export default class Home extends Component {
     let text2 = "You are member of the WG: ";
     text2 = text2.concat(GLOBAL.WGID.toString());
     let inWG = true;
-    if(GLOBAL.WGID === '')
+    if(GLOBAL.WGID !== '')
     {
       text1 = "You are not member of a WG!"
       text2 = "Please create a new WG or search one to join!"
@@ -103,7 +103,6 @@ export default class Home extends Component {
         <Button text="Shopping list" onPress={this.onPressShoppingList} show={inWG} type="menu"></Button>
         <Button text="Show roommates" onPress={this.onPressShowRoommates} show={inWG} type="menu"></Button>
         <Button text="Leave WG" onPress={this.onPressLeaveWG} show={inWG} type="menu"></Button>
-
       </View>
     );
   }

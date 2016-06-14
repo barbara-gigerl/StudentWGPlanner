@@ -15,14 +15,15 @@ export default class Button extends Component {
     }
 
     let style = styles.button;
-    let textstyle = styles.buttonText;
+    let textstyle = styles.textButton;
 
     if (this.props.type === "logout") {
       style = styles.buttonLogout;
+      textstyle = styles.textLogout;
     }
-    else if (this.props.type === "back") {
-      style = styles.buttonBack;
-    }
+    //else if (this.props.type === "back") {
+    //  style = styles.buttonBack;
+    //}
     else if (this.props.type === "menu") {
       style = styles.buttonMenu;
       textstyle = styles.textButtonMenu;

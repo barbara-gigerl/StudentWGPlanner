@@ -38,6 +38,8 @@ export default class CreateWG extends Component {
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
+        <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Create WG</Text></View>
+        <Text style={styles.textMenuHeader}>Create a new WG</Text>
         <Text>Todo implement Create WG</Text>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>

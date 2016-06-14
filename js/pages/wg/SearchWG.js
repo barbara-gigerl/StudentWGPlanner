@@ -142,8 +142,9 @@ export default class SearchWG extends Component {
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
-
-        <TextInput onChangeText={(text) => this.textchangehandler(text)} value={this.state.searchterm}></TextInput>
+        <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Search WG</Text></View>
+        <Text style={styles.textMenuHeader}>Search the WG you want to join</Text>
+        <TextInput onChangeText={(text) => this.textchangehandler(text)} value={this.state.searchterm} style={styles.basic}></TextInput>
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
         <ListView dataSource={this.state.wgs} renderRow={this.renderWg.bind(this)}/>
         <Button text="Join WG" onPress={this.onJoinWG} show={this.state.joinbutton}/>

@@ -33,11 +33,15 @@ export default class ShoppingList extends Component {
     this.props.navigator.push({name: "Login"});
   }
 
+
+
   render()
   {
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
+        <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Shopping List</Text></View>
+        <Text style={styles.textMenuHeader}></Text>
         <Text>Todo implement Shopping List</Text>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>

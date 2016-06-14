@@ -18,21 +18,30 @@ export default StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 30,
+    color:'#CCCCCC'
+    //fontWeight: 'bold'
+  },
+  inputLabelSmall: {
+    fontSize: 15,
+    textAlign: 'left',
+    marginTop: 10,
+    marginLeft: 30,
+    color:'#CCCCCC'
     //fontWeight: 'bold'
   },
   button: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#b3daff',
+    //backgroundColor: '#b3daff',
     padding: 5,
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 15,
     marginLeft: 75,
     marginRight: 75,
     borderStyle: "solid",
     borderWidth: 2,
-    borderColor: '#0069cc',
+    borderColor: 'black',
     borderRadius: 10
   },
   instructions: {
@@ -44,7 +53,8 @@ export default StyleSheet.create({
   },
   basic: {
     height: 40,
-    borderColor: 'black',
+    //borderBottomWidth: 2,
+    color: '#0096C8',
     marginLeft: 30,
     marginRight: 30
   },
@@ -59,24 +69,38 @@ export default StyleSheet.create({
     fontSize: 15,
     margin: 15,
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color:'#CCCCCC'
   },
   textButtonMenu: {
-    fontSize: 20
+    fontSize: 20,
+    color: '#0096C8'
+  },
+  textButton: {
+    fontSize: 15,
+    color: '#0096C8'
+  },
+  textLogout: {
+    fontSize: 15,
+    color: '#CCCCCC'
   },
   viewNavigation: {
     margin: 15,
     marginTop: 30,
-    borderWidth: 2,
-    borderColor: '#0069cc',
-    borderRadius: 4
+    //borderWidth: 2,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    //borderTopColor: '#0069cc'
+    borderColor: '#0096C8'
+    //borderRadius: 4
   },
   textNavigation: {
     margin: 5,
     textAlign: 'center',
     fontSize: 25,
     fontWeight: 'bold',
-    color: '#0069cc'
+    color: '#CCCCCC'
+    //color: '#0069cc'
   },
   buttonLogout: {
     justifyContent: 'center',
@@ -84,8 +108,8 @@ export default StyleSheet.create({
     marginRight: 15,
     marginLeft: 250,
     padding: 2,
-    backgroundColor: '#b3daff',
-    borderColor: '#0069cc',
+    backgroundColor: '#0096C8',
+    borderColor: 'black',
     borderWidth: 1,
     borderRadius: 4
   },
@@ -93,25 +117,29 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#b3daff',
+    //backgroundColor: '#0096C8',
     padding: 5,
     marginBottom: 10,
     marginTop: 10,
     marginLeft: 75,
     marginRight: 75,
     borderWidth: 2,
-    borderColor: '#0069cc',
+    borderColor: 'black',
     borderRadius: 10
   },
   buttonMenu: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+
     borderWidth: 2,
-    borderColor: '#0069cc',
-    borderRadius: 4,
-    backgroundColor: '#CCCCCC',
-    padding: 10,
+    borderColor: 'black',
+    //borderTopWidth: 2,
+    //borderBottomWidth: 2,
+    borderRadius: 6,
+    //backgroundColor: '#DDDDDD',
+    //backgroundColor: '#0096C8',
+    padding: 7,
     marginVertical: 10,
     marginHorizontal: 15
   },
