@@ -57,6 +57,11 @@ export default class Register extends Component {
         if (response.error) {
           alert(response.error);
         } else {
+          GLOBAL.USER = {
+            id: response.objectId,
+            username: response.username,
+            email: response.email
+          };
           GLOBAL.USERID = response.objectId;
           this.props.navigator.push({
              name:"Home"
