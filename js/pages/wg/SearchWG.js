@@ -54,7 +54,7 @@ export default class SearchWG extends Component {
   textchangehandler(text)
   {
     this.setState({searchterm: text})
-    axios.get(config.PARSE_SERVER_URL, {
+    axios.get(config.PARSE_SERVER_URL + 'classes/wgs', {
       headers: config.PARSE_SERVER_HEADERS,
       params: {
         "where": {

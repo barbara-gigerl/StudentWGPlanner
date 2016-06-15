@@ -88,7 +88,11 @@ export default class Login extends Component {
                 }
       })
       .then((response) => {
-
+          GLOBAL.USER = {
+            id: response.data.objectId,
+            username: response.data.username,
+            email: response.data.email
+          };
           GLOBAL.USERID = response.data.objectId;
           this.props.navigator.push({
              name: "Home"});
@@ -116,7 +120,7 @@ export default class Login extends Component {
           <Text style={styles.inputlabel}>
             Username:
           </Text>
-          <TextInput ref="username" onChangeText={(text) => this.setUsername(text)} style={styles.basic}/>
+          <TextInput ref="username" autoCapitalize="none" autoCorrect={false} onChangeText={(text) => this.setUsername(text)} style={styles.basic}/>
           <Text style={styles.inputlabel}>
             Password:
           </Text>
