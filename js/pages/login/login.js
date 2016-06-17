@@ -20,6 +20,7 @@ import axios from 'axios';
 import * as dummy from './dummy.js';
 
 const API_URL = 'http://localhost:1337/parse/';
+
 const HEADERS = {
   'X-Parse-Application-Id': 'StudentWGPlanner',
   'X-Parse-Master-Key': 'asdf'
@@ -48,7 +49,6 @@ export default class Login extends Component {
   }
 
   setUsername(name) {
-    console.log("setting username" + name);
     this.setState({username: name})
   }
 
@@ -73,6 +73,7 @@ export default class Login extends Component {
 
   onPressLogin()
   {
+    console.log("PRESS LOGIN")
     this.state.errormessage = '';
 
     /*if (this.state.username === '' || this.state.password === '') {

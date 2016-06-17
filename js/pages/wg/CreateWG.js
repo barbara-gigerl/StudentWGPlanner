@@ -40,6 +40,7 @@ export default class CreateWG extends Component {
 
   onPressLogout() {
     GLOBAL.USERID = '';
+    GLOBAL.WGID = ''
     this.props.navigator.push({name: "Login"});
   }
 

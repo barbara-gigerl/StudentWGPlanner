@@ -36,7 +36,8 @@ export default {
 
 module.exports = {
   USERID: '',
-  WGID: ''
+  WGID: '',
+  SHOPPINGLISTID: ''
 };
 
 /*

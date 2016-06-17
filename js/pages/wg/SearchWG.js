@@ -48,6 +48,7 @@ export default class SearchWG extends Component {
 
   onPressLogout() {
     GLOBAL.USERID = ''
+    GLOBAL.WGID = ''
     this.props.navigator.push({name: "Login"});
   }
 

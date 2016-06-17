@@ -65,6 +65,7 @@ export default class Home extends Component {
 
   onPressLogout(){
     GLOBAL.USERID = ''
+    GLOBAL.WGID = ''
     this.props.navigator.push({
        name: "Login"
     });
