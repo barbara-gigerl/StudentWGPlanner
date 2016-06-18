@@ -148,5 +148,8 @@ export default StyleSheet.create({
    width: null,
    height: null
    //resizeMode: 'stretch'
+ },
+ highlightSelectedWG: {
+   color: 'red'
  }
 });

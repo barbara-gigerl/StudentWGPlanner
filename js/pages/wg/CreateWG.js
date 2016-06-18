@@ -73,6 +73,7 @@ export default class CreateWG extends Component {
           .then((response) => {
             console.log(response);
             GLOBAL.WGID = response.data.objectId;
+            GLOBAL.WGNAME = this.state.wgName;
             this.props.navigator.pop();
           })
           .catch((error) => {
