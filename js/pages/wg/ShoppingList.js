@@ -25,16 +25,20 @@ export default class ShoppingList extends Component {
   {
     super(props);
     this.state = {
-      elements: new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1.id !== r2.id
-      })
+      //listElements: new ListView.DataSource({
+      //  rowHasChanged: (r1, r2) => r1.id !== r2.id
+      //}),
+      listItem: ''
     };
-
     this.onPressLogout = this.onPressLogout.bind(this);
     this.onPressBack = this.onPressBack.bind(this);
+    this.onInsertData = this.onInsertData.bind(this);
     this.onPressNew = this.onPressNew.bind(this);
     this.handleNewList = this.handleNewList.bind(this);
     this.renderElements = this.renderElements.bind(this);
+    this.onNameChange = this.onNameChange.bind(this);
+
+    this.showShoppingLists();
   }
 
   onPressBack() {
@@ -51,8 +55,73 @@ export default class ShoppingList extends Component {
     this.props.navigator.push({name: "CreateShoppingList"});
   }
 
+  onInsertData()
+  {
+    console.log(this.state.listItem);
+    if (this.state.listItem !== '' && this.state.listItem) {
+      axios.post(config.PARSE_SERVER_URL + 'classes/shoppinglistitem', {
+          name: this.state.listItem,
+          state: 0,         //0: active, 1: to delete, 2: deleted
+          shoppinglistid: GLOBAL.SHOPPINGLISTID}, {
+          headers: config.PARSE_SERVER_HEADERS
+      })
+      .then((response) => {
+        console.log("response.data.results[0]");
+        //GLOBAL.SHOPPINGLISTID = response.data.objectId;
+        //var results = response.data.results[0];
+
+        var results = response.data.objectiId
+        console.log(">>------")
+        console.log(response.data);
+        console.log(">>------")
+        this.setState({
+          listElements: this.state.listElements.cloneWithRows([...results])
+        })
+
+        console.log(this.stat.listElements)
+        console.log(">>>>------")
+        //this.setState({ listItem: ''});
+      })
+      .catch((error) => {
+        this.setState({ errormessage: "Couldn't connect to server." })
+      })
+    }
+    else {
+      this.setState({ errormessage: 'Please enter a wg name.' })
+    }
+
+  }
+
   handleNewList(){
 
+  }
+
+  onNameChange(text) {
+    this.setState({ listItem: text });
+  }
+
+  showShoppingLists()
+  {
+    //this.setState({searchterm: text})
+    axios.get(config.PARSE_SERVER_URL + 'classes/shoppinglist', {
+      headers: config.PARSE_SERVER_HEADERS,
+      params: {
+        "where": {
+          "wgid": {
+            "$regex": GLOBAL.WGID
+          }
+        }
+      }
+    })
+      .then(function(response) {
+      var results = response.data.results;
+      this.setState({shoppingList: results[0].name});
+      console.log("sadds")
+      console.log(results[0].name)
+      console.log("-----")
+    }.bind(this)).catch((error) => {
+      console.log(error)
+    })
   }
 
 //TODO: need another datastructure for saving elements (searchwg)
@@ -65,11 +134,21 @@ export default class ShoppingList extends Component {
 
   render()
   {
+
+    console.log(GLOBAL.SHOPPINGLISTID)
     let haveShoppingList = true;
     if(GLOBAL.SHOPPINGLISTID === '')
       haveShoppingList = false;
+    //  <ListView dataSource={this.state.listElements} renderRow={this.renderElements} show={haveShoppingList}/>
+    //<TextInput value={this.state.listItem} style={styles.basic} show={haveShoppingList}></TextInput>
 
-
+//<TextInput onChangeText={this.onNameChange} value={this.state.name} style={styles.basic} />
+/*<ListView
+  dataSource={this.state.listElements}
+  renderRow={(rowData) => <Text>{rowData}</Text>}
+/>
+<ListView dataSource={this.state.listElements} renderRow={this.renderElements} show={haveShoppingList}/>
+*/
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
@@ -77,9 +156,17 @@ export default class ShoppingList extends Component {
         <Text style={styles.textMenuHeader}></Text>
         <Button text="Create a new Shoppinglist" show={!haveShoppingList} onPress={this.onPressNew}></Button>
 
-        <Button text="Insert Data" show={haveShoppingList} ></Button>
+        <Text style={styles.textMenuHeader}>{this.state.shoppingList}</Text>
+
+        <TextInput onChangeText={this.onNameChange} value={this.state.listItem} style={styles.basic}></TextInput>
+
+
+
+        <Button text="Insert Data"  onPress={this.onInsertData} show={haveShoppingList} ></Button>
+
+
+
         <Button text="Delete Data" show={haveShoppingList} ></Button>
-        <ListView dataSource={this.state.elements} renderRow={this.renderElements}/>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>
     );

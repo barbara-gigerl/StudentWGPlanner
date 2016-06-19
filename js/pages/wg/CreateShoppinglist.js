@@ -84,7 +84,7 @@ export default class CreateShoppingList extends Component {
         <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Shopping List</Text></View>
         <Text style={styles.textMenuHeader}></Text>
         <Text style={styles.textMenuHeader}>Create a new Shoppinglist</Text>
-        <TextInput onChangeText={this.onNameChange} value={this.state.name} style={styles.basic} />
+        <TextInput onChangeText={this.onNameChange} value={this.state.name} style={styles.basic} show={haveShoppingList}></TextInput>
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
         <Button text="Create" onPress={this.onCreateNew} show={true} type="back"></Button>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
