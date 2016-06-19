@@ -71,7 +71,8 @@ export default class SearchWG extends Component {
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results])
       })
-    }.bind(this)).catch((error) => {
+    }.bind(this))
+    .catch((error) => {
       console.log(error)
     })
 
