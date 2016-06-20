@@ -101,10 +101,17 @@ export default class SearchWG extends Component {
         console.log(response);
 
         if (response.data.results.length === 1)
-
+        {
           this.insertDatabase(response.data.results[0]);
+        }
+        else
+        {
+          this.setState({errormessage: "Couldn't find wg"});
+        }
+
         })
       .catch((error) => {
+
         console.log(error);
         this.setState({errormessage: "Couldn't connect to server."});
       });

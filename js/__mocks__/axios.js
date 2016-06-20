@@ -2,6 +2,7 @@ jest.unmock('../pages/login/login'); // unmock to use the actual implementation 
 jest.unmock('../pages/wg/SearchWG');
 
 import Login from '../pages/login/login';
+import JoinWg from '../pages/wg/SearchWG';
 
 let urls = [
   "http://10.0.2.2:1337/parse/login/",
@@ -52,10 +53,37 @@ function mock_login(data)
     }})
   else
     return Promise.reject({"data" : {"code":201,"error":"Invalid username/password."}})
-
-
-
 }
+
+function mock_joinweg(data)
+{
+  if(data.params.searchterm === '')
+    return Promise.reject({ "data" : {"code":200,errormessage: "Couldn't find wg"}})
+  if(data.params.name === "newElement" &&
+     data.params.shoppinglistid === "CorrectID")
+    return Promise.resolve({"data" : {
+
+        "ACL": {
+          "*": {
+            "read": true
+          },
+          "ji90Rxs0EB": {
+            "read": true,
+            "write": true
+          }
+        },
+        "name": "newElement",
+        "state": "0",
+        "shoppinglistid": "CorrectID",
+        "updatedAt": "2016-06-08T11:25:26.046Z",
+        "createdAt": "2016-06-08T11:25:26.046Z",
+        "objectId": "ji90Rxs0EB",
+        "sessionToken": "r:1a587e298b9b69b5b2b2ba47a12e9a67"
+    }})
+  else
+    return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
+}
+
 
 module.exports = {
   get: function(url,data){
