@@ -62,6 +62,7 @@ describe('ShoppingList test', () => {
     expect(output.props.children[6].props.show).toBe(true);
   });
 
+
   it('display correct and complete GUI - shopping list exists', () => {
     const states = {
       listElements: new ListView.DataSource({
@@ -76,7 +77,6 @@ describe('ShoppingList test', () => {
     list_test = renderScreen({}, states);
     var {output} = list_test;
 
-/*
     expect(output.props.children[0].type.name).toBe('Button');
     expect(output.props.children[0].props.type).toBe('logout');
 
@@ -100,7 +100,7 @@ describe('ShoppingList test', () => {
 
     expect(output.props.children[6].type.name).toBe('Button');
     expect(output.props.children[6].props.text).toBe('Back');
-    expect(output.props.children[6].props.show).toBe(true);*/
+    expect(output.props.children[6].props.show).toBe(true);
   });
 
 });
