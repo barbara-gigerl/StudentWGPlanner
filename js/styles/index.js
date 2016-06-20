@@ -149,7 +149,8 @@ export default StyleSheet.create({
    height: null
    //resizeMode: 'stretch'
  },
- highlightSelectedWG: {
-   color: 'red'
+ listViewItem: {
+   fontSize: 17,
+   color: '#CCCCCC'
  }
 });

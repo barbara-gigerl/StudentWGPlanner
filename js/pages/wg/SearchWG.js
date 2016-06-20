@@ -8,6 +8,7 @@ import React, {
   TextInput,
   View,
   TouchableHighlight,
+  TouchableOpacity,
   ListView
 } from 'react-native';
 
@@ -32,6 +33,7 @@ export default class SearchWG extends Component {
       wgs: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1.id !== r2.id
       }),
+      //selectedwg: '',
       joinbutton: '',
       errormessage: ''
     }
@@ -40,7 +42,7 @@ export default class SearchWG extends Component {
     this.onPressBack = this.onPressBack.bind(this);
     this.onJoinWG = this.onJoinWG.bind(this);
     this.insertDatabase = this.insertDatabase.bind(this);
-    this.textchangehandler = this.textchangehandler.bind(this)
+    this.textchangehandler = this.textchangehandler.bind(this);
   }
   onPressBack() {
     this.props.navigator.push({name: "Home"});
@@ -50,6 +52,8 @@ export default class SearchWG extends Component {
     GLOBAL.USERID = ''
     this.props.navigator.push({name: "Login"});
   }
+
+
 
   textchangehandler(text)
   {
@@ -86,18 +90,21 @@ export default class SearchWG extends Component {
   onJoinWG()
   {
     if (this.state.searchterm !== "") {
-      axios.get(config.PARSE_SERVER_URL, {
+      axios.get(config.PARSE_SERVER_URL + "classes/wgs", {
         headers: config.PARSE_SERVER_HEADERS,
         params: {
           "where": {
             "name": this.state.searchterm
           }
         }
-      }).then(function(response) {
+      }).then((response) => {
+        console.log(response);
+
         if (response.data.results.length === 1)
           this.insertDatabase(response.data.results[0]);
-        }
-      .bind(this)).catch(function(error) {
+        })
+      .catch((error) => {
+        console.log(error);
         this.setState({errormessage: "Couldn't connect to server."});
       });
     } else {
@@ -113,9 +120,12 @@ export default class SearchWG extends Component {
         return true;
       }
     }
-    resultObject.users.push(GLOBAL.USERID);
 
-    axios.put(config.PARSE_SERVER_URL + resultObject.objectId, {
+    resultObject.users.push({
+    "id": GLOBAL.USER.id,
+    "username":GLOBAL.USER.username,
+    "email":GLOBAL.USER.email});
+    axios.put(config.PARSE_SERVER_URL + "classes/wgs/" + resultObject.objectId, {
       'users': resultObject.users
     }, {
       headers: config.PARSE_SERVER_HEADERS
@@ -128,16 +138,33 @@ export default class SearchWG extends Component {
 
   }
 
+
   renderWg(wg)
   {
+
+     return <Text>{wg.name}</Text>
+    /*console.log("2:" + this.state.selectedwg);
+    if(wg.name === this.state.selectedwg)
+    {
+      console.log("infiffkl");
+      return (<TouchableOpacity>
+      <Text style={{color: 'red'}}>{wg.name}</Text>
+      </TouchableOpacity>)
+    }
+    else{
     return (
+      <TouchableOpacity onPress={() => this.setState({selectedwg: wg.name})} >
       <Text>{wg.name}</Text>
-    )
+      </TouchableOpacity>
+    )*/
   }
+    /*return (
+      <Text>{wg.name}</Text>
+    )*/
+
 
   render()
   {
-    console.log(this.state.searchterm);
 
     return (
       <View>

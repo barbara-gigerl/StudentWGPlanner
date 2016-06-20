@@ -95,15 +95,21 @@ export default class Login extends Component {
           };
           GLOBAL.USERID = response.data.objectId;
 
+          console.log("id: " + GLOBAL.USER.id + " name: " +
+        GLOBAL.USER.username + " email: " + GLOBAL.USER.email)
+
+
           axios.get(config.PARSE_SERVER_URL + "classes/wgs/", {
-              headers: config.PARSE_SERVER_HEADERS},
-              {params:
+              headers: config.PARSE_SERVER_HEADERS,
+              params:
               {
-              "where":{"users":{"$all": [{"id": GLOBAL.USER.id,
-              "name":GLOBAL.USER.name,
+              "where":{"users":{"$all": [{
+              "id": GLOBAL.USER.id,
+              "username":GLOBAL.USER.username,
               "email":GLOBAL.USER.email}]}}
             }})
               .then((response) => {
+                console.log(response);
                 if(response.data.results.length == 1 )
                 {
                   GLOBAL.WGID = response.data.results[0].objectId;
