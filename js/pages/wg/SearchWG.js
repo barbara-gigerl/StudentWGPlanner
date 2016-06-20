@@ -34,7 +34,7 @@ export default class SearchWG extends Component {
         rowHasChanged: (r1, r2) => r1.id !== r2.id
       }),
       //selectedwg: '',
-      joinbutton: '',
+      joinbutton: false,
       errormessage: ''
     }
 
@@ -50,9 +50,9 @@ export default class SearchWG extends Component {
 
   onPressLogout() {
     GLOBAL.USERID = ''
+    GLOBAL.WGID = ''
     this.props.navigator.push({name: "Login"});
   }
-
 
 
   textchangehandler(text)
@@ -74,15 +74,16 @@ export default class SearchWG extends Component {
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results])
       })
-    }.bind(this)).catch((error) => {
+    }.bind(this))
+    .catch((error) => {
       console.log(error)
     })
 
     //TODO: need to change this if searchWG is finally working
     if (this.state.searchterm !== "") {
-      this.setState({joinbutton: "Join this WG"});
+      this.setState({joinbutton: true});
     } else {
-      this.setState({joinbutton: ""});
+      this.setState({joinbutton: false});
     }
 
   }
@@ -139,7 +140,8 @@ export default class SearchWG extends Component {
       headers: config.PARSE_SERVER_HEADERS
     }).then(response => {
       console.log(response)
-      GLOBAL.WGID = resultObject.objectId
+      GLOBAL.WGID = resultObject.objectId;
+      GLOBAL.WGNAME = resultObject.name;
       this.props.navigator.push({
          name: "Home"});
     }).catch(function(error) {
@@ -180,7 +182,9 @@ export default class SearchWG extends Component {
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
-        <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Search WG</Text></View>
+        <View style={styles.viewNavigation}>
+          <Text style={styles.textNavigation}>Search WG</Text>
+        </View>
         <Text style={styles.textMenuHeader}>Search the WG you want to join</Text>
         <TextInput onChangeText={(text) => this.textchangehandler(text)} value={this.state.searchterm} style={styles.basic}></TextInput>
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>

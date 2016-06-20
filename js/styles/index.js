@@ -152,5 +152,14 @@ export default StyleSheet.create({
  listViewItem: {
    fontSize: 17,
    color: '#CCCCCC'
+ },
+ contentContainer: {
+   paddingVertical: 20
+ },
+ normal:{
+   color: '#DDDDDD'
+ },
+ tobedeleted: {
+   color: '#FFFFFF'
  }
 });

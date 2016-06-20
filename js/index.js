@@ -17,6 +17,7 @@ import CreateWG from './pages/wg/CreateWG';
 import LeaveWG from './pages/wg/LeaveWG';
 import SearchWG from './pages/wg/SearchWG';
 import ShoppingList from './pages/wg/ShoppingList';
+import CreateShoppingList from './pages/wg/CreateShoppinglist';
 import Roommates from './pages/wg/Roommates';
 
 export default class StudentWGPlanner extends Component {
@@ -46,6 +47,8 @@ export default class StudentWGPlanner extends Component {
         return <SearchWG navigator={navigator}/>;
       case "ShoppingList":
         return <ShoppingList navigator={navigator}/>;
+      case "CreateShoppingList":
+        return <CreateShoppingList navigator={navigator}/>;
       case "Roommates":
         return <Roommates navigator={navigator}/>;
     }
