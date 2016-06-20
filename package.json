@@ -7,7 +7,7 @@
     "import-data": "babel-node ./scripts/import-data-from-parse.js",
     "update-schema": "babel-node ./server/schema/updateSchema.js",
     "test-win": "jest",
-    "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest --verbose",
+    "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest --watch",
     "lint": "eslint ."
   },
   "dependencies": {

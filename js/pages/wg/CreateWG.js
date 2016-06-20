@@ -94,13 +94,20 @@ export default class CreateWG extends Component {
   {
     return (
       <View>
-        <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
-        <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Create WG</Text></View>
+        <Button text="Logout" onPress={this.onPressLogout}
+          show={true} type="logout" />
+        <View style={styles.viewNavigation}>
+          <Text style={styles.textNavigation}>Create WG</Text>
+        </View>
         <Text style={styles.textMenuHeader}>Create a new WG</Text>
-        <TextInput onChangeText={this.onWgTextChange} value={this.state.wgName} style={styles.basic} />
+        <TextInput onChangeText={this.onWgTextChange}
+          value={this.state.wgName} style={styles.basic} />
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
-        <Button text="Create" onPress={this.onCreateWg} show={true} type="back"></Button>
-        <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
+
+        <Button text="Create" onPress={this.onCreateWg}
+          show={true} type="back" />
+        <Button text="Back" onPress={this.onPressBack}
+          show={true} type="back" />
       </View>
     );
   }
