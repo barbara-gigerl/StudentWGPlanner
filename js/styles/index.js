@@ -152,11 +152,16 @@ export default StyleSheet.create({
  contentContainer: {
    paddingVertical: 20
  },
- normal:{
-   color: '#DDDDDD'
+ listnormal:{
+   marginLeft: 75,
+   color: '#CCCCCC'
  },
- tobedeleted: {
-   color: '#FFFFFF'
+ listtobedeleted: {
+   marginLeft: 75,
+   color: 'red',
+   textDecorationLine: 'underline',
+   textDecorationColor: 'black',
+   textDecorationStyle: 'solid'
  },
  listViewItem: {
    fontSize: 17,

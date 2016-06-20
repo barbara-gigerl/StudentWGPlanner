@@ -9,7 +9,11 @@ import CreateShoppinglist from "../pages/wg/CreateShoppinglist";
 
 let urls = [
   "http://10.0.2.2:1337/parse/login/",
+<<<<<<< HEAD
   "http://10.0.2.2:1337/parse/classes/wgs/"
+=======
+  "http://10.0.2.2:1337/parse/classes/wgs/",
+>>>>>>> a14d00ca0c8b02421bad0452a8628a0a4b84e6ea
   "http://10.0.2.2:1337/parse/classes/shoppinglist",
   "http://10.0.2.2:1337/parse/classes/shoppinglistitem"
 ]
