@@ -101,6 +101,7 @@ export default class SearchWG extends Component {
         console.log(response);
 
         if (response.data.results.length === 1)
+
           this.insertDatabase(response.data.results[0]);
         })
       .catch((error) => {
@@ -115,7 +116,7 @@ export default class SearchWG extends Component {
   insertDatabase(resultObject)
   {
     for (var i = 0; i < resultObject.users.length; i++) {
-      if (resultObject.users[i] === GLOBAL.USERID) {
+      if (resultObject.users[i].id === GLOBAL.USERID) {
         this.setState({errormessage: 'You are already a member of this WG.'});
         return true;
       }
@@ -131,6 +132,9 @@ export default class SearchWG extends Component {
       headers: config.PARSE_SERVER_HEADERS
     }).then(response => {
       console.log(response)
+      GLOBAL.WGID = resultObject.objectId
+      this.props.navigator.push({
+         name: "Home"});
     }).catch(function(error) {
       this.setState({errormessage: "Couldn't connect to server."});
       console.log(error);
