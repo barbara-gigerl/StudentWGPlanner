@@ -71,10 +71,11 @@ export default class ShoppingList extends Component {
         this.setState({
           listItem: ''
         })
-
+        return Promise.resolve(true);
       })
       .catch((error) => {
         console.log(error)
+        return Promise.resolve(false);
       })
     }
     else {
@@ -103,10 +104,12 @@ export default class ShoppingList extends Component {
       this.setState({
         listElements: this.state.listElements.cloneWithRows([...results])
       })
+      return Promise.resolve(true);
 
     }.bind(this))
     .catch((error) => {
       console.log(error)
+      return Promise.resolve(false);
     })
   }
 
@@ -126,7 +129,6 @@ export default class ShoppingList extends Component {
 
   onPressElement(element)
   {
-
     var elementstate = element.state;
     if(elementstate === 0){
       elementstate = 1;
@@ -134,7 +136,6 @@ export default class ShoppingList extends Component {
     else {
       elementstate = 0;
     }
-    console.log(elementstate);
 
     axios.put(config.PARSE_SERVER_URL + "classes/shoppinglistitem/" + element.objectId, {
       'state': elementstate
@@ -142,8 +143,10 @@ export default class ShoppingList extends Component {
       headers: config.PARSE_SERVER_HEADERS
     }).then(response => {
       console.log(response)
+      return Promise.resolve(true);
     }).catch(function(error) {
       console.log(error);
+      return Promise.resolve(false);
     });
 
     this.showShoppingLists();
@@ -165,9 +168,11 @@ export default class ShoppingList extends Component {
       var results = response.data.results;
       console.log(results);
       this.deleteNow(results);
+      return Promise.resolve(true);
     }.bind(this))
     .catch((error) => {
-      console.log(error)
+      console.log(error);
+      return Promise.resolve(false);
     })
   }
 
@@ -183,11 +188,11 @@ export default class ShoppingList extends Component {
       .then((response) => {
         console.log(ok);
         this.showShoppingLists();
-        //return Promise.resolve(true);
+        return Promise.resolve(true);
       })
       .catch((error) => {
         console.log(error);
-        //return Promise.resolve(false);
+        return Promise.resolve(false);
       })
     }
 
@@ -207,14 +212,11 @@ export default class ShoppingList extends Component {
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
         <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Shopping List</Text></View>
-        <Text style={styles.textMenuHeader}></Text>
         <Button text="Create a new Shoppinglist" show={!haveShoppingList} onPress={this.onPressNew}></Button>
-
-        <Text style={styles.textMenuHeader}>{this.state.shoppingList}</Text>
 
         <TextInput onChangeText={(text) => this.onNameChange(text)} value={this.state.listItem} style={styles.basic}></TextInput>
 
-        <ListView dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
+        <ListView show={haveShoppingList} dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
 
         <Button text="Insert Data" onPress={this.onInsertData} show={haveShoppingList} ></Button>
         <Button text="Delete Selected Items" onPress={this.onDeleteData} show={haveShoppingList} ></Button>
