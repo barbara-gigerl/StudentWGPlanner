@@ -4,7 +4,7 @@ jest.unmock('../pages/wg/SearchWG');
 import Login from '../pages/login/login';
 
 let urls = [
-  "http://10.0.2.2:1337/parse/login/",
+  "http://10.0.3.2:1337/parse/login/",
 ]
 
 function mock_login(data)

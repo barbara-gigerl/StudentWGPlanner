@@ -41,10 +41,10 @@ describe('JoinWG test', () => {
     expect(output.type.name).toBe("View");
 
     //this is how you check the correct Logout button
-    expect(output.props.children[0].type.name).toBe('TouchableHighlight');
-    expect(output.props.children[0].props.class).toBe('Logout');
-    expect(output.props.children[0].props.children.type.name).toBe('Text');
-    expect(output.props.children[0].props.children.props.children).toBe('Logout');
+    expect(output.props.children[0].type.name).toBe('Button');
+    expect(output.props.children[0].props.type).toBe('logout');
+    //expect(output.props.children[0].props.children.type.name).toBe('Text');
+    //expect(output.props.children[0].props.children.props.children).toBe('Logout');
 
     expect(output.props.children[1].type.name).toBe('TextInput');
     expect(output.props.children[1].props.value).toBe('');
@@ -55,7 +55,7 @@ describe('JoinWG test', () => {
     expect(output.props.children[3].type.name).toBe('ListView');
     expect(output.props.children[3].props.dataSource).toBe(states.wgs);
 
-    expect(output.props.children[4].type.name).toBe('TouchableHighlight');
+    expect(output.props.children[4].type.name).toBe('Button');
     expect(output.props.children[4].props.children.type.name).toBe('Text');
     expect(output.props.children[4].props.children.props.children).toBe('');
   });
