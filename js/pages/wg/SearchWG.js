@@ -52,6 +52,11 @@ export default class SearchWG extends Component {
     this.props.navigator.push({name: "Login"});
   }
 
+
+// TODO:___________________________________________________________________________________
+// TODO: PARSE_SERVER_URL maybe isn't the right url
+
+
   textchangehandler(text)
   {
     this.setState({searchterm: text})

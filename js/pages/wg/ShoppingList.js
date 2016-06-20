@@ -27,7 +27,7 @@ export default class ShoppingList extends Component {
     super(props);
     this.state = {
       listElements: new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1.id !== r2.id
+        rowHasChanged: (r1, r2) => r1 !== r2
       }),
       listItem: '',
       errormessage: ''
@@ -37,8 +37,11 @@ export default class ShoppingList extends Component {
     this.onInsertData = this.onInsertData.bind(this);
     this.onPressNew = this.onPressNew.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
+    this.showShoppingLists = this.showShoppingLists.bind(this);
 
-    this.showShoppingLists();
+    this.onPressElement = this.onPressElement.bind(this);
+
+  //  this.showShoppingLists();
   }
 
   onPressBack() {
@@ -66,13 +69,10 @@ export default class ShoppingList extends Component {
           headers: config.PARSE_SERVER_HEADERS
       })
       .then((response) => {
-        console.log("in then: ")
-        console.log(response)
-        console.log(this.state.listItem)
         this.setState({
           listItem: ''
         })
-        this.showShoppingLists();
+
       })
       .catch((error) => {
         console.log(error)
@@ -81,9 +81,6 @@ export default class ShoppingList extends Component {
     else {
       this.setState({ errormessage: 'Please enter an element.' })
     }
-
-    console.log(this.state.listElements);
-    console.log(this.state.errormessage);
   }
 
 
@@ -102,11 +99,8 @@ export default class ShoppingList extends Component {
         }
       }
     })
-    //.then(response => response.data.results)
     .then(function(response) {
       var results = response.data.results;
-      console.log("show Shoppinglist")
-      console.log(results);
       this.setState({
         listElements: this.state.listElements.cloneWithRows([...results])
       })
@@ -119,9 +113,43 @@ export default class ShoppingList extends Component {
 
   renderElements(element)
   {
-    return (
-      <Text>{element.name}</Text>
-    )
+    if(element.state == 0){
+      return (
+          <TouchableHighlight onPress={(text) => this.onPressElement(element)}><Text style={styles.normal}>{element.name}</Text></TouchableHighlight>
+      )
+    }
+    else{
+      return (
+          <TouchableHighlight onPress={(text) => this.onPressElement(element)}><Text>{element.name}</Text></TouchableHighlight>
+      )
+    }
+  }
+
+  onPressElement(element)
+  {
+
+    var elementstate = element.state;
+    if(elementstate === 0){
+      elementstate = 1;
+    }
+    else {
+      elementstate = 0;
+    }
+    console.log(elementstate);
+
+    axios.put(config.PARSE_SERVER_URL + "classes/shoppinglistitem/" + element.objectId, {
+      'state': elementstate
+    }, {
+      headers: config.PARSE_SERVER_HEADERS
+    }).then(response => {
+      console.log(response)
+    }).catch(function(error) {
+      console.log(error);
+    });
+
+    this.showShoppingLists();
+    console.log(this.state.listElements)
+
   }
 
   render()
@@ -142,8 +170,10 @@ export default class ShoppingList extends Component {
 
 <ScrollView dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)} contentContainerStyle={styles.contentContainer}/>
 
+<Button text="Delete Data" show={haveShoppingList} ></Button>
 
 */
+    this.showShoppingLists();
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
@@ -158,8 +188,6 @@ export default class ShoppingList extends Component {
         <ListView dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
 
         <Button text="Insert Data" onPress={this.onInsertData} show={haveShoppingList} ></Button>
-        <Button text="Delete Data" show={haveShoppingList} ></Button>
-
 
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>

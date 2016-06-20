@@ -35,10 +35,8 @@ function mock_login(data)
     }})
   else
     return Promise.reject({"data" : {"code":201,"error":"Invalid username/password."}})
-
-
-
 }
+
 
 module.exports = {
   get: function(url,data){

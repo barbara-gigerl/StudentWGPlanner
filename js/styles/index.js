@@ -151,5 +151,11 @@ export default StyleSheet.create({
  },
  contentContainer: {
    paddingVertical: 20
+ },
+ normal:{
+   color: '#DDDDDD'
+ },
+ tobedeleted: {
+   color: '#FFFFFF'
  }
 });
