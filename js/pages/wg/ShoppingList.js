@@ -70,11 +70,9 @@ export default class ShoppingList extends Component {
         console.log(response)
         console.log(this.state.listItem)
         this.setState({
-          listElements: this.state.listElements.cloneWithRows([...(this.state.listItem)])
-        })
-        this.setState({
           listItem: ''
         })
+        this.showShoppingLists();
       })
       .catch((error) => {
         console.log(error)
@@ -91,26 +89,30 @@ export default class ShoppingList extends Component {
 
   onNameChange(text) {
     this.setState({listItem: text});
+
   }
 
   showShoppingLists()
   {
-    //this.setState({searchterm: text})
-    axios.get(config.PARSE_SERVER_URL + 'classes/shoppinglist', {
+    axios.get(config.PARSE_SERVER_URL + 'classes/shoppinglistitem', {
       headers: config.PARSE_SERVER_HEADERS,
       params: {
         "where": {
-          "wgid": {
-            "$regex": GLOBAL.WGID
-          }
+          "shoppinglistid": GLOBAL.SHOPPINGLISTID
         }
       }
     })
-      .then(function(response) {
+    //.then(response => response.data.results)
+    .then(function(response) {
       var results = response.data.results;
-      this.setState({shoppingList: results[0].name});
+      console.log("show Shoppinglist")
+      console.log(results);
+      this.setState({
+        listElements: this.state.listElements.cloneWithRows([...results])
+      })
 
-    }.bind(this)).catch((error) => {
+    }.bind(this))
+    .catch((error) => {
       console.log(error)
     })
   }
@@ -118,7 +120,7 @@ export default class ShoppingList extends Component {
   renderElements(element)
   {
     return (
-      <Text>{element}</Text>
+      <Text>{element.name}</Text>
     )
   }
 
@@ -127,6 +129,7 @@ export default class ShoppingList extends Component {
     let haveShoppingList = true;
     if(GLOBAL.SHOPPINGLISTID === '')
       haveShoppingList = false;
+
     //  <ListView dataSource={this.state.listElements} renderRow={this.renderElements} show={haveShoppingList}/>
     //<TextInput value={this.state.listItem} style={styles.basic} show={haveShoppingList}></TextInput>
 
