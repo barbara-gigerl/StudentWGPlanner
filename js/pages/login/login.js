@@ -75,11 +75,6 @@ export default class Login extends Component {
   {
     this.state.errormessage = '';
 
-    /*if (this.state.username === '' || this.state.password === '') {
-      console.log("error.");
-      this.state.errormessage = 'Please enter username and password'
-    }*/
-    //else {
       return axios.get(config.PARSE_SERVER_URL + "login/", {
         headers: config.PARSE_SERVER_HEADERS,
         params: {

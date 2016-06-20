@@ -12,10 +12,18 @@ describe('Show roommates test', () => {
 
   function renderScreen(props, states) {
     var renderer = TestUtils.createRenderer();
-    renderer.render(<Roommates {...props || {}}/>);
+    console.log("1");
+    renderer.render(<Roommates {...props || {}}/>).then((worked) => {
+      console.log("ready.");
+      done();
+    });
+    console.log("2");
     var instance = renderer._instance._instance;
     instance.setState(states || {});
+
+    console.log("3");
     var output = renderer.getRenderOutput();
+    console.log("4");
 
     return {
       output,
@@ -23,15 +31,37 @@ describe('Show roommates test', () => {
     };
   }
 
-  it('display correct and complete GUI', () => {
+  it('existing roommates', () => {
     const states = {
           };
-    login_test = renderScreen({}, states);
-    var {output} = login_test;
-    expect(output.type.name).toBe("View");
+    login_test = renderScreen({}, states).then((worked) => {
+      console.log("yep.2)");
+      done();
+    });
+    var {output} = login_text;
+      expect(output.type.name).toBe("View");
+      expect(output.props.children[0].type.name).toBe("Text");
+      expect(output.props.children[0].props.children).toBe('In your WG are the following people:');
+      expect(output.props.children[1].type.name).toBe("ListView");
 
-    expect(output.props.children[0].type.name).toBe("Text");
-    expect(output.props.children[0].props.children).toBe('In your WG are the following people:');
-    expect(output.props.children[1].type.name).toBe("ListView");
+
+
+  });
+
+  it('alone in WG', () => {
+    const states = {
+          };
+    login_test = renderScreen({}, states).then((worked) => {
+      console.log("yep.2)");
+      done();
+    });
+    var {output} = login_text;
+      expect(output.type.name).toBe("View");
+      expect(output.props.children[0].type.name).toBe("Text");
+      expect(output.props.children[0].props.children).toBe('In your WG are the following people:');
+      expect(output.props.children[1].type.name).toBe("ListView");
+
+
+
   });
 });

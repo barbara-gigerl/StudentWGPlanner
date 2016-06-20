@@ -48,11 +48,11 @@ describe('Login test', () => {
     expect(output.props.children[4].type.name).toBe("Text");
     expect(output.props.children[4].props.children).toBe('');
 
-    expect(output.props.children[5].type.name).toBe("TouchableHighlight");
-    expect(output.props.children[5].props.children.props.children).toBe('Login');
+    expect(output.props.children[5].type.name).toBe("Button");
+    expect(output.props.children[5].props.text).toBe('Login');
 
-    expect(output.props.children[6].type.name).toBe("TouchableHighlight");
-    expect(output.props.children[6].props.children.props.children).toBe('Register');
+    expect(output.props.children[6].type.name).toBe("Button");
+    expect(output.props.children[6].props.text).toBe('Register');
 
   });
 
@@ -65,9 +65,7 @@ describe('Login test', () => {
     const {output} = login_test;
     let onPressLogin_ = output.props.children[5].props.onPress;
     onPressLogin_();
-    console.log("here in test.");
     login_test = renderScreen(output.props, output.states);
-    console.log(output.states);
     //expect(outputnew.props.children[4].props.children).toBe('Please enter username and password');
   });
 
@@ -89,7 +87,6 @@ describe('Login test', () => {
 
     loginfunction()
       .then((worked) => {
-        console.log(worked);
         test = renderer.getRenderOutput();
         expect(test.props.children[4].props.children).toEqual("username is required.");
         done();
