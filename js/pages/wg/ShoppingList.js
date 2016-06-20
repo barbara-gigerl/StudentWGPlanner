@@ -33,6 +33,7 @@ export default class ShoppingList extends Component {
       listItem: '',
       errormessage: ''
     };
+
     this.onPressLogout = this.onPressLogout.bind(this);
     this.onPressBack = this.onPressBack.bind(this);
     this.onInsertData = this.onInsertData.bind(this);
@@ -40,10 +41,7 @@ export default class ShoppingList extends Component {
     this.onPressNew = this.onPressNew.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
     this.showShoppingLists = this.showShoppingLists.bind(this);
-
     this.onPressElement = this.onPressElement.bind(this);
-
-  //  this.showShoppingLists();
   }
 
   onPressBack() {
@@ -74,10 +72,12 @@ export default class ShoppingList extends Component {
         this.setState({
           listItem: ''
         })
+        return Promise.resolve(true);
 
       })
       .catch((error) => {
         console.log(error)
+        return Promise.resolve(false);
       })
     }
     else {
@@ -92,11 +92,8 @@ export default class ShoppingList extends Component {
 
     console.log(this.state.listElements._dataBlob.s1[0].objectId);
 
-    for (let i = 0; i < this.state.listElements._dataBlob.s1.length; i++) {
-    //  if (this.state.listElements._dataBlob.s1[i] === GLOBAL.USERID) {
-        //this.setState({errormessage: 'You are already a member of this WG.'});
-        //return true;
-      //}
+    for (let i = 0; i < this.state.listElements._dataBlob.s1.length; i++)
+    {
       if(this.state.listElements._dataBlob.s1[i].state === 1)
       {
         let objectid = this.state.listElements._dataBlob.s1[i].objectId;
@@ -112,29 +109,6 @@ export default class ShoppingList extends Component {
           })
       }
     }
-
-  /*  axios.delete(config.PARSE_SERVER_URL + "classes/shoppinglistitem/8kg8j7Q96b",
-      {
-          headers: config.PARSE_SERVER_HEADERS
-      })
-      .then((response) => {
-        this.setState({
-          listItem: ''
-        })
-
-      })
-      .catch((error) => {
-        console.log(error)
-      })*/
-/*
-      axios.delete(config.PARSE_SERVER_URL + "classes/shoppinglistitem/" + GLOBAL.WGID,
-      {
-        headers: config.PARSE_SERVER_HEADERS
-      }).then(response => {
-        console.log(response)
-      }).catch(function(error) {
-        console.log(error);
-      });*/
   }
 
   onNameChange(text) {
@@ -157,10 +131,11 @@ export default class ShoppingList extends Component {
       this.setState({
         listElements: this.state.listElements.cloneWithRows([...results])
       })
-
-    }.bind(this))
+      return Promise.resolve(true);
+    })
     .catch((error) => {
-      console.log(error)
+      console.log(error + "SEARCH LIST")
+      return Promise.resolve(false);
     })
   }
 
@@ -208,25 +183,24 @@ export default class ShoppingList extends Component {
   render()
   {
     let haveShoppingList = true;
-    if(GLOBAL.SHOPPINGLISTID === '')
+    if(GLOBAL.SHOPPINGLISTID === ''){
       haveShoppingList = false;
-
-    this.showShoppingLists();
+    }
+    else{
+      this.showShoppingLists();
+    }
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
         <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Shopping List</Text></View>
-        <Text style={styles.textMenuHeader}></Text>
-        <Button text="Create a new Shoppinglist" show={!haveShoppingList} onPress={this.onPressNew}></Button>
 
-        <Text style={styles.textMenuHeader}>{this.state.shoppingList}</Text>
+        <Button text="Create a new Shoppinglist" show={!haveShoppingList} onPress={this.onPressNew}></Button>
 
         <HideableView hidden={!haveShoppingList}><TextInput onChangeText={(text) => this.onNameChange(text)} value={this.state.listItem} style={styles.basic}></TextInput>
         </HideableView>
         <Button text="Insert Data" onPress={this.onInsertData} show={haveShoppingList} ></Button>
 
-        <ListView dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
-
+        <ListView show={haveShoppingList} dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
 
         <Button text="Delete selected items" onPress={this.onDeleteData} show={haveShoppingList} ></Button>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
