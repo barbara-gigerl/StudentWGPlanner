@@ -122,27 +122,23 @@ function mock_wg(data)
   else if(data.params.where.objectId == 'DEF') {
      return Promise.resolve({"data" : {"results": [ {"users": [ ] } ] } } );
   }
-  else if(data.params.name === '')
+  else if(data.params.where.name === '')
     return Promise.reject({ "data" : {"code":400,"error":"name is required."}})
-  else if(data.params.name === "correctName")
-    return Promise.resolve({"data" : {
-        "ACL": {
-          "*": {
-            "read": true
-          },
-          "ji90Rxs0EB": {
-            "read": true,
-            "write": true
-          }
-        },
-        "name": "correctName",
-        "shoppinglistid": "CorrectID",
-        "updatedAt": "2016-06-08T11:25:26.046Z",
-        "createdAt": "2016-06-08T11:25:26.046Z",
-        "objectId": "correctID",
-        "users": '[{"id":"userID","username":"Username","email":"name@correct.at"}]',
-        "sessionToken": "r:1a587e298b9b69b5b2b2ba47a12e9a67"
-    }})
+  else if(data.params.where.name === "correctName")
+    return Promise.resolve(
+      {"data" :
+        {"results":
+          [{"users":
+            [{
+              "id": "w6IWnikUqm",
+              "username": "abc",
+              "email": "abc@abc"
+            }]
+          }],
+          "length": 1  
+        }
+      }
+    )
   else
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
 }

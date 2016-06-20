@@ -69,17 +69,19 @@ export default class SearchWG extends Component {
       }
     })
     //.then(response => response.data.results)
-      .then(function(response) {
+    .then((response) => {
       var results = response.data.results;
+      console.log(response);
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results])
       })
-    }.bind(this))
+      return Promise.resolve(true);
+    })
     .catch((error) => {
       console.log(error)
+      return Promise.resolve(false);
     })
 
-    //TODO: need to change this if searchWG is finally working
     if (this.state.searchterm !== "") {
       this.setState({joinbutton: true});
     } else {
@@ -98,9 +100,9 @@ export default class SearchWG extends Component {
             "name": this.state.searchterm
           }
         }
-      }).then((response) => {
-        console.log(response);
-
+      })
+      .then((response) => {
+        console.log("join wg then");
         if (response.data.results.length === 1)
         {
           this.insertDatabase(response.data.results[0]);
@@ -109,12 +111,14 @@ export default class SearchWG extends Component {
         {
           this.setState({errormessage: "Couldn't find wg"});
         }
+        return Promise.resolve(true);
 
-        })
+      })
       .catch((error) => {
-
+        console.log("join wg catch")
         console.log(error);
         this.setState({errormessage: "Couldn't connect to server."});
+        return Promise.resolve(false);
       });
     } else {
       this.setState({errormessage: 'Please enter a searchterm.'});
@@ -135,18 +139,22 @@ export default class SearchWG extends Component {
     "username":GLOBAL.USER.username,
     "email":GLOBAL.USER.email});
     axios.put(config.PARSE_SERVER_URL + "classes/wgs/" + resultObject.objectId, {
-      'users': resultObject.users
-    }, {
-      headers: config.PARSE_SERVER_HEADERS
-    }).then(response => {
+        'users': resultObject.users
+      }, {
+        headers: config.PARSE_SERVER_HEADERS
+    })
+    .then(response => {
       console.log(response)
       GLOBAL.WGID = resultObject.objectId;
       GLOBAL.WGNAME = resultObject.name;
       this.props.navigator.push({
          name: "Home"});
-    }).catch(function(error) {
+      return Promise.resolve(true);
+    })
+    .catch(function(error) {
       this.setState({errormessage: "Couldn't connect to server."});
       console.log(error);
+      return Promise.resolve(false);
     });
 
   }
@@ -154,26 +162,8 @@ export default class SearchWG extends Component {
 
   renderWg(wg)
   {
-
-     return <Text>{wg.name}</Text>
-    /*console.log("2:" + this.state.selectedwg);
-    if(wg.name === this.state.selectedwg)
-    {
-      console.log("infiffkl");
-      return (<TouchableOpacity>
-      <Text style={{color: 'red'}}>{wg.name}</Text>
-      </TouchableOpacity>)
-    }
-    else{
-    return (
-      <TouchableOpacity onPress={() => this.setState({selectedwg: wg.name})} >
-      <Text>{wg.name}</Text>
-      </TouchableOpacity>
-    )*/
+    return <Text>{wg.name}</Text>
   }
-    /*return (
-      <Text>{wg.name}</Text>
-    )*/
 
 
   render()
