@@ -32,16 +32,15 @@ export default class ShoppingList extends Component {
       listItem: '',
       errormessage: ''
     };
+
     this.onPressLogout = this.onPressLogout.bind(this);
     this.onPressBack = this.onPressBack.bind(this);
     this.onInsertData = this.onInsertData.bind(this);
     this.onPressNew = this.onPressNew.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
     this.showShoppingLists = this.showShoppingLists.bind(this);
-
     this.onPressElement = this.onPressElement.bind(this);
 
-  //  this.showShoppingLists();
   }
 
   onPressBack() {
@@ -72,10 +71,12 @@ export default class ShoppingList extends Component {
         this.setState({
           listItem: ''
         })
+        return Promise.resolve(true);
 
       })
       .catch((error) => {
         console.log(error)
+        return Promise.resolve(false);
       })
     }
     else {
@@ -104,10 +105,11 @@ export default class ShoppingList extends Component {
       this.setState({
         listElements: this.state.listElements.cloneWithRows([...results])
       })
-
-    }.bind(this))
+      return Promise.resolve(true);
+    })
     .catch((error) => {
-      console.log(error)
+      console.log(error + "SEARCH LIST")
+      return Promise.resolve(false);
     })
   }
 
@@ -141,10 +143,14 @@ export default class ShoppingList extends Component {
       'state': elementstate
     }, {
       headers: config.PARSE_SERVER_HEADERS
-    }).then(response => {
+    })
+    .then(response => {
       console.log(response)
-    }).catch(function(error) {
+      return Promise.resolve(true);
+    })
+    .catch(function(error) {
       console.log(error);
+      return Promise.resolve(false);
     });
 
     this.showShoppingLists();
@@ -155,37 +161,23 @@ export default class ShoppingList extends Component {
   render()
   {
     let haveShoppingList = true;
-    if(GLOBAL.SHOPPINGLISTID === '')
+    if(GLOBAL.SHOPPINGLISTID === ''){
       haveShoppingList = false;
+    }
+    else{
+      this.showShoppingLists();
+    }
 
-    //  <ListView dataSource={this.state.listElements} renderRow={this.renderElements} show={haveShoppingList}/>
-    //<TextInput value={this.state.listItem} style={styles.basic} show={haveShoppingList}></TextInput>
-
-//<TextInput onChangeText={this.onNameChange} value={this.state.name} style={styles.basic} />
-/*<ListView
-  dataSource={this.state.listElements}
-  renderRow={(rowData) => <Text>{rowData}</Text>}
-/>
-<ListView dataSource={this.state.listElements} renderRow={this.renderElements} show={haveShoppingList}/>
-
-<ScrollView dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)} contentContainerStyle={styles.contentContainer}/>
-
-<Button text="Delete Data" show={haveShoppingList} ></Button>
-
-*/
-    this.showShoppingLists();
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
         <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Shopping List</Text></View>
-        <Text style={styles.textMenuHeader}></Text>
-        <Button text="Create a new Shoppinglist" show={!haveShoppingList} onPress={this.onPressNew}></Button>
 
-        <Text style={styles.textMenuHeader}>{this.state.shoppingList}</Text>
+        <Button text="Create a new Shoppinglist" show={!haveShoppingList} onPress={this.onPressNew}></Button>
 
         <TextInput onChangeText={(text) => this.onNameChange(text)} value={this.state.listItem} style={styles.basic}></TextInput>
 
-        <ListView dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
+        <ListView show={haveShoppingList} dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
 
         <Button text="Insert Data" onPress={this.onInsertData} show={haveShoppingList} ></Button>
 

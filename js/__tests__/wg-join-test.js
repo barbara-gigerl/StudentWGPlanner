@@ -3,8 +3,6 @@ jest.unmock('../pages/wg/SearchWG'); // unmock to use the actual implementation 
 GLOBAL = require('../auth');
 
 import axios from 'axios';
-// import Parse from 'parse/react-native';
-
 import React, {ListView, Navigator} from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
@@ -43,8 +41,8 @@ describe('JoinWG test', () => {
     //this is how you check the correct Logout button
     expect(output.props.children[0].type.name).toBe('Button');
     expect(output.props.children[0].props.type).toBe('logout');
-    //expect(output.props.children[0].props.children.type.name).toBe('Text');
-    //expect(output.props.children[0].props.children.props.children).toBe('Logout');
+    expect(output.props.children[0].props.children.type.name).toBe('Text');
+    expect(output.props.children[0].props.children.props.children).toBe('Logout');
 
     expect(output.props.children[1].type.name).toBe('TextInput');
     expect(output.props.children[1].props.value).toBe('');
