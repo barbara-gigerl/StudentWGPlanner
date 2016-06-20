@@ -76,11 +76,6 @@ export default class Login extends Component {
     console.log("PRESS LOGIN")
     this.state.errormessage = '';
 
-    /*if (this.state.username === '' || this.state.password === '') {
-      console.log("error.");
-      this.state.errormessage = 'Please enter username and password'
-    }*/
-    //else {
       return axios.get(config.PARSE_SERVER_URL + "login/", {
         headers: config.PARSE_SERVER_HEADERS,
         params: {
@@ -95,8 +90,43 @@ export default class Login extends Component {
             email: response.data.email
           };
           GLOBAL.USERID = response.data.objectId;
-          this.props.navigator.push({
-             name: "Home"});
+
+          console.log("id: " + GLOBAL.USER.id + " name: " +
+        GLOBAL.USER.username + " email: " + GLOBAL.USER.email)
+
+
+          axios.get(config.PARSE_SERVER_URL + "classes/wgs/", {
+              headers: config.PARSE_SERVER_HEADERS,
+              params:
+              {
+              "where":{"users":{"$all": [{
+              "id": GLOBAL.USER.id,
+              "username":GLOBAL.USER.username,
+              "email":GLOBAL.USER.email}]}}
+            }})
+              .then((response) => {
+                console.log(response);
+                if(response.data.results.length == 1 )
+                {
+                  GLOBAL.WGID = response.data.results[0].objectId;
+                  GLOBAL.WGNAME = response.data.results[0].name;
+                }
+                else
+                {
+                  GLOBAL.WGID = "";
+                  GLOBAL.WGNAME = "";
+
+                }
+
+                this.props.navigator.push({
+                   name: "Home"});
+
+              })
+              .catch((error) => {
+              })
+
+
+
          return Promise.resolve(true);
         }
       )
@@ -104,6 +134,7 @@ export default class Login extends Component {
         this.setState({errormessage: response.data.error});
         return Promise.resolve(false);
       });
+
   }
 
   onPressRegister()

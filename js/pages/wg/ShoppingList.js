@@ -13,6 +13,7 @@ import React, {
 
 import styles from "../../styles/index";
 import Button from "../../components/Button.js";
+import HideableView from "../../components/HideableView.js";
 
 GLOBAL = require('../../auth');
 
@@ -27,7 +28,7 @@ export default class ShoppingList extends Component {
     super(props);
     this.state = {
       listElements: new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1.id !== r2.id
+        rowHasChanged: (r1, r2) => r1 !== r2
       }),
       listItem: '',
       errormessage: ''
@@ -35,10 +36,14 @@ export default class ShoppingList extends Component {
     this.onPressLogout = this.onPressLogout.bind(this);
     this.onPressBack = this.onPressBack.bind(this);
     this.onInsertData = this.onInsertData.bind(this);
+    this.onDeleteData = this.onDeleteData.bind(this);
     this.onPressNew = this.onPressNew.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
+    this.showShoppingLists = this.showShoppingLists.bind(this);
 
-    this.showShoppingLists();
+    this.onPressElement = this.onPressElement.bind(this);
+
+  //  this.showShoppingLists();
   }
 
   onPressBack() {
@@ -66,13 +71,10 @@ export default class ShoppingList extends Component {
           headers: config.PARSE_SERVER_HEADERS
       })
       .then((response) => {
-        console.log("in then: ")
-        console.log(response)
-        console.log(this.state.listItem)
         this.setState({
           listItem: ''
         })
-        this.showShoppingLists();
+
       })
       .catch((error) => {
         console.log(error)
@@ -81,11 +83,59 @@ export default class ShoppingList extends Component {
     else {
       this.setState({ errormessage: 'Please enter an element.' })
     }
-
-    console.log(this.state.listElements);
-    console.log(this.state.errormessage);
   }
 
+  onDeleteData()
+  {
+    console.log(this.state.listElements);
+    console.log(this.state.listElements._dataBlob.s1);
+
+    console.log(this.state.listElements._dataBlob.s1[0].objectId);
+
+    for (let i = 0; i < this.state.listElements._dataBlob.s1.length; i++) {
+    //  if (this.state.listElements._dataBlob.s1[i] === GLOBAL.USERID) {
+        //this.setState({errormessage: 'You are already a member of this WG.'});
+        //return true;
+      //}
+      if(this.state.listElements._dataBlob.s1[i].state === 1)
+      {
+        let objectid = this.state.listElements._dataBlob.s1[i].objectId;
+        axios.delete(config.PARSE_SERVER_URL + "classes/shoppinglistitem/" + objectid,
+          {
+              headers: config.PARSE_SERVER_HEADERS
+          })
+          .then((response) => {
+            this.showShoppingLists();
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
+    }
+
+  /*  axios.delete(config.PARSE_SERVER_URL + "classes/shoppinglistitem/8kg8j7Q96b",
+      {
+          headers: config.PARSE_SERVER_HEADERS
+      })
+      .then((response) => {
+        this.setState({
+          listItem: ''
+        })
+
+      })
+      .catch((error) => {
+        console.log(error)
+      })*/
+/*
+      axios.delete(config.PARSE_SERVER_URL + "classes/shoppinglistitem/" + GLOBAL.WGID,
+      {
+        headers: config.PARSE_SERVER_HEADERS
+      }).then(response => {
+        console.log(response)
+      }).catch(function(error) {
+        console.log(error);
+      });*/
+  }
 
   onNameChange(text) {
     this.setState({listItem: text});
@@ -102,11 +152,8 @@ export default class ShoppingList extends Component {
         }
       }
     })
-    //.then(response => response.data.results)
     .then(function(response) {
       var results = response.data.results;
-      console.log("show Shoppinglist")
-      console.log(results);
       this.setState({
         listElements: this.state.listElements.cloneWithRows([...results])
       })
@@ -119,9 +166,43 @@ export default class ShoppingList extends Component {
 
   renderElements(element)
   {
-    return (
-      <Text>{element.name}</Text>
-    )
+    if(element.state == 0){
+      return (
+          <TouchableHighlight onPress={(text) => this.onPressElement(element)}><Text style={styles.normal}>{element.name}</Text></TouchableHighlight>
+      )
+    }
+    else{
+      return (
+          <TouchableHighlight onPress={(text) => this.onPressElement(element)}><Text>{element.name}</Text></TouchableHighlight>
+      )
+    }
+  }
+
+  onPressElement(element)
+  {
+
+    var elementstate = element.state;
+    if(elementstate === 0){
+      elementstate = 1;
+    }
+    else {
+      elementstate = 0;
+    }
+    console.log(elementstate);
+
+    axios.put(config.PARSE_SERVER_URL + "classes/shoppinglistitem/" + element.objectId, {
+      'state': elementstate
+    }, {
+      headers: config.PARSE_SERVER_HEADERS
+    }).then(response => {
+      console.log(response)
+    }).catch(function(error) {
+      console.log(error);
+    });
+
+    this.showShoppingLists();
+    console.log(this.state.listElements)
+
   }
 
   render()
@@ -130,20 +211,7 @@ export default class ShoppingList extends Component {
     if(GLOBAL.SHOPPINGLISTID === '')
       haveShoppingList = false;
 
-    //  <ListView dataSource={this.state.listElements} renderRow={this.renderElements} show={haveShoppingList}/>
-    //<TextInput value={this.state.listItem} style={styles.basic} show={haveShoppingList}></TextInput>
-
-//<TextInput onChangeText={this.onNameChange} value={this.state.name} style={styles.basic} />
-/*<ListView
-  dataSource={this.state.listElements}
-  renderRow={(rowData) => <Text>{rowData}</Text>}
-/>
-<ListView dataSource={this.state.listElements} renderRow={this.renderElements} show={haveShoppingList}/>
-
-<ScrollView dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)} contentContainerStyle={styles.contentContainer}/>
-
-
-*/
+    this.showShoppingLists();
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
@@ -153,14 +221,14 @@ export default class ShoppingList extends Component {
 
         <Text style={styles.textMenuHeader}>{this.state.shoppingList}</Text>
 
-        <TextInput onChangeText={(text) => this.onNameChange(text)} value={this.state.listItem} style={styles.basic}></TextInput>
+        <HideableView hidden={!haveShoppingList}><TextInput onChangeText={(text) => this.onNameChange(text)} value={this.state.listItem} style={styles.basic}></TextInput>
+        </HideableView>
+        <Button text="Insert Data" onPress={this.onInsertData} show={haveShoppingList} ></Button>
 
         <ListView dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
 
-        <Button text="Insert Data" onPress={this.onInsertData} show={haveShoppingList} ></Button>
-        <Button text="Delete Data" show={haveShoppingList} ></Button>
 
-
+        <Button text="Delete selected items" onPress={this.onDeleteData} show={haveShoppingList} ></Button>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>
     );

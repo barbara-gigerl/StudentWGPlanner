@@ -12,6 +12,8 @@ import React, {
 GLOBAL = require('../../auth');
 import Button from '../../components/Button';
 import styles from "../../styles/index";
+import config from "../../../config";
+
 
 export default class Home extends Component {
 
@@ -66,6 +68,7 @@ export default class Home extends Component {
   onPressLogout(){
     GLOBAL.USERID = ''
     GLOBAL.WGID = ''
+    GLOBAL.WGNAME = '';
     this.props.navigator.push({
        name: "Login"
     });
@@ -81,9 +84,12 @@ export default class Home extends Component {
 //<TouchableHighlight onPress={this.onPressLeaveWG}><Text>Leave WG</Text></TouchableHighlight>
   render()
   {
+
+
+
     let text1 = "Welcome";
     let text2 = "You are member of the WG: ";
-    text2 = text2.concat(GLOBAL.WGID.toString());
+    text2 = text2.concat(GLOBAL.WGNAME);
     let inWG = true;
     if(GLOBAL.WGID === '')
     {

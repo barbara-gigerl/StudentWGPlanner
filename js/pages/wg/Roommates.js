@@ -27,44 +27,40 @@ export default class Roommate extends Component {
     this.showroommates = this.showroommates.bind(this);
     this.renderRoommate = this.renderRoommate.bind(this);
     this.state = {
-      //TODO: rename roommates
       roommates: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1.id !== r2.id
       }),
     }
     this.showroommates();
-    console.log(this.state.roommates);
   }
 
 
     renderRoommate(userdata)
     {
-      console.log(userdata);
       return (
-        <Text>{userdata.username}</Text>
+        <Text style={styles.listViewItem} >{userdata.username}</Text>
       )
+
     }
-showroommates(text)
+
+showroommates()
 {
-  if(this.state.searchterm !== ""){
     console.log("will now connect to server");
-    axios.get('http://10.0.3.2:1337/parse/classes/wgs/', {
+    axios.get('http://10.0.2.2:1337/parse/classes/wgs/', {
       headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                 'X-Parse-Master-Key': 'asdf'},
         params: {
-        "where": {"objectId" : Global.WGID } //TODO replace Global.WGID
+        "where": {"objectId" : Global.WGID }
         }
     })
-    .then(function (response) {
-        console.log("fkfdk");
-        console.log(response.data.results[0].userarray);
-        this.setState({roommates: this.state.roommates.cloneWithRows([...response.data.results[0].userarray])});
-
-      }.bind(this))
-    .catch(function (error) {
+    .then((response) => {
+        this.setState({roommates: this.state.roommates.cloneWithRows([...response.data.results[0].users])});
+        return Promise.resolve(true);
+      })
+    .catch((error) => {
       console.log(error);
     });
-  }
+
 }
   onPressBack() {
     this.props.navigator.push({name: "Home"});
@@ -79,7 +75,6 @@ showroommates(text)
 
   render()
   {
-    console.log(this.state.roommates[0])
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>

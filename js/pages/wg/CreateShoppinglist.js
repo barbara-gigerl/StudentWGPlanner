@@ -75,7 +75,7 @@ export default class CreateShoppingList extends Component {
   {
     if(this.state.searchterm !== ""){
       console.log("will now connect to server");
-      axios.get('http://10.0.3.2:1337/parse/classes/wgs/', {
+      axios.get('http://10.0.2.2:1337/parse/classes/wgs/', {
         headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                   'X-Parse-Master-Key': 'asdf'},
           params: {

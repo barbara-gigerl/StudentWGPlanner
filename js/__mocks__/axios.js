@@ -4,8 +4,25 @@ jest.unmock('../pages/wg/SearchWG');
 import Login from '../pages/login/login';
 
 let urls = [
-  "http://10.0.3.2:1337/parse/login/",
+  "http://10.0.2.2:1337/parse/login/",
+  "http://10.0.2.2:1337/parse/classes/wgs/"
 ]
+
+let params = [
+  "",
+]
+
+function mock_show_roommates(data)
+{
+   if(data.params.where.objectId == '') {
+   return Promise.resolve({"results": [ {"users": [
+     {
+        "id": "w6IWnikUqm",
+        "username": "abc",
+        "email": "abc@abc"
+      } ] } ] } );
+    }
+}
 
 function mock_login(data)
 {
@@ -35,16 +52,15 @@ function mock_login(data)
     }})
   else
     return Promise.reject({"data" : {"code":201,"error":"Invalid username/password."}})
-
-
-
 }
+
 
 module.exports = {
   get: function(url,data){
     switch(url)
     {
       case urls[0]: return mock_login(data);
+      case urls[1]: return mock_show_roommates(data);
       //If you want to add another request url, add a case here and a function above ;)
     }
   }

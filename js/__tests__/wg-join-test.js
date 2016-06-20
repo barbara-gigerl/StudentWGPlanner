@@ -42,22 +42,34 @@ describe('JoinWG test', () => {
 
     //this is how you check the correct Logout button
     expect(output.props.children[0].type.name).toBe('Button');
+<<<<<<< HEAD
     expect(output.props.children[0].props.type).toBe('logout');
     //expect(output.props.children[0].props.children.type.name).toBe('Text');
     //expect(output.props.children[0].props.children.props.children).toBe('Logout');
+=======
+    expect(output.props.children[0].props.text).toBe('Logout');
+>>>>>>> 5f81c44629a7e9d96e087251946c4a4323a07096
 
-    expect(output.props.children[1].type.name).toBe('TextInput');
-    expect(output.props.children[1].props.value).toBe('');
+    expect(output.props.children[1].type.name).toBe('View');
 
-    expect(output.props.children[2].type.name).toBe("Text");
-    expect(output.props.children[2].props.children).toBe('');
+    expect(output.props.children[1].props.children[0].type.name.toBe('Text'));
+    expect(output.props.children[1].props.children[0].type.props.children[0]
+      .toBe('Search the WG you want to join'));
 
-    expect(output.props.children[3].type.name).toBe('ListView');
-    expect(output.props.children[3].props.dataSource).toBe(states.wgs);
+    expect(output.props.children[1].props.children[1].type.name.toBe('TextInput'));
 
+    expect(output.props.children[1].props.children[2].type.name.toBe('Text'));
+    expect(output.props.children[1].props.children[2].type.props.children[0]
+      .toBe(''));
+
+    expect(output.props.children[1].props.children[3].type.name.toBe('ListView'));
+
+<<<<<<< HEAD
     expect(output.props.children[4].type.name).toBe('Button');
     expect(output.props.children[4].props.children.type.name).toBe('Text');
     expect(output.props.children[4].props.children.props.children).toBe('');
+=======
+>>>>>>> 5f81c44629a7e9d96e087251946c4a4323a07096
   });
 
   it('check searchterm', () => {
