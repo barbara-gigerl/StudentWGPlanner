@@ -16,6 +16,11 @@ class View extends React.Component {
 class ListView extends React.Component {
     static DataSource() {
     }
+
+    static cloneWithRows() {
+      
+    }
+
 }
 
 class AppRegistry {
