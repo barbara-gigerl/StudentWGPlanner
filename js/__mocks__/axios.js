@@ -112,7 +112,7 @@ module.exports = {
     {
       case urls[0]: return mock_login(data);
       case urls[1]: return mock_shoppinglist(data);
-      case urls[1]: return mock_shoppinglistitem(data);
+      case urls[2]: return mock_shoppinglistitem(data);
       //If you want to add another request url, add a case here and a function above ;)
     }
   }
