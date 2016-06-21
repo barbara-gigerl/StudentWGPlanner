@@ -58,8 +58,6 @@ export default class Login extends Component {
 
 
   handleLoginResult(response) {
-    console.log("handleLoginResult");
-    console.log(response.data.results.length); //@jest: gives 0
     if(response.data.results.length == 1) {
       GLOBAL.USERID = response.data.results[0].objectId;
       this.props.navigator.push({
@@ -99,7 +97,6 @@ export default class Login extends Component {
               "email":GLOBAL.USER.email}]}}
             }})
               .then((response) => {
-                console.log(response);
                 if(response.data.results.length >= 1 )
                 {
                   GLOBAL.WGID = response.data.results[0].objectId;
@@ -124,8 +121,6 @@ export default class Login extends Component {
                       GLOBAL.SHOPPINGLISTID = "";
                     }
 
-                    console.log("ready." + GLOBAL.SHOPPINGLISTID);
-                    console.log("before push.");
 
                     this.props.navigator.push({
                        name: "Home"});
@@ -136,7 +131,6 @@ export default class Login extends Component {
                 {
                   GLOBAL.WGID = "";
                   GLOBAL.WGNAME = "";
-                  console.log("before push.");
 
                   this.props.navigator.push({
                      name: "Home"});
@@ -147,7 +141,7 @@ export default class Login extends Component {
 
               })
               .catch((error) => {
-                console.log("hallo", error);
+                //console.log(error);
               })
 
 
@@ -164,7 +158,6 @@ export default class Login extends Component {
 
   onPressRegister()
   {
-    console.log("going to register view...");
     this.props.navigator.push({name: "Register"});
   }
   //<Image source={require('../../../assets/login_bg.jpg')}  style={styles.backgroundImage} />

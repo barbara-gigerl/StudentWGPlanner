@@ -83,7 +83,51 @@ describe('Search WG Test', () => {
     expect(children[11].props.text).toBe("Back");
   });
 
-  it('check connection and errors', () => {
+  it('no data', () => {
+    var state = {
+      username: '',
+      password: '',
+      password2: '',
+      email: '',
+      errormessage: ''
+    };
+
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<Register />);
+    var instance = renderer._instance._instance;
+    instance.setState(state);
+    var output = renderer.getRenderOutput();
+
+    var registerbutton = output.props.children[10].props.onPress;
+    registerbutton();
+    output = renderer.getRenderOutput();
+    expect(output.props.children[9].props.children).toBe("Please fill in all data.");
+
+  });
+
+  it('no username', () => {
+    var state = {
+      username: '',
+      password: '',
+      password2: '',
+      email: '',
+      errormessage: ''
+    };
+
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<Register />);
+    var instance = renderer._instance._instance;
+    instance.setState(state);
+    var output = renderer.getRenderOutput();
+
+    var registerbutton = output.props.children[10].props.onPress;
+    registerbutton();
+    output = renderer.getRenderOutput();
+    expect(output.props.children[9].props.children).toBe("Please fill in all data.");
+
+  });
+
+  it('no password', () => {
     var state = {
       username: '',
       password: '',
@@ -112,33 +156,113 @@ describe('Search WG Test', () => {
     output = renderer.getRenderOutput();
     expect(output.props.children[9].props.children).toBe("Please fill in all data.");
 
+  });
+
+  it('passwords dont match', () => {
+    var state = {
+      username: '',
+      password: '',
+      password2: '',
+      email: '',
+      errormessage: ''
+    };
+
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<Register />);
+    var instance = renderer._instance._instance;
+    instance.setState(state);
+    var output = renderer.getRenderOutput();
+
+    var registerbutton = output.props.children[10].props.onPress;
+    var textchange = output.props.children[2].props.onChangeText;
+    textchange("CorrectUsername", 'username');
+
     textchange = output.props.children[4].props.onChangeText
     textchange("passw1", 'password');
-    output = renderer.getRenderOutput();
-    expect(output.props.children[4].props.value).toBe("passw1");
 
     textchange = output.props.children[6].props.onChangeText
     textchange("passw2", 'password2');
     output = renderer.getRenderOutput();
-    expect(output.props.children[6].props.value).toBe("passw2");
 
     registerbutton();
     output = renderer.getRenderOutput();
+
+    expect(output.props.children[2].props.value).toBe("CorrectUsername");
+    expect(output.props.children[4].props.value).toBe("passw1");
+    expect(output.props.children[6].props.value).toBe("passw2");
     expect(output.props.children[9].props.children).toBe("Passwords are not equal.");
+  });
+
+  it('no mail', () => {
+    var state = {
+      username: '',
+      password: '',
+      password2: '',
+      email: '',
+      errormessage: ''
+    };
+
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<Register />);
+    var instance = renderer._instance._instance;
+    instance.setState(state);
+    var output = renderer.getRenderOutput();
+
+    var registerbutton = output.props.children[10].props.onPress;
+    var textchange = output.props.children[2].props.onChangeText;
+    textchange("CorrectUsername", 'username');
+
+    textchange = output.props.children[4].props.onChangeText
+    textchange("passw1", 'password');
 
     textchange = output.props.children[6].props.onChangeText
     textchange("passw1", 'password2');
-    output = renderer.getRenderOutput();
-    expect(output.props.children[6].props.value).toBe("passw1");
 
     registerbutton();
     output = renderer.getRenderOutput();
+
+    expect(output.props.children[2].props.value).toBe("CorrectUsername");
+    expect(output.props.children[4].props.value).toBe("passw1");
+    expect(output.props.children[6].props.value).toBe("passw1");
     expect(output.props.children[9].props.children).toBe("Please fill in all data.");
+
+  });
+
+  it('register - no errors', () => {
+    var state = {
+      username: '',
+      password: '',
+      password2: '',
+      email: '',
+      errormessage: ''
+    };
+
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<Register />);
+    var instance = renderer._instance._instance;
+    instance.setState(state);
+    var output = renderer.getRenderOutput();
+
+    var registerbutton = output.props.children[10].props.onPress;
+    var textchange = output.props.children[2].props.onChangeText;
+    textchange("CorrectUsername", 'username');
+
+    textchange = output.props.children[4].props.onChangeText
+    textchange("passw1", 'password');
+
+    textchange = output.props.children[6].props.onChangeText
+    textchange("passw1", 'password2');
 
     textchange = output.props.children[8].props.onChangeText
     textchange("test@test.at", 'email');
+
     output = renderer.getRenderOutput();
+
+    expect(output.props.children[2].props.value).toBe("CorrectUsername");
+    expect(output.props.children[4].props.value).toBe("passw1");
+    expect(output.props.children[6].props.value).toBe("passw1");
     expect(output.props.children[8].props.value).toBe("test@test.at");
 
   });
+
 });

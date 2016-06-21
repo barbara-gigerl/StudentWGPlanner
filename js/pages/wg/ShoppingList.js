@@ -75,7 +75,6 @@ export default class ShoppingList extends Component {
         return Promise.resolve(true);
       })
       .catch((error) => {
-        console.log(error)
         return Promise.resolve(false);
       })
     }
@@ -108,7 +107,6 @@ export default class ShoppingList extends Component {
 
     }.bind(this))
     .catch((error) => {
-      console.log(error)
       return Promise.resolve(false);
     })
   }
@@ -142,15 +140,12 @@ export default class ShoppingList extends Component {
     }, {
       headers: config.PARSE_SERVER_HEADERS
     }).then(response => {
-      console.log(response)
       return Promise.resolve(true);
     }).catch(function(error) {
-      console.log(error);
       return Promise.resolve(false);
     });
 
     this.showShoppingLists();
-    console.log(this.state.listElements)
   }
 
   onDeleteData()
@@ -166,13 +161,11 @@ export default class ShoppingList extends Component {
     })
     .then(function(response) {
       var results = response.data.results;
-      console.log(results);
       this.deleteNow(results);
       this.showShoppingLists();
       return Promise.resolve(true);
     }.bind(this))
     .catch((error) => {
-      console.log(error);
       return Promise.resolve(false);
     })
   }
@@ -190,7 +183,6 @@ export default class ShoppingList extends Component {
         return Promise.resolve(true);
       })
       .catch((error) => {
-        console.log(error);
         return Promise.resolve(false);
       })
     }

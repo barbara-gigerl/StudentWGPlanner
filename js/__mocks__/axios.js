@@ -163,7 +163,6 @@ function mock_wg(data)
   else if(data.params.where.name === '')
     return Promise.reject({ "data" : {"code":400,"error":"name is required."}})
   else if(data.params.name === "correctName"){
-    console.log("YEYEYEE")
     return Promise.resolve(
       {"data":
         {"results":
@@ -209,7 +208,6 @@ function mock_post_shoppinglistitem(data)
     return Promise.reject({"data" : {"code":401,"error":"shoppinglistid is required."}})
   if(data.name === "newElement" &&
      data.shoppinglistid === "correctListID"){
-       console.log("YYYYYYYYYYYYYYYEY")
     return Promise.resolve(
       { 'data': {'results': [
           { 'name': 'newElement', state: 0 }
