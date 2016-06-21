@@ -4,6 +4,7 @@ jest.unmock('../pages/wg/ShoppingList');
 jest.unmock('../pages/wg/CreateShoppinglist')
 
 import Login from '../pages/login/login';
+import JoinWg from '../pages/wg/SearchWG';
 import ShoppingList from "../pages/wg/ShoppingList";
 import CreateShoppinglist from "../pages/wg/CreateShoppinglist";
 
@@ -20,7 +21,7 @@ let params = [
 
 function mock_show_roommates(data)
 {
-   if(data.params.where.objectId == 'ABC') {
+   if(data.params.where.objectId == 'roommates_ABC') {
    return Promise.resolve({"data" : {"results": [ {"users": [
      {
         "id": "w6IWnikUqm",
@@ -28,7 +29,7 @@ function mock_show_roommates(data)
         "email": "abc@abc"
       } ] } ] } } );
     }
-    else if(data.params.where.objectId == 'DEF') {
+    else if(data.params.where.objectId == 'roommates_DEF') {
       return Promise.resolve({"data" : {"results": [ {"users": [ ] } ] } } );
     }
 }
@@ -125,14 +126,82 @@ function mock_shoppinglistitem(data)
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
 }
 
+function mock_wg(data)
+{
+  if(data.params.where.objectId == 'ABC') {
+    return Promise.resolve({"results": [ {"users": [
+    {
+       "id": "w6IWnikUqm",
+       "username": "abc",
+       "email": "abc@abc"
+     } ] } ] } );
+  }
+  else if(data.params.where.objectId == 'DEF') {
+     return Promise.resolve({"data" : {"results": [ {"users": [ ] } ] } } );
+  }
+  else if(data.params.where.name === '')
+    return Promise.reject({ "data" : {"code":400,"error":"name is required."}})
+  else if(data.params.name === "correctName"){
+    return Promise.resolve(
+      {"data":
+        {"results":
+          [{
+            "name": "mywg",
+            "objectId": "1234",
+            "users":
+            [{
+              "id": "w6IWnikUqm",
+              "username": "abc",
+              "email": "abc@abc"
+            }]
+          }]
+        }
+      }
+    )
+
+  }
+  else
+    return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
+}
+
+function decide(data)
+{
+  if(data.params.where.users && data.params.where.users['$all'][0].id == 'e2R5FTHl3Q') {
+    return Promise.resolve(
+      {"data":
+        {"results":
+          [{
+            "name": "mywg",
+            "objectId": "1234",
+            "users":
+            [{
+              "id": "e2R5FTHl3Q",
+              "username": "CorrectUsername",
+              "email": "correct@cor.co"
+            }]
+          }]
+        }
+      }
+    )
+   }
+
+  if(data.params.where.objectId == 'roommates_ABC' ||
+     data.params.where.objectId == 'roommates_DEF')
+     {
+       return mock_show_roommates(data);
+     }
+
+     return mock_wg(data);
+}
+
 module.exports = {
   get: function(url,data){
     switch(url)
     {
       case urls[0]: return mock_login(data);
-      case urls[1]: return mock_show_roommates(data);
+      case urls[1]: return decide(data);
       case urls[2]: return mock_shoppinglist(data);
-      case urls[3]: return mock_shoppinglistitem(data);
+      case urls[3]: return mock_shoppinglistitem(data)
       //If you want to add another request url, add a case here and a function above ;)
     }
   }

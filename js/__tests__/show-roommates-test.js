@@ -30,7 +30,7 @@ describe('Show roommates test', () => {
         rowHasChanged: (r1, r2) => r1.id !== r2.id
       }),
     };
-    GLOBAL.WGID = 'ABC';
+    GLOBAL.WGID = 'roommates_ABC';
 
     login_test = renderScreen({}, states);
 
@@ -43,13 +43,12 @@ describe('Show roommates test', () => {
       expect(output.props.children[0].props.children).toBe('In your WG are the following people:');
       expect(output.props.children[1].type.name).toBe("ListView");
       var listview = output.props.children[1];
-      console.log(listview);
   });
 
   });
 
   it('alone in WG', () => {
-    GLOBAL.WGID = 'DEF';
+    GLOBAL.WGID = 'roommates_DEF';
     const states = {
       roommates: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1.id !== r2.id

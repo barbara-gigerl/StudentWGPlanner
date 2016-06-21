@@ -173,6 +173,8 @@ describe('Login test', () => {
             changeUsername("CorrectUsername")
             changePassword("CorrectPassword")
 
+    
+
             loginfunction()
               .catch((worked) => {
                 test = renderer.getRenderOutput();
