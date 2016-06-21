@@ -11,8 +11,8 @@ import CreateShoppinglist from "../pages/wg/CreateShoppinglist";
 let urls = [
   "http://10.0.2.2:1337/parse/login/",
   "http://10.0.2.2:1337/parse/classes/wgs/",
-  "http://10.0.2.2:1337/parse/classes/shoppinglist",
-  "http://10.0.2.2:1337/parse/classes/shoppinglistitem"
+  "http://10.0.2.2:1337/parse/classes/shoppinglist/",
+  "http://10.0.2.2:1337/parse/classes/shoppinglistitem/"
 ]
 
 let params = [
@@ -148,6 +148,20 @@ function mock_wg(data)
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
 }
 
+function mock_post_shoppinglist(data)
+{
+  if(data.name === '')
+    return Promise.reject({ "data" : {"code":400,"error":"name is required."}})
+  if(data.wgid === '')
+    return Promise.reject({"data" : {"code":401,"error":"wg is required."}})
+  if(data.name === "newWG" &&
+     data.wgid === "wg123")
+    return Promise.resolve(
+      {"data": { "objectId" : "correctListID"}}
+    )
+  else
+    return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
+}
 
 module.exports = {
   get: function(url,data){
@@ -157,6 +171,17 @@ module.exports = {
       case urls[1]: return mock_wg(data);
       case urls[2]: return mock_shoppinglist(data);
       case urls[3]: return mock_shoppinglistitem(data);
+
+      //If you want to add another request url, add a case here and a function above ;)
+    }
+  },
+  post: function(url,data){
+    switch(url)
+    {
+      //case urls[0]: return mock_login(data);
+      //case urls[1]: return mock_wg(data);
+      case urls[2]: return mock_post_shoppinglist(data);
+      //case urls[3]: return mock_post_shoppinglistitem(data);
 
       //If you want to add another request url, add a case here and a function above ;)
     }

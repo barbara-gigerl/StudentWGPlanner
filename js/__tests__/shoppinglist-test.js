@@ -115,4 +115,40 @@ describe('ShoppingList test', () => {
     expect(output.props.children[7].props.show).toBe(true);
   });
 
+  it('display correct and complete GUI - shopping list exists', () => {
+    var states = {
+      listElements: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }),
+      listItem: '',
+      errormessage: ''
+    };
+
+    GLOBAL.SHOPPINGLISTID = 'CorrectID';
+
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<ShoppingList />);
+    var instance = renderer._instance._instance;
+    instance.setState(states || {});
+    var output = renderer.getRenderOutput();
+
+console.log("SANDRA")
+    var onChangeText = output.props.children[3].props.children.props.onChangeText;
+    var insertButton = output.props.children[4].props.onPress;
+
+    expect(output.props.children[3].props.children.props.value).toBe('');
+    onChangeText("newElement");
+    output = renderer.getRenderOutput();
+
+    expect(output.props.children[3].props.children.props.value).toBe('newElement');
+    insertButton();
+    output = renderer.getRenderOutput();
+  //  console.log(states)
+
+
+
+    //expect()
+
+  });
+
 });
