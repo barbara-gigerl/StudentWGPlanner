@@ -47,14 +47,16 @@ describe('ShoppingList test', () => {
     expect(output.props.children[2].props.text).toBe('Create a new Shoppinglist');
     expect(output.props.children[2].props.show).toBe(true);
 
-    expect(output.props.children[3].type.name).toBe('TextInput');
+    expect(output.props.children[3].type.name).toBe('HideableView');
+    expect(output.props.children[3].props.hidden).toBe(true);
+    expect(output.props.children[3].props.children.type.name).toBe('TextInput');
 
-    expect(output.props.children[4].type.name).toBe('ListView');
-    expect(output.props.children[4].props.dataSource).toBe(states.listElements);
+    expect(output.props.children[4].type.name).toBe('Button');
+    expect(output.props.children[4].props.text).toBe('Insert Data');
     expect(output.props.children[4].props.show).toBe(false);
 
-    expect(output.props.children[5].type.name).toBe('Button');
-    expect(output.props.children[5].props.text).toBe('Insert Data');
+    expect(output.props.children[5].type.name).toBe('ListView');
+    expect(output.props.children[5].props.dataSource).toBe(states.listElements);
     expect(output.props.children[5].props.show).toBe(false);
 
     expect(output.props.children[6].type.name).toBe('Button');
@@ -92,14 +94,16 @@ describe('ShoppingList test', () => {
     expect(output.props.children[2].props.text).toBe('Create a new Shoppinglist');
     expect(output.props.children[2].props.show).toBe(false);
 
-    expect(output.props.children[3].type.name).toBe('TextInput');
+    expect(output.props.children[3].type.name).toBe('HideableView');
+    expect(output.props.children[3].props.hidden).toBe(false);
+    expect(output.props.children[3].props.children.type.name).toBe('TextInput');
 
-    expect(output.props.children[4].type.name).toBe('ListView');
-    expect(output.props.children[4].props.dataSource).toBe(states.listElements);
+    expect(output.props.children[4].type.name).toBe('Button');
+    expect(output.props.children[4].props.text).toBe('Insert Data');
     expect(output.props.children[4].props.show).toBe(true);
 
-    expect(output.props.children[5].type.name).toBe('Button');
-    expect(output.props.children[5].props.text).toBe('Insert Data');
+    expect(output.props.children[5].type.name).toBe('ListView');
+    expect(output.props.children[5].props.dataSource).toBe(states.listElements);
     expect(output.props.children[5].props.show).toBe(true);
 
     expect(output.props.children[6].type.name).toBe('Button');
