@@ -4,6 +4,7 @@ jest.unmock('../pages/wg/ShoppingList');
 jest.unmock('../pages/wg/CreateShoppinglist')
 
 import Login from '../pages/login/login';
+import JoinWg from '../pages/wg/SearchWG';
 import ShoppingList from "../pages/wg/ShoppingList";
 import CreateShoppinglist from "../pages/wg/CreateShoppinglist";
 
@@ -78,7 +79,6 @@ function mock_login(data)
     return Promise.reject({"data" : {"code":201,"error":"Invalid username/password."}})
 }
 
-
 function mock_shoppinglist(data)
 {
   if(data.params.name === '')
@@ -118,7 +118,6 @@ function mock_shoppinglistitem(data)
   if(data.params.name === "newElement" &&
      data.params.shoppinglistid === "CorrectID")
     return Promise.resolve({"data" : {
-
         "ACL": {
           "*": {
             "read": true
@@ -140,6 +139,46 @@ function mock_shoppinglistitem(data)
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
 }
 
+function mock_wg(data)
+{
+  if(data.params.where.objectId == 'ABC') {
+    return Promise.resolve({"results": [ {"users": [
+    {
+       "id": "w6IWnikUqm",
+       "username": "abc",
+       "email": "abc@abc"
+     } ] } ] } );
+  }
+  else if(data.params.where.objectId == 'DEF') {
+     return Promise.resolve({"data" : {"results": [ {"users": [ ] } ] } } );
+  }
+  else if(data.params.where.name === '')
+    return Promise.reject({ "data" : {"code":400,"error":"name is required."}})
+  else if(data.params.name === "correctName"){
+    console.log("YEYEYEE")
+    return Promise.resolve(
+      {"data":
+        {"results":
+          [{
+            "name": "mywg",
+            "objectId": "1234",
+            "users":
+            [{
+              "id": "w6IWnikUqm",
+              "username": "abc",
+              "email": "abc@abc"
+            }]
+          }]
+        }
+      }
+    )
+
+  }
+  else
+    return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
+}
+
+
 module.exports = {
   get: function(url,data){
     console.log(url, data);
@@ -151,8 +190,10 @@ module.exports = {
           return mock_search_wgs(data);
         else
           return mock_show_roommates(data);
+      case urls[1]: return mock_wg(data);
       case urls[2]: return mock_shoppinglist(data);
       case urls[3]: return mock_shoppinglistitem(data);
+
       //If you want to add another request url, add a case here and a function above ;)
     }
   }
