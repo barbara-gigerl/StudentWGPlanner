@@ -47,6 +47,9 @@ parse-server --appId StudentWGPlanner --masterKey asdf
     
     
 Creation following tables:
+
+
+
     wgs
     |-----------------------------------------------------------------------------------------------------|
     | objectId (String) | updatedAt (Date) | createdAt (Date) | ACL (ACL) | name (String) | users (Array) |
