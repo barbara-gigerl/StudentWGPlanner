@@ -29,40 +29,14 @@ describe('Search WG Test', () => {
     };
   }
 
-  /*
-
-
-  <View>
-    <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Register</Text></View>
-    <Text style={styles.inputLabelSmall}>Username</Text>
-    <TextInput style={styles.basic}
-      value={this.state.username}
-      onChangeText={(text) => this.onChange(text, 'username')}></TextInput>
-    <Text style={styles.inputLabelSmall}>Password</Text>
-    <TextInput style={styles.basic}
-      secureTextEntry={true}
-      value={this.state.password}
-      onChangeText={(text) => this.onChange(text, 'password')}></TextInput>
-    <Text style={styles.inputLabelSmall}>Repeat password</Text>
-    <TextInput style={styles.basic}
-      secureTextEntry={true}
-      value={this.state.password2}
-      onChangeText={(text) => this.onChange(text, 'password2')}></TextInput>
-    <Text style={styles.inputLabelSmall}>Email</Text>
-    <TextInput style={styles.basic}
-      value={this.state.email}
-      onChangeText={(text) => this.onChange(text, 'email')}></TextInput>
-
-    <Button text="Register" onPress={this.onSubmit.bind(this)} show={true} type="standard"></Button>
-    <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
-  </View>
-
-  */
-
   it('display correct and complete GUI', () => {
     const state = {
-          wgName: '',
-          errormessage: ''};
+      username: '',
+      password: '',
+      password2: '',
+      email: '',
+      errormessage: ''
+    };
 
     search_wg_test = renderScreen({}, state);
     let { output } = search_wg_test;
@@ -99,10 +73,72 @@ describe('Search WG Test', () => {
     expect(children[8].type.name).toBe("TextInput");
     expect(children[8].props.value).toBe("");
 
-    expect(children[9].type.name).toBe("Button");
-    expect(children[9].props.text).toBe("Register");
+    expect(children[9].type.name).toBe("Text");
+    expect(children[9].props.children).toBe("");
 
     expect(children[10].type.name).toBe("Button");
-    expect(children[10].props.text).toBe("Back");
+    expect(children[10].props.text).toBe("Register");
+
+    expect(children[11].type.name).toBe("Button");
+    expect(children[11].props.text).toBe("Back");
+  });
+
+  it('check connection and errors', () => {
+    var state = {
+      username: '',
+      password: '',
+      password2: '',
+      email: '',
+      errormessage: ''
+    };
+
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<Register />);
+    var instance = renderer._instance._instance;
+    instance.setState(state);
+    var output = renderer.getRenderOutput();
+
+    var registerbutton = output.props.children[10].props.onPress;
+    registerbutton();
+    output = renderer.getRenderOutput();
+    expect(output.props.children[9].props.children).toBe("Please fill in all data.");
+
+    var textchange = output.props.children[2].props.onChangeText;
+    textchange("CorrectUsername", 'username');
+    output = renderer.getRenderOutput();
+    expect(output.props.children[2].props.value).toBe("CorrectUsername");
+
+    registerbutton();
+    output = renderer.getRenderOutput();
+    expect(output.props.children[9].props.children).toBe("Please fill in all data.");
+
+    textchange = output.props.children[4].props.onChangeText
+    textchange("passw1", 'password');
+    output = renderer.getRenderOutput();
+    expect(output.props.children[4].props.value).toBe("passw1");
+
+    textchange = output.props.children[6].props.onChangeText
+    textchange("passw2", 'password2');
+    output = renderer.getRenderOutput();
+    expect(output.props.children[6].props.value).toBe("passw2");
+
+    registerbutton();
+    output = renderer.getRenderOutput();
+    expect(output.props.children[9].props.children).toBe("Passwords are not equal.");
+
+    textchange = output.props.children[6].props.onChangeText
+    textchange("passw1", 'password2');
+    output = renderer.getRenderOutput();
+    expect(output.props.children[6].props.value).toBe("passw1");
+
+    registerbutton();
+    output = renderer.getRenderOutput();
+    expect(output.props.children[9].props.children).toBe("Please fill in all data.");
+
+    textchange = output.props.children[8].props.onChangeText
+    textchange("test@test.at", 'email');
+    output = renderer.getRenderOutput();
+    expect(output.props.children[8].props.value).toBe("test@test.at");
+
   });
 });
