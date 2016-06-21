@@ -46,7 +46,7 @@ parse-server --appId StudentWGPlanner --masterKey asdf
 
     
     
-Creation following tables:
+Struct of the tables after running the App:
 
 
 
