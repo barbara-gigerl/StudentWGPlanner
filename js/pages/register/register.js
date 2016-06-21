@@ -65,8 +65,8 @@ export default class Register extends Component {
         } else {
           GLOBAL.USER = {
             id: response.objectId,
-            username: response.username,
-            email: response.email
+            username: this.state.username,
+            email: this.state.email
           };
           GLOBAL.USERID = response.objectId;
           this.props.navigator.push({
