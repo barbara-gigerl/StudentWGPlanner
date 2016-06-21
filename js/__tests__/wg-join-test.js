@@ -72,6 +72,36 @@ describe('JoinWG test', () => {
 
   it('check join button', () => {
     const states = {
+      searchterm: "",
+      wgs: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1.id !== r2.id
+      }),
+      joinbutton: false
+    }
+
+    GLOBAL.USERID = "123testing123";
+
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<SearchWG />);
+    var instance = renderer._instance._instance;
+    instance.setState(states || {});
+    var output = renderer.getRenderOutput();
+    expect(output.props.children[6].props.show).toBe(false);
+
+    var textchangehandler = output.props.children[3].props.onChangeText;
+    textchangehandler("correctName");
+    output = renderer.getRenderOutput();
+    expect(output.props.children[6].props.show).toBe(true);
+
+    textchangehandler("");
+    output = renderer.getRenderOutput();
+    console.log(output.props.children[6])
+    expect(output.props.children[6].props.show).toBe(false);
+
+  });
+
+  it('check join button', () => {
+    const states = {
       searchterm: "correctName",
       wgs: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1.id !== r2.id
@@ -89,15 +119,49 @@ describe('JoinWG test', () => {
 
     var textchangehandler = output.props.children[3].props.onChangeText;
     textchangehandler("correctName");
-  /*  output = renderer.getRenderOutput();
-    console.log(output.props.children[6])
+    output = renderer.getRenderOutput();
     expect(output.props.children[6].props.show).toBe(true);
 
     textchangehandler("");
     output = renderer.getRenderOutput();
-    console.log(output.props.children[6])
     expect(output.props.children[6].props.show).toBe(false);
-*/
+
   });
+
+
+  it('check listview data', () => {
+    var states = {
+      searchterm: "correctName",
+      wgs: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1.id !== r2.id
+      }),
+      joinbutton: false
+    }
+
+    GLOBAL.USERID = "123testing123";
+
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<SearchWG />);
+    var instance = renderer._instance._instance;
+    instance.setState(states || {});
+    var output = renderer.getRenderOutput();
+
+    var textchangehandler = output.props.children[3].props.onChangeText;
+    var renderRow = output.props.children[5].props.renderRow;
+    textchangehandler("correctName");
+    states.wgs.name = "mywg"
+
+    renderRow(states.wgs);
+    output = renderer.getRenderOutput();
+    expect(output.props.children[5].props.dataSource.name).toBe("mywg");
+    expect(output.props.children[6].props.show).toBe(true);
+
+    states.wgs.name = "";
+    textchangehandler("");
+    renderRow(states.wgs);
+    output = renderer.getRenderOutput();
+    expect(output.props.children[5].props.dataSource.name).toBe("");
+    expect(output.props.children[6].props.show).toBe(false);
+  })
 
 });

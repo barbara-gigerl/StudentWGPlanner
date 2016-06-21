@@ -124,21 +124,26 @@ function mock_wg(data)
   }
   else if(data.params.where.name === '')
     return Promise.reject({ "data" : {"code":400,"error":"name is required."}})
-  else if(data.params.where.name === "correctName")
+  else if(data.params.name === "correctName"){
+    console.log("YEYEYEE")
     return Promise.resolve(
-      {"data" :
+      {"data":
         {"results":
-          [{"users":
+          [{
+            "name": "mywg",
+            "objectId": "1234",
+            "users":
             [{
               "id": "w6IWnikUqm",
               "username": "abc",
               "email": "abc@abc"
             }]
-          }],
-          "length": 1  
+          }]
         }
       }
     )
+
+  }
   else
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
 }

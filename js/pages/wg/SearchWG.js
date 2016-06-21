@@ -57,8 +57,9 @@ export default class SearchWG extends Component {
 
   textchangehandler(text)
   {
+    console.log("textchangehandler");
     this.setState({searchterm: text})
-    axios.get(config.PARSE_SERVER_URL + 'classes/wgs', {
+    axios.get(config.PARSE_SERVER_URL + 'classes/wgs/', {
       headers: config.PARSE_SERVER_HEADERS,
       params: {
         "where": {
@@ -68,10 +69,9 @@ export default class SearchWG extends Component {
         }
       }
     })
-    //.then(response => response.data.results)
     .then((response) => {
       var results = response.data.results;
-      console.log(response);
+      console.log(results);
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results])
       })
@@ -93,7 +93,7 @@ export default class SearchWG extends Component {
   onJoinWG()
   {
     if (this.state.searchterm !== "") {
-      axios.get(config.PARSE_SERVER_URL + "classes/wgs", {
+      axios.get(config.PARSE_SERVER_URL + "classes/wgs/", {
         headers: config.PARSE_SERVER_HEADERS,
         params: {
           "where": {
@@ -102,7 +102,6 @@ export default class SearchWG extends Component {
         }
       })
       .then((response) => {
-        console.log("join wg then");
         if (response.data.results.length === 1)
         {
           this.insertDatabase(response.data.results[0]);
@@ -115,7 +114,6 @@ export default class SearchWG extends Component {
 
       })
       .catch((error) => {
-        console.log("join wg catch")
         console.log(error);
         this.setState({errormessage: "Couldn't connect to server."});
         return Promise.resolve(false);
