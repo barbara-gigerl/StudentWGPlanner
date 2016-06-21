@@ -132,7 +132,6 @@ describe('ShoppingList test', () => {
     instance.setState(states || {});
     var output = renderer.getRenderOutput();
 
-console.log("SANDRA")
     var onChangeText = output.props.children[3].props.children.props.onChangeText;
     var insertButton = output.props.children[4].props.onPress;
 

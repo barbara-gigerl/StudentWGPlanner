@@ -71,7 +71,7 @@ export default class SearchWG extends Component {
       }
     })
     //.then(response => response.data.results)
-    .then(function(response) {
+    .then((response) => {
       var results = response.data.results;
       console.log(results);
       this.setState({
@@ -135,6 +135,9 @@ export default class SearchWG extends Component {
       }
     }
 
+    console.log("insert db: id = " + GLOBAL.USER.id +
+  "username = " + GLOBAL.USER.username + "email = " +
+GLOBAL.USER.email);
     resultObject.users.push({
     "id": GLOBAL.USER.id,
     "username":GLOBAL.USER.username,

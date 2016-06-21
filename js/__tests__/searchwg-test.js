@@ -117,6 +117,7 @@ describe('Search WG Test', () => {
     let { output, instance } = search_wg_test;
 
     output.props.children[3].props.onChangeText('ABC');
+    
     expect(instance.state.wgs[0].name).toBe('ABCD');
   })
 });

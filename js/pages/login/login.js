@@ -89,7 +89,6 @@ export default class Login extends Component {
             email: response.data.email
           };
           GLOBAL.USERID = response.data.objectId;
-
           axios.get(config.PARSE_SERVER_URL + "classes/wgs/", {
               headers: config.PARSE_SERVER_HEADERS,
               params:

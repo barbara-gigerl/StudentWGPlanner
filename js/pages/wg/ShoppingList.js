@@ -86,7 +86,6 @@ export default class ShoppingList extends Component {
 
   onNameChange(text) {
     this.setState({listItem: text});
-
   }
 
   showShoppingLists()
@@ -217,7 +216,7 @@ export default class ShoppingList extends Component {
           <TextInput onChangeText={(text) => this.onNameChange(text)} value={this.state.listItem} style={styles.basic}></TextInput>
         </HideableView>
         <Button text="Insert Data" onPress={this.onInsertData} show={haveShoppingList} ></Button>
-        <ListView show={haveShoppingList} dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
+        <ListView  show={haveShoppingList} dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
         <Button text="Delete Selected Items" onPress={this.onDeleteData} show={haveShoppingList} ></Button>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>
