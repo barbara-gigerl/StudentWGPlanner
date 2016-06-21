@@ -1,16 +1,9 @@
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import React, {AppRegistry, Component, StyleSheet, Text, View} from 'react-native';
 
-import { connect } from 'react-redux';
+import styles from "../../styles/index";
 
-import {
-  createWG
-} from '../../actions';
+import {connect} from 'react-redux';
+import {createWG} from '../../actions';
 
 class Test extends Component {
   componentWillMount() {
@@ -36,29 +29,8 @@ class Test extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
-
 function mapStateToProps(state) {
-  return {
-    wg: state.wg
-  };
+  return {wg: state.wg};
 }
 
-export default connect(mapStateToProps, { createWG })(Test);
+export default connect(mapStateToProps, {createWG})(Test);

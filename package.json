@@ -6,7 +6,9 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "import-data": "babel-node ./scripts/import-data-from-parse.js",
     "update-schema": "babel-node ./server/schema/updateSchema.js",
+    "test-win": "jest",
     "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest --verbose",
+    "test:watch": "rm -rf ./node_modules/jest-cli/.haste_cache && jest --watch",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -20,10 +22,10 @@
     "graphql-relay": "~0.3.6",
     "immutable": "~3.7.6",
     "moment": "~2.11.2",
-    "parse": "~1.8.2",
     "parse-dashboard": "~1.0.8",
     "parse-server": "~2.2.6",
     "react": "~0.14.5",
+    "react-dom": "^15.1.0",
     "react-native": "0.23.1",
     "react-native-code-push": "~1.7.3-beta",
     "react-native-fbsdk": "github:facebook/react-native-fbsdk#0.1.0-alpha.1",
@@ -56,18 +58,22 @@
   },
   "jest": {
     "scriptPreprocessor": "node_modules/babel-jest",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
     "testFileExtensions": [
       "es6",
       "js"
     ],
     "moduleFileExtensions": [
       "js",
+      "jsx",
       "json",
       "es6"
     ],
     "unmockedModulePathPatterns": [
-      "node_modules/react",
-      "node_modules/fbjs",
+      "react",
+      "fbjs",
       "enzyme"
     ],
     "verbose": true

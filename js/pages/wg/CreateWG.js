@@ -6,8 +6,14 @@ import React, {
   Text,
   TextInput,
   View,
-  TouchableHighlight,
+  TouchableHighlight
 } from 'react-native';
+
+import axios from 'axios';
+
+import config from '../../../config';
+import styles from "../../styles/index";
+import Button from "../../components/Button.js";
 
 GLOBAL = require('../../auth');
 
@@ -18,23 +24,90 @@ export default class CreateWG extends Component {
     super(props);
 
     this.onPressLogout = this.onPressLogout.bind(this);
+    this.onPressBack = this.onPressBack.bind(this);
+    this.onWgTextChange = this.onWgTextChange.bind(this);
+    this.onCreateWg = this.onCreateWg.bind(this);
+
+    this.state = {
+      wgName: '',
+      errormessage: ''
+    };
   }
 
-  onPressLogout(){
-    GLOBAL.USERID = ''
-    this.props.navigator.push({
-       name: "Login"
-    });
+  onPressBack() {
+    this.props.navigator.push({name: "Home"});
+  }
+
+  onPressLogout() {
+    GLOBAL.USERID = '';
+    GLOBAL.WGID = ''
+    this.props.navigator.push({name: "Login"});
+  }
+
+  onWgTextChange(text) {
+    this.setState({ wgName: text });
+  }
+
+  onCreateWg() {
+    if (this.state.wgName !== '' && this.state.wgName) {
+      axios.get(config.PARSE_SERVER_URL + 'classes/wgs', {
+        headers: config.PARSE_SERVER_HEADERS,
+        params: {
+          "where": {
+            "name": {
+              "$regex": this.state.wgName
+            }
+          }
+        }
+      })
+      .then((response) => {
+        var results = response.data.results;
+        if (results.length === 0) {
+          axios.post(config.PARSE_SERVER_URL + 'classes/wgs', {
+            name: this.state.wgName,
+            users: [{"id":GLOBAL.USER.id, "username":GLOBAL.USER.username,
+                     "email":GLOBAL.USER.email}]
+          }, {
+            headers: config.PARSE_SERVER_HEADERS
+          })
+          .then((response) => {
+            console.log(response);
+            GLOBAL.WGID = response.data.objectId;
+            GLOBAL.WGNAME = this.state.wgName;
+            this.props.navigator.pop();
+          })
+          .catch((error) => {
+            this.setState({ errormessage: "Couldn't connect to server." })
+          })
+        } else {
+          this.setState({ errormessage: 'WG already exists.' })
+        }
+      }).catch((error) => {
+      this.setState({ errormessage: "Couldn't connect to server." })
+      })
+    } else {
+      this.setState({ errormessage: 'Please enter a wg name.' })
+    }
   }
 
   render()
   {
     return (
       <View>
-        <Text>Todo implement Create WG</Text>
-        <TouchableHighlight class="Logout" onPress={this.onPressLogout}>
-          <Text>Logout</Text>
-        </TouchableHighlight>
+        <Button text="Logout" onPress={this.onPressLogout}
+          show={true} type="logout" />
+        <View style={styles.viewNavigation}>
+          <Text style={styles.textNavigation}>Create WG</Text>
+        </View>
+        <Text style={styles.textMenuHeader}>Create a new WG</Text>
+        <TextInput onChangeText={this.onWgTextChange}
+          value={this.state.wgName} style={styles.basic} />
+        <Text style={styles.errormessage}>{this.state.errormessage}</Text>
+
+        <Button text="Create" onPress={this.onCreateWg}
+          show={true} type="back" />
+        <Button text="Back" onPress={this.onPressBack}
+          show={true} type="back" />
       </View>
     );
   }

@@ -1,25 +1,34 @@
 import React, {
-  AppRegistry,
   Component,
-  BackAndroid,
   Navigator,
   StyleSheet,
   Text,
   TextInput,
   View,
-  TouchableHighlight,
+  Image,
+  TouchableHighlight
 } from 'react-native';
 
 GLOBAL = require('../../auth');
 
+import styles from "../../styles/index";
+
+import Button from "../../components/Button.js";
+
+import config from "../../../config";
 import axios from 'axios';
+import * as dummy from './dummy.js';
 
 const API_URL = 'http://localhost:1337/parse/';
+
 const HEADERS = {
   'X-Parse-Application-Id': 'StudentWGPlanner',
-  'X-Parse-Master-Key': 'asdf'};
+  'X-Parse-Master-Key': 'asdf'
+};
 
-const OPTIONS = { headers: HEADERS };
+const OPTIONS = {
+  headers: HEADERS
+};
 
 export default class Login extends Component {
 
@@ -39,35 +48,14 @@ export default class Login extends Component {
     this.handleLoginResult = this.handleLoginResult.bind(this);
   }
 
-  setUsername(name){
-    this.setState ( { username: name })
+  setUsername(name) {
+    this.setState({username: name})
   }
 
-  setPassword(pw){
-    this.setState ( { password: pw })
+  setPassword(pw) {
+    this.setState({password: pw})
   }
 
-
-
-  /*testfunction2() {
-    let request = new XMLHttpRequest();
-    request.open('GET', 'http://10.0.2.2:1337/parse/classes/Test/');
-    request.setRequestHeader('X-Parse-Application-Id', 'StudentWGPlanner');
-    request.setRequestHeader('X-Parse-Master-Key', 'asdf');
-    request.onreadystatechange = (e) => {
-    if (request.readyState !== 4) {
-        return;
-    }
-
-    if (request.status === 200) {
-        console.log('success', request.responseText);
-    } else {
-        console.log("received error. " + request.status + request.responseText)
-        console.warn('error');
-    }
-    };
-    request.send();
-}*/
 
   handleLoginResult(response) {
     console.log("handleLoginResult");
@@ -87,102 +75,118 @@ export default class Login extends Component {
   {
     this.state.errormessage = '';
 
-    if(this.state.username === '' || this.state.password === '')
-      {
-        this.state.errormessage = 'Please enter username and password'
-      }
-      else {
-        console.log("will now connect to server");
-        axios.get('http://10.0.2.2:1337/parse/classes/UserData/', {
-          headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
-                    'X-Parse-Master-Key': 'asdf'},
-            params: {
-            "where": {"Username" : this.state.username,
-                      "Password" : this.state.password}
-            }
-        })
-        .then(function (response) {
-            console.log("in then.");
-            console.log(response);
-            var wait = this.handleLoginResult(response)
-            while(wait != true) {}
-        }.bind(this))
-        .catch(function (response) {
-          console.log("in catch.");
-          console.log(response);
-        });
-      }
-      this.setState( { username: this.state.username,
-                       password: this.state.password,
-                       errormessage: this.state.errormessage
-                     })
+      return axios.get(config.PARSE_SERVER_URL + "login/", {
+        headers: config.PARSE_SERVER_HEADERS,
+        params: {
+                   "username" : this.state.username,
+                    "password" : this.state.password
+                }
+      })
+      .then((response) => {
+          GLOBAL.USER = {
+            id: response.data.objectId,
+            username: response.data.username,
+            email: response.data.email
+          };
+          GLOBAL.USERID = response.data.objectId;
+          axios.get(config.PARSE_SERVER_URL + "classes/wgs/", {
+              headers: config.PARSE_SERVER_HEADERS,
+              params:
+              {
+              "where":{"users":{"$all": [{
+              "id": GLOBAL.USER.id,
+              "username":GLOBAL.USER.username,
+              "email":GLOBAL.USER.email}]}}
+            }})
+              .then((response) => {
+                console.log(response);
+                if(response.data.results.length >= 1 )
+                {
+                  GLOBAL.WGID = response.data.results[0].objectId;
+                  GLOBAL.WGNAME = response.data.results[0].name;
+
+                  axios.get(config.PARSE_SERVER_URL + 'classes/shoppinglist/', {
+                    headers: config.PARSE_SERVER_HEADERS,
+                    params:
+                    {
+                      "where": {"wgid":GLOBAL.WGID }
+                    }
+                  })
+                  .then((response) => {
+
+                    if(response.data.results.length == 1)
+                    {
+                      GLOBAL.SHOPPINGLISTID = response.data.results[0].objectId;
+
+                    }
+                    else
+                    {
+                      GLOBAL.SHOPPINGLISTID = "";
+                    }
+
+                    console.log("ready." + GLOBAL.SHOPPINGLISTID);
+                    console.log("before push.");
+
+                    this.props.navigator.push({
+                       name: "Home"});
+                  })
+
+                }
+                else
+                {
+                  GLOBAL.WGID = "";
+                  GLOBAL.WGNAME = "";
+                  console.log("before push.");
+
+                  this.props.navigator.push({
+                     name: "Home"});
+
+                }
+
+
+
+              })
+              .catch((error) => {
+                console.log("hallo", error);
+              })
+
+
+
+         return Promise.resolve(true);
+        }
+      )
+      .catch((response) => {
+        this.setState({errormessage: response.data.error});
+        return Promise.resolve(false);
+      });
+
   }
 
   onPressRegister()
   {
-     console.log("going to register view...");
-
-     this.props.navigator.push({
-        name:"Register"
-    });
+    console.log("going to register view...");
+    this.props.navigator.push({name: "Register"});
   }
-
-
+  //<Image source={require('../../../assets/login_bg.jpg')}  style={styles.backgroundImage} />
   render()
   {
-    console.log("render: " + this.state.errormessage);
     return (
-      <View>
-        <Text style={styles.inputlabel}>
-          Username:
-        </Text>
-        <TextInput
-          ref="username"
-          onChangeText={(text) => this.setUsername(text)}
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        />
-        <Text style={styles.inputlabel}>
-          Password:
-        </Text>
-        <TextInput
-          ref="password"
-          onChangeText={(text) => this.setPassword(text)}
-          secureTextEntry={true}
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        />
-        <Text style={styles.errormessage}>{this.state.errormessage}</Text>
-        <TouchableHighlight onPress={this.onPressLogin}>
-          <Text>Login</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.onPressRegister}>
-          <Text >Register</Text>
-        </TouchableHighlight>
-      </View>
+
+
+        <View>
+          <Text style={styles.inputlabel}>
+            Username:
+          </Text>
+          <TextInput ref="username" autoCapitalize="none" autoCorrect={false} onChangeText={(text) => this.setUsername(text)} style={styles.basic}/>
+          <Text style={styles.inputlabel}>
+            Password:
+          </Text>
+          <TextInput ref="password" onChangeText={(text) => this.setPassword(text)} secureTextEntry={true} style={styles.basic}/>
+          <Text style={styles.errormessage}>{this.state.errormessage}</Text>
+          <Button text="Login" onPress={this.onPressLogin} show={true}></Button>
+          <Button text="Register" onPress={this.onPressRegister} show={true}></Button>
+        </View>
+
     );
   }
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  inputlabel: {
-    textAlign: 'left',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  errormessage: {
-    textAlign: 'center',
-    color: '#B0171F'
-  }
-
-});

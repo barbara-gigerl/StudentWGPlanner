@@ -1,13 +1,18 @@
 import React, {
-  AppRegistry,
   Component,
   Navigator,
   StyleSheet,
   Text,
   TextInput,
   View,
-  TouchableHighlight,
+  TouchableHighlight
 } from 'react-native';
+
+GLOBAL = require('../../auth');
+
+import config from "../../../config";
+import Button from '../../components/Button';
+import styles from "../../styles/index";
 
 export default class Register extends Component {
 
@@ -18,8 +23,11 @@ export default class Register extends Component {
       username: '',
       password: '',
       password2: '',
-      email: ''
+      email: '',
+      errormessage: ''
     };
+
+    this.onPressBack = this.onPressBack.bind(this);
   }
 
   onChange(text, key) {
@@ -27,41 +35,79 @@ export default class Register extends Component {
     newState[key] = text;
     this.setState(newState);
   }
-
+  onPressBack() {
+    this.props.navigator.push({name: "Login"});
+  }
   onSubmit() {
-    console.log(this.state);
+    if (this.state.password !== this.state.password2) {
+      this.setState({errormessage: "Passwords are not equal."});
+      return;
+    }
+    if(this.state.password === '' || this.state.email === '' || this.state.username ==='')
+    {
+      this.setState({errormessage: "Please fill in all data."});
+      return;
+    }
+
+    fetch(config.PARSE_SERVER_URL + '/users', {
+        method: 'POST',
+        headers: config.PARSE_SERVER_HEADERS,
+        body: JSON.stringify({
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email
+        })
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response.error) {
+          this.setState({errormessage: response.error});
+        } else {
+          GLOBAL.USER = {
+            id: response.objectId,
+            username: response.username,
+            email: response.email
+          };
+          GLOBAL.USERID = response.objectId;
+          this.props.navigator.push({
+             name:"Home"
+         });
+       }
+      })
+      .catch(error => {
+        console.log('error', error);
+      })
   }
 
   render()
   {
     return (
-      <View style={styles.container}>
-        <Text>
-          Register
-        </Text>
-        <Text>Username</Text>
-        <TextInput style={styles.inputField}
+      <View>
+        <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Register</Text></View>
+        <Text style={styles.inputLabelSmall}>Username</Text>
+        <TextInput style={styles.basic}
           value={this.state.username}
           onChangeText={(text) => this.onChange(text, 'username')}></TextInput>
-        <Text>Password</Text>
-        <TextInput style={styles.inputField}
+        <Text style={styles.inputLabelSmall}>Password</Text>
+        <TextInput style={styles.basic}
           secureTextEntry={true}
-          value={this.state.password}></TextInput>
-        <TextInput style={styles.inputField}
-          value={this.state.email}></TextInput>
-        <TouchableHighlight onPress={this.onSubmit.bind(this)}><Text>Register</Text></TouchableHighlight>
+          value={this.state.password}
+          onChangeText={(text) => this.onChange(text, 'password')}></TextInput>
+        <Text style={styles.inputLabelSmall}>Repeat password</Text>
+        <TextInput style={styles.basic}
+          secureTextEntry={true}
+          value={this.state.password2}
+          onChangeText={(text) => this.onChange(text, 'password2')}></TextInput>
+        <Text style={styles.inputLabelSmall}>Email</Text>
+        <TextInput style={styles.basic}
+          value={this.state.email}
+          onChangeText={(text) => this.onChange(text, 'email')}></TextInput>
+          <Text style={styles.errormessage}>{this.state.errormessage}</Text>
+
+        <Button text="Register" onPress={this.onSubmit.bind(this)} show={true} type="standard"></Button>
+        <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  inputField: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1
-  }
-});
+//<TouchableHighlight onPress={this.onSubmit.bind(this)}><Text>Register</Text></TouchableHighlight>
