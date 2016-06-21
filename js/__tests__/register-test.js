@@ -140,5 +140,7 @@ describe('Search WG Test', () => {
     output = renderer.getRenderOutput();
     expect(output.props.children[8].props.value).toBe("test@test.at");
 
+    registerbutton()
+
   });
 });

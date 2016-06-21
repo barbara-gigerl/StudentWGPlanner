@@ -1,12 +1,14 @@
 jest.unmock('../pages/login/login'); // unmock to use the actual implementation of sum
 jest.unmock('../pages/wg/SearchWG');
 jest.unmock('../pages/wg/ShoppingList');
-jest.unmock('../pages/wg/CreateShoppinglist')
+jest.unmock('../pages/wg/CreateShoppinglist');
+jest.unmock('../pages/register/register');
 
 import Login from '../pages/login/login';
 import JoinWg from '../pages/wg/SearchWG';
 import ShoppingList from "../pages/wg/ShoppingList";
 import CreateShoppinglist from "../pages/wg/CreateShoppinglist";
+import Register from '../pages/register/register';
 
 import config from '../../config';
 
@@ -14,7 +16,8 @@ let urls = [
   `${config.PARSE_SERVER_URL}login/`,
   `${config.PARSE_SERVER_URL}classes/wgs/`,
   `${config.PARSE_SERVER_URL}classes/shoppinglist/`,
-  `${config.PARSE_SERVER_URL}classes/shoppinglistitem/`
+  `${config.PARSE_SERVER_URL}classes/shoppinglistitem/`,
+  `${config.PARSE_SERVER_URL}classes/users/`
 
 ]
 
@@ -212,7 +215,6 @@ function mock_post_shoppinglistitem(data)
     return Promise.reject({"data" : {"code":401,"error":"shoppinglistid is required."}})
   if(data.name === "newElement" &&
      data.shoppinglistid === "correctListID"){
-       console.log("YYYYYYYYYYYYYYYEY")
     return Promise.resolve(
       { 'data': {'results': [
           { 'name': 'newElement', state: 0 }
@@ -220,6 +222,25 @@ function mock_post_shoppinglistitem(data)
     )}
   else
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
+}
+
+function mock_post_users(data)
+{
+  if(data.username === ''){
+    return Promise.reject({ "data" : {"code":400,"error":"Username is required."}})}
+  else if(data.password === ''){
+    return Promise.reject({ "data" : {"code":400,"error":"Password is required."}})}
+  else if(data.email === '')
+    return Promise.reject({ "data" : {"code":400,"error":"Mail is required."}})
+  else if(data.username === 'CorrectUsername' && data.email === 'test@test.at'){
+    return Promise.resolve(
+      { "data":
+        { "objectId": "idABC",
+          "username": "CorrectUsername",
+          "email": "test@test.at"
+        }
+      }
+    )}
 }
 
 module.exports = {
@@ -248,6 +269,7 @@ module.exports = {
       //case urls[1]: return mock_wg(data);
       case urls[2]: return mock_post_shoppinglist(data);
       case urls[3]: return mock_post_shoppinglistitem(data);
+      case urls[4]: return mock_post_users(data);
 
       //If you want to add another request url, add a case here and a function above ;)
     }

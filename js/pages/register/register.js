@@ -50,16 +50,16 @@ export default class Register extends Component {
       return;
     }
 
-    axios.post(config.PARSE_SERVER_URL + 'classes/users', {
+    axios.post(config.PARSE_SERVER_URL + 'classes/users/', {
           username: this.state.username,
           password: this.state.password,
           email: this.state.email}, {
           headers: config.PARSE_SERVER_HEADERS
       })
-
       .then(response => {
         if (response.error) {
           this.setState({errormessage: response.error});
+          return Promise.resolve(false);
         } else {
           GLOBAL.USER = {
             id: response.objectId,
@@ -67,9 +67,11 @@ export default class Register extends Component {
             email: response.email
           };
           GLOBAL.USERID = response.objectId;
+          this.setState({errormessage: ""})
           this.props.navigator.push({
              name:"Home"
          });
+         return Promise.resolve(true);
        }
       })
       .catch(error => {
