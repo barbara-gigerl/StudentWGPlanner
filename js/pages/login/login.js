@@ -106,7 +106,8 @@ export default class Login extends Component {
             }})
               .then((response) => {
                 console.log(response);
-                if(response.data.results.length == 1 )
+                console.log("here!!!!!!!!");
+                if(response.data.results.length >= 1 )
                 {
                   GLOBAL.WGID = response.data.results[0].objectId;
                   GLOBAL.WGNAME = response.data.results[0].name;
@@ -118,11 +119,15 @@ export default class Login extends Component {
 
                 }
 
+                console.log("länge: " +response.data.results.length);
+                console.log(GLOBAL.WGID, GLOBAL.WGNAME);
+
                 this.props.navigator.push({
                    name: "Home"});
 
               })
               .catch((error) => {
+                console.log("hallo", error);
               })
 
 

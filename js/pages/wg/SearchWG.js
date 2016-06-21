@@ -141,6 +141,7 @@ export default class SearchWG extends Component {
     }).then(response => {
       console.log(response)
       GLOBAL.WGID = resultObject.objectId
+      GLOBAL.WGNAME = resultObject.name
       this.props.navigator.push({
          name: "Home"});
     }).catch(function(error) {
