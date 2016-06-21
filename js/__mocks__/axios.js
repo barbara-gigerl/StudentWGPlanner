@@ -21,12 +21,12 @@ let params = [
 function mock_show_roommates(data)
 {
    if(data.params.where.objectId == 'ABC') {
-   return Promise.resolve({"results": [ {"users": [
+   return Promise.resolve({"data" : {"results": [ {"users": [
      {
         "id": "w6IWnikUqm",
         "username": "abc",
         "email": "abc@abc"
-      } ] } ] } );
+      } ] } ] } } );
     }
     else if(data.params.where.objectId == 'DEF') {
       return Promise.resolve({"data" : {"results": [ {"users": [ ] } ] } } );

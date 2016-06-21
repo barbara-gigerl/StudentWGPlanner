@@ -17,10 +17,6 @@ class ListView extends React.Component {
     static DataSource() {
     }
 
-    static cloneWithRows() {
-      
-    }
-
 }
 
 class AppRegistry {
