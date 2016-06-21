@@ -59,9 +59,8 @@ export default class ShoppingList extends Component {
 
   onInsertData()
   {
-    console.log(this.state.listItem);
     if (this.state.listItem !== '' && this.state.listItem) {
-    axios.post(config.PARSE_SERVER_URL + 'classes/shoppinglistitem/', {
+      axios.post(config.PARSE_SERVER_URL + 'classes/shoppinglistitem/', {
           name: this.state.listItem,
           state: 0,         //0: active, 1: to delete, 2: deleted
           shoppinglistid: GLOBAL.SHOPPINGLISTID}, {

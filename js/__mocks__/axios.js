@@ -40,11 +40,11 @@ function mock_show_roommates(data)
 function mock_search_wgs(data)
 {
   //let regex = data.params.where.name['$regex'];
-  console.log(data);
+  //console.log(data);
   let regex = 'ABC';
-  console.log('regex: ' + regex);
+  //console.log('regex: ' + regex);
   if (true) {
-    console.log('test');
+    //console.log('test');
     return Promise.resolve({ 'data': {'results': [ { name: 'ABCD' }, { name: 'ABCDE' } ]}});
   }
   return Promise.resolve({ 'data': {'results': [] }});
@@ -112,30 +112,38 @@ function mock_shoppinglist(data)
 
 function mock_shoppinglistitem(data)
 {
-  if(data.params.name === '')
-    return Promise.reject({ "data" : {"code":400,"error":"elementname is required."}})
   if(data.params.shoppinglistid === '')
     return Promise.reject({"data" : {"code":401,"error":"shoppinglist is required."}})
-  if(data.params.name === "newElement" &&
-     data.params.shoppinglistid === "CorrectID")
-    return Promise.resolve({"data" : {
-        "ACL": {
-          "*": {
-            "read": true
-          },
-          "ji90Rxs0EB": {
-            "read": true,
-            "write": true
-          }
-        },
-        "name": "newElement",
-        "state": "0",
-        "shoppinglistid": "CorrectID",
-        "updatedAt": "2016-06-08T11:25:26.046Z",
-        "createdAt": "2016-06-08T11:25:26.046Z",
-        "objectId": "ji90Rxs0EB",
-        "sessionToken": "r:1a587e298b9b69b5b2b2ba47a12e9a67"
-    }})
+  if(data.params.shoppinglistid === "correctListID" &&
+     data.params.state == 1)
+    return Promise.resolve(
+      {"data":
+        {"results":
+          [ { "name": "newElement2",
+              "state": 1,
+              "shoppinglistid": "correctListID"
+            }
+          ]
+        }
+      }
+    )
+  if(data.params.shoppinglistid === "correctListID")
+    return Promise.resolve(
+      {"data":
+        {"results":
+          [ { "name": "newElement",
+              "state": 0,
+              "shoppinglistid": "correctListID"
+            },
+            { "name": "newElement2",
+              "state": 0,
+              "shoppinglistid": "correctListID"
+            }
+
+          ]
+        }
+      }
+    )
   else
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
 }
@@ -156,7 +164,7 @@ function mock_wg(data)
   else if(data.params.where.name === '')
     return Promise.reject({ "data" : {"code":400,"error":"name is required."}})
   else if(data.params.name === "correctName"){
-    console.log("YEYEYEE")
+    //console.log("YEYEYEE")
     return Promise.resolve(
       {"data":
         {"results":
@@ -194,6 +202,24 @@ function mock_post_shoppinglist(data)
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
 }
 
+function mock_post_shoppinglistitem(data)
+{
+  if(data.name === '')
+    return Promise.reject({ "data" : {"code":400,"error":"name is required."}})
+  if(data.shoppinglistid === '')
+    return Promise.reject({"data" : {"code":401,"error":"shoppinglistid is required."}})
+  if(data.name === "newElement" &&
+     data.shoppinglistid === "correctListID"){
+       console.log("YYYYYYYYYYYYYYYEY")
+    return Promise.resolve(
+      { 'data': {'results': [
+          { 'name': 'newElement', state: 0 }
+      ]}}
+    )}
+  else
+    return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
+}
+
 module.exports = {
   get: function(url,data){
     console.log(url, data);
@@ -219,7 +245,7 @@ module.exports = {
       //case urls[0]: return mock_login(data);
       //case urls[1]: return mock_wg(data);
       case urls[2]: return mock_post_shoppinglist(data);
-      //case urls[3]: return mock_post_shoppinglistitem(data);
+      case urls[3]: return mock_post_shoppinglistitem(data);
 
       //If you want to add another request url, add a case here and a function above ;)
     }

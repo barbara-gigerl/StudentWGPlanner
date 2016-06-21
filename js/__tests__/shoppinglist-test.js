@@ -115,8 +115,8 @@ describe('ShoppingList test', () => {
     expect(output.props.children[7].props.show).toBe(true);
   });
 
-  it('display correct and complete GUI - shopping list exists', () => {
-    var states = {
+  it('textinput and insert', () => {
+    var state = {
       listElements: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
       }),
@@ -124,31 +124,65 @@ describe('ShoppingList test', () => {
       errormessage: ''
     };
 
-    GLOBAL.SHOPPINGLISTID = 'CorrectID';
+    GLOBAL.SHOPPINGLISTID = 'correctListID';
 
     var renderer = TestUtils.createRenderer();
     renderer.render(<ShoppingList />);
     var instance = renderer._instance._instance;
-    instance.setState(states || {});
+    instance.setState(state || {});
     var output = renderer.getRenderOutput();
 
-console.log("SANDRA")
     var onChangeText = output.props.children[3].props.children.props.onChangeText;
     var insertButton = output.props.children[4].props.onPress;
 
     expect(output.props.children[3].props.children.props.value).toBe('');
-    onChangeText("newElement");
+    onChangeText('newElement');
     output = renderer.getRenderOutput();
 
     expect(output.props.children[3].props.children.props.value).toBe('newElement');
     insertButton();
+    onChangeText("");
     output = renderer.getRenderOutput();
-  //  console.log(states)
 
+    expect(output.props.children[3].props.children.props.value).toBe('');
+  });
 
+  it('change state and delete', () => {
+    var element1 = {
+        name: "newElement",
+        state: 0,
+        shoppinglistId: 'correctListID'
+      };
+    var element2 = {
+        name: "newElement2",
+        state: 1,
+        shoppinglistId: 'correctListID'
+      };
 
-    //expect()
+    var state = {
+      listElements: [element1, element2],
+      listItem: '',
+      errormessage: ''
+    };
 
+    GLOBAL.SHOPPINGLISTID = 'correctListID';
+
+    var renderer = TestUtils.createRenderer();
+    renderer.render(<ShoppingList />);
+    var instance = renderer._instance._instance;
+    instance.setState(state);
+    var output = renderer.getRenderOutput();
+
+    expect(output.props.children[5].props.dataSource[0].name).toBe("newElement");
+    expect(output.props.children[5].props.dataSource[1].name).toBe("newElement2");
+
+    var deleteButton = output.props.children[6].props.onPress;
+    deleteButton();
+    instance.setState({listElements: [element1]})
+    output = renderer.getRenderOutput();
+
+    expect(output.props.children[5].props.dataSource[0].name).toBe("newElement");
+    
   });
 
 });
