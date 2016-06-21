@@ -23,7 +23,8 @@ export default class Register extends Component {
       username: '',
       password: '',
       password2: '',
-      email: ''
+      email: '',
+      errormessage: ''
     };
 
     this.onPressBack = this.onPressBack.bind(this);
@@ -39,7 +40,12 @@ export default class Register extends Component {
   }
   onSubmit() {
     if (this.state.password !== this.state.password2) {
-      alert("Passwords not equal");
+      this.setState({errormessage: "Passwords are not equal."});
+      return;
+    }
+    if(this.state.password === '' || this.state.email === '' || this.state.username ==='')
+    {
+      this.setState({errormessage: "Please fill in all data."});
       return;
     }
 
@@ -55,7 +61,7 @@ export default class Register extends Component {
       .then(response => response.json())
       .then(response => {
         if (response.error) {
-          alert(response.error);
+          this.setState({errormessage: response.error});
         } else {
           GLOBAL.USER = {
             id: response.objectId,
@@ -96,6 +102,7 @@ export default class Register extends Component {
         <TextInput style={styles.basic}
           value={this.state.email}
           onChangeText={(text) => this.onChange(text, 'email')}></TextInput>
+          <Text style={styles.errormessage}>{this.state.errormessage}</Text>
 
         <Button text="Register" onPress={this.onSubmit.bind(this)} show={true} type="standard"></Button>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
