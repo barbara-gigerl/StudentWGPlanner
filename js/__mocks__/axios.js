@@ -8,16 +8,47 @@ import JoinWg from '../pages/wg/SearchWG';
 import ShoppingList from "../pages/wg/ShoppingList";
 import CreateShoppinglist from "../pages/wg/CreateShoppinglist";
 
+import config from '../../config';
+
 let urls = [
-  "http://10.0.2.2:1337/parse/login/",
-  "http://10.0.2.2:1337/parse/classes/wgs/",
-  "http://10.0.2.2:1337/parse/classes/shoppinglist/",
-  "http://10.0.2.2:1337/parse/classes/shoppinglistitem/"
+  `${config.PARSE_SERVER_URL}login/`,
+  `${config.PARSE_SERVER_URL}classes/wgs/`,
+  `${config.PARSE_SERVER_URL}classes/shoppinglist/`,
+  `${config.PARSE_SERVER_URL}classes/shoppinglistitem/`
+
 ]
 
 let params = [
   "",
 ]
+
+function mock_show_roommates(data)
+{
+   if(data.params.where.objectId == 'ABC') {
+   return Promise.resolve({"results": [ {"users": [
+     {
+        "id": "w6IWnikUqm",
+        "username": "abc",
+        "email": "abc@abc"
+      } ] } ] } );
+    }
+    else if(data.params.where.objectId == 'DEF') {
+      return Promise.resolve({"data" : {"results": [ {"users": [ ] } ] } } );
+    }
+}
+
+function mock_search_wgs(data)
+{
+  //let regex = data.params.where.name['$regex'];
+  console.log(data);
+  let regex = 'ABC';
+  console.log('regex: ' + regex);
+  if (true) {
+    console.log('test');
+    return Promise.resolve({ 'data': {'results': [ { name: 'ABCD' }, { name: 'ABCDE' } ]}});
+  }
+  return Promise.resolve({ 'data': {'results': [] }});
+}
 
 function mock_login(data)
 {
@@ -165,10 +196,17 @@ function mock_post_shoppinglist(data)
 
 module.exports = {
   get: function(url,data){
+    console.log(url, data);
     switch(url)
     {
       case urls[0]: return mock_login(data);
-      case urls[1]: return mock_wg(data);
+      case urls[1]:
+        if (data.testCase === 'SEARCHWG')
+          return mock_search_wgs(data);
+        else if (data.testCase === 'JOINWG')
+          return mock_wg(data);
+        else
+          return mock_show_roommates(data);
       case urls[2]: return mock_shoppinglist(data);
       case urls[3]: return mock_shoppinglistitem(data);
 
