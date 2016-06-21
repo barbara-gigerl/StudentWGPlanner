@@ -57,10 +57,11 @@ export default class SearchWG extends Component {
 
   textchangehandler(text)
   {
-    console.log("textchangehandler");
+    console.log('textchangehandler: ' + text);
     this.setState({searchterm: text})
     axios.get(config.PARSE_SERVER_URL + 'classes/wgs/', {
       headers: config.PARSE_SERVER_HEADERS,
+      testCase: 'SEARCHWG',
       params: {
         "where": {
           "name": {
@@ -69,7 +70,8 @@ export default class SearchWG extends Component {
         }
       }
     })
-    .then((response) => {
+    //.then(response => response.data.results)
+    .then(function(response) {
       var results = response.data.results;
       console.log(results);
       this.setState({
@@ -95,6 +97,7 @@ export default class SearchWG extends Component {
     if (this.state.searchterm !== "") {
       axios.get(config.PARSE_SERVER_URL + "classes/wgs/", {
         headers: config.PARSE_SERVER_HEADERS,
+        testCase: 'JOINWG',
         params: {
           "where": {
             "name": this.state.searchterm
@@ -166,7 +169,7 @@ export default class SearchWG extends Component {
 
   render()
   {
-
+    console.log(this.state.wgs)
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>

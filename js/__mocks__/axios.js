@@ -8,11 +8,14 @@ import JoinWg from '../pages/wg/SearchWG';
 import ShoppingList from "../pages/wg/ShoppingList";
 import CreateShoppinglist from "../pages/wg/CreateShoppinglist";
 
+import config from '../../config';
+
 let urls = [
-  "http://10.0.2.2:1337/parse/login/",
-  "http://10.0.2.2:1337/parse/classes/wgs/",
-  "http://10.0.2.2:1337/parse/classes/shoppinglist",
-  "http://10.0.2.2:1337/parse/classes/shoppinglistitem"
+  `${config.PARSE_SERVER_URL}login/`,
+  `${config.PARSE_SERVER_URL}classes/wgs/`,
+  `${config.PARSE_SERVER_URL}classes/shoppinglist/`,
+  `${config.PARSE_SERVER_URL}classes/shoppinglistitem/`
+
 ]
 
 let params = [
@@ -32,6 +35,16 @@ function mock_show_roommates(data)
     else if(data.params.where.objectId == 'roommates_DEF') {
       return Promise.resolve({"data" : {"results": [ {"users": [ ] } ] } } );
     }
+}
+
+function mock_search_wgs(data)
+{
+  //let regex = data.params.where.name['$regex'];
+  let regex = 'ABC';
+  if (true) {
+    return Promise.resolve({ 'data': {'results': [ { name: 'ABCD' }, { name: 'ABCDE' } ]}});
+  }
+  return Promise.resolve({ 'data': {'results': [] }});
 }
 
 function mock_login(data)
@@ -63,7 +76,6 @@ function mock_login(data)
   else
     return Promise.reject({"data" : {"code":201,"error":"Invalid username/password."}})
 }
-
 
 function mock_shoppinglist(data)
 {
@@ -104,7 +116,6 @@ function mock_shoppinglistitem(data)
   if(data.params.name === "newElement" &&
      data.params.shoppinglistid === "CorrectID")
     return Promise.resolve({"data" : {
-
         "ACL": {
           "*": {
             "read": true
@@ -164,34 +175,19 @@ function mock_wg(data)
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
 }
 
-function decide(data)
+function mock_post_shoppinglist(data)
 {
-  if(data.params.where.users && data.params.where.users['$all'][0].id == 'e2R5FTHl3Q') {
+  if(data.name === '')
+    return Promise.reject({ "data" : {"code":400,"error":"name is required."}})
+  if(data.wgid === '')
+    return Promise.reject({"data" : {"code":401,"error":"wg is required."}})
+  if(data.name === "newWG" &&
+     data.wgid === "wg123")
     return Promise.resolve(
-      {"data":
-        {"results":
-          [{
-            "name": "mywg",
-            "objectId": "1234",
-            "users":
-            [{
-              "id": "e2R5FTHl3Q",
-              "username": "CorrectUsername",
-              "email": "correct@cor.co"
-            }]
-          }]
-        }
-      }
+      {"data": { "objectId" : "correctListID"}}
     )
-   }
-
-  if(data.params.where.objectId == 'roommates_ABC' ||
-     data.params.where.objectId == 'roommates_DEF')
-     {
-       return mock_show_roommates(data);
-     }
-
-     return mock_wg(data);
+  else
+    return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
 }
 
 module.exports = {
@@ -199,9 +195,27 @@ module.exports = {
     switch(url)
     {
       case urls[0]: return mock_login(data);
-      case urls[1]: return decide(data);
+      case urls[1]:
+        if (data.testCase === 'SEARCHWG')
+          return mock_search_wgs(data);
+        else if (data.testCase === 'JOINWG')
+          return mock_wg(data);
+        else
+          return mock_show_roommates(data);
       case urls[2]: return mock_shoppinglist(data);
-      case urls[3]: return mock_shoppinglistitem(data)
+      case urls[3]: return mock_shoppinglistitem(data);
+
+      //If you want to add another request url, add a case here and a function above ;)
+    }
+  },
+  post: function(url,data){
+    switch(url)
+    {
+      //case urls[0]: return mock_login(data);
+      //case urls[1]: return mock_wg(data);
+      case urls[2]: return mock_post_shoppinglist(data);
+      //case urls[3]: return mock_post_shoppinglistitem(data);
+
       //If you want to add another request url, add a case here and a function above ;)
     }
   }

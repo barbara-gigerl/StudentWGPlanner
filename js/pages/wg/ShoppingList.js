@@ -61,7 +61,7 @@ export default class ShoppingList extends Component {
   {
     console.log(this.state.listItem);
     if (this.state.listItem !== '' && this.state.listItem) {
-    axios.post(config.PARSE_SERVER_URL + 'classes/shoppinglistitem', {
+    axios.post(config.PARSE_SERVER_URL + 'classes/shoppinglistitem/', {
           name: this.state.listItem,
           state: 0,         //0: active, 1: to delete, 2: deleted
           shoppinglistid: GLOBAL.SHOPPINGLISTID}, {
@@ -91,7 +91,7 @@ export default class ShoppingList extends Component {
 
   showShoppingLists()
   {
-    axios.get(config.PARSE_SERVER_URL + 'classes/shoppinglistitem', {
+    axios.get(config.PARSE_SERVER_URL + 'classes/shoppinglistitem/', {
       headers: config.PARSE_SERVER_HEADERS,
       params: {
         "where": {
@@ -155,7 +155,7 @@ export default class ShoppingList extends Component {
 
   onDeleteData()
   {
-    axios.get(config.PARSE_SERVER_URL + 'classes/shoppinglistitem', {
+    axios.get(config.PARSE_SERVER_URL + 'classes/shoppinglistitem/', {
       headers: config.PARSE_SERVER_HEADERS,
       params: {
         "where": {
@@ -214,12 +214,10 @@ export default class ShoppingList extends Component {
         <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Shopping List</Text></View>
         <Button text="Create a new Shoppinglist" show={!haveShoppingList} onPress={this.onPressNew}></Button>
         <HideableView hidden={!haveShoppingList}>
-        <TextInput onChangeText={(text) => this.onNameChange(text)} value={this.state.listItem} style={styles.basic}></TextInput>
+          <TextInput onChangeText={(text) => this.onNameChange(text)} value={this.state.listItem} style={styles.basic}></TextInput>
         </HideableView>
         <Button text="Insert Data" onPress={this.onInsertData} show={haveShoppingList} ></Button>
         <ListView show={haveShoppingList} dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
-
-
         <Button text="Delete Selected Items" onPress={this.onDeleteData} show={haveShoppingList} ></Button>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>

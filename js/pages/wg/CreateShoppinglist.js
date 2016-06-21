@@ -25,7 +25,8 @@ export default class CreateShoppingList extends Component {
   {
     super(props);
     this.state = {
-      name: ''
+      name: '',
+      errormessage: ''
     };
 
     this.onPressLogout = this.onPressLogout.bind(this);
@@ -50,7 +51,7 @@ export default class CreateShoppingList extends Component {
 
   onCreateNew() {
     if (this.state.name !== '' && this.state.name) {
-      axios.post(config.PARSE_SERVER_URL + 'classes/shoppinglist', {
+      axios.post(config.PARSE_SERVER_URL + 'classes/shoppinglist/', {
           name: this.state.name,
           wgid: GLOBAL.WGID}, {
           headers: config.PARSE_SERVER_HEADERS
@@ -70,45 +71,16 @@ export default class CreateShoppingList extends Component {
 
   }
 
-  //////////////////
-  deleteShoppingList(text)
-  {
-    if(this.state.searchterm !== ""){
-      console.log("will now connect to server");
-      axios.get('http://10.0.3.2:1337/parse/classes/wgs/', {
-        headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
-                  'X-Parse-Master-Key': 'asdf'},
-          params: {
-          "where": {"objectId" : Global.WGID } //TODO replace Global.WGID
-          }
-      })
-      .then(function (response) {
-          console.log("fkfdk");
-          console.log(response.data.results[0].userarray);
-          this.setState({roommates: this.state.roommates.cloneWithRows([...response.data.results[0].userarray])});
-
-        }.bind(this))
-      .catch(function (error) {
-        console.log(error);
-      });
-    }
-  }
-
   render()
   {
-    let haveShoppingList = true;
-    if(GLOBAL.SHOPPINGLISTID === '')
-      haveShoppingList = false;
-
-
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
-        <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Shopping List</Text></View>
-        <Text style={styles.textMenuHeader}></Text>
+        <View style={styles.viewNavigation}>
+          <Text style={styles.textNavigation}>Shopping List</Text>
+        </View>
         <Text style={styles.textMenuHeader}>Create a new Shoppinglist</Text>
-        <TextInput onChangeText={this.onNameChange} value={this.state.name} style={styles.basic} show={haveShoppingList}></TextInput>
-        <Text style={styles.errormessage}>{this.state.errormessage}</Text>
+        <TextInput onChangeText={this.onNameChange} value={this.state.name} style={styles.basic}></TextInput>
         <Button text="Create" onPress={this.onCreateNew} show={true} type="back"></Button>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>
