@@ -57,7 +57,6 @@ export default class SearchWG extends Component {
 
   textchangehandler(text)
   {
-    console.log('textchangehandler: ' + text);
     this.setState({searchterm: text})
     axios.get(config.PARSE_SERVER_URL + 'classes/wgs/', {
       headers: config.PARSE_SERVER_HEADERS,
@@ -74,13 +73,14 @@ export default class SearchWG extends Component {
     .then((response) => {
       var results = response.data.results;
       console.log(results);
+      if(results.length > 0) {
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results])
       })
+    }
       return Promise.resolve(true);
     })
     .catch((error) => {
-      console.log(error)
       return Promise.resolve(false);
     })
 
@@ -117,7 +117,6 @@ export default class SearchWG extends Component {
 
       })
       .catch((error) => {
-        console.log(error);
         this.setState({errormessage: "Couldn't connect to server."});
         return Promise.resolve(false);
       });
@@ -135,20 +134,17 @@ export default class SearchWG extends Component {
       }
     }
 
-    console.log("insert db: id = " + GLOBAL.USER.id +
-  "username = " + GLOBAL.USER.username + "email = " +
-GLOBAL.USER.email);
     resultObject.users.push({
     "id": GLOBAL.USER.id,
     "username":GLOBAL.USER.username,
     "email":GLOBAL.USER.email});
+
     axios.put(config.PARSE_SERVER_URL + "classes/wgs/" + resultObject.objectId, {
         'users': resultObject.users
       }, {
         headers: config.PARSE_SERVER_HEADERS
     })
     .then(response => {
-      console.log(response)
       GLOBAL.WGID = resultObject.objectId
       GLOBAL.WGNAME = resultObject.name
       this.props.navigator.push({
@@ -157,7 +153,6 @@ GLOBAL.USER.email);
     })
     .catch(function(error) {
       this.setState({errormessage: "Couldn't connect to server."});
-      console.log(error);
       return Promise.resolve(false);
     });
 
@@ -172,7 +167,6 @@ GLOBAL.USER.email);
 
   render()
   {
-    console.log(this.state.wgs)
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>

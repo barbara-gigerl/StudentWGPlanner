@@ -36,7 +36,6 @@ export default class LeaveWG extends Component {
   }
 
   onPressLeaveWG() {
-    console.log("inonpressleavewg");
     return axios.get(config.PARSE_SERVER_URL + "classes/wgs/" + GLOBAL.WGID, {
       headers: config.PARSE_SERVER_HEADERS})
       .then((response) => {
@@ -51,9 +50,9 @@ export default class LeaveWG extends Component {
           {
             headers: config.PARSE_SERVER_HEADERS
           }).then(response => {
-            console.log(response)
+            //console.log(response)
           }).catch(function(error) {
-            console.log(error);
+            //console.log(error);
           });
         }
         else {
@@ -62,9 +61,9 @@ export default class LeaveWG extends Component {
           }, {
             headers: config.PARSE_SERVER_HEADERS
           }).then(response => {
-            console.log(response)
+            //console.log(response)
           }).catch(function(error) {
-            console.log(error);
+          //  console.log(error);
           });
         }
 

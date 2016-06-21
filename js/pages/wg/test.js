@@ -11,7 +11,6 @@ class Test extends Component {
   }
 
   render() {
-    console.log(this.props.wg);
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
