@@ -41,6 +41,7 @@ export default class ShoppingList extends Component {
     this.onPressElement = this.onPressElement.bind(this);
     this.onDeleteData = this.onDeleteData.bind(this);
     this.deleteNow = this.deleteNow.bind(this);
+
   }
 
   onPressBack() {
@@ -70,6 +71,7 @@ export default class ShoppingList extends Component {
         this.setState({
           listItem: ''
         })
+        this.showShoppingLists();
         return Promise.resolve(true);
       })
       .catch((error) => {
@@ -167,6 +169,7 @@ export default class ShoppingList extends Component {
       var results = response.data.results;
       console.log(results);
       this.deleteNow(results);
+      this.showShoppingLists();
       return Promise.resolve(true);
     }.bind(this))
     .catch((error) => {
@@ -203,7 +206,8 @@ export default class ShoppingList extends Component {
     if(GLOBAL.SHOPPINGLISTID === ''){
       haveShoppingList = false;
     }
-    else{
+    else 
+    {
       this.showShoppingLists();
     }
 
@@ -216,7 +220,7 @@ export default class ShoppingList extends Component {
           <TextInput onChangeText={(text) => this.onNameChange(text)} value={this.state.listItem} style={styles.basic}></TextInput>
         </HideableView>
         <Button text="Insert Data" onPress={this.onInsertData} show={haveShoppingList} ></Button>
-        <ListView show={haveShoppingList} dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
+        <ListView enableEmptySections={true} show={haveShoppingList} dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
         <Button text="Delete Selected Items" onPress={this.onDeleteData} show={haveShoppingList} ></Button>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>
