@@ -57,9 +57,11 @@ export default class SearchWG extends Component {
 
   textchangehandler(text)
   {
+    console.log('textchangehandler: ' + text);
     this.setState({searchterm: text})
-    axios.get(config.PARSE_SERVER_URL + 'classes/wgs', {
+    axios.get(config.PARSE_SERVER_URL + 'classes/wgs/', {
       headers: config.PARSE_SERVER_HEADERS,
+      testCase: 'SEARCHWG',
       params: {
         "where": {
           "name": {
@@ -69,7 +71,8 @@ export default class SearchWG extends Component {
       }
     })
     //.then(response => response.data.results)
-      .then(function(response) {
+    .then(function(response) {
+      console.log(response);
       var results = response.data.results;
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results])
@@ -177,7 +180,7 @@ export default class SearchWG extends Component {
 
   render()
   {
-
+    console.log(this.state.wgs)
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
