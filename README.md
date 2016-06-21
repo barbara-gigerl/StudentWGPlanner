@@ -32,11 +32,15 @@ Install the MongoDB packages
 
 ### Masterkey for your app
 	MasterKey for parse-server: asdf
-###a ppId
+###appId
  	StudentWGPlanner
 
 ### mongodb-runner 	
+
+
 mongodb-runner start
+
+
 parse-dashboard --appId StudentWGPlanner --masterKey asdf --serverURL "http://localhost:1337/parse" --appName StudentWGPlanner
 parse-server --appId StudentWGPlanner --masterKey asdf
 
