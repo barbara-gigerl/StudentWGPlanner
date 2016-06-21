@@ -95,7 +95,6 @@ describe('JoinWG test', () => {
 
     textchangehandler("");
     output = renderer.getRenderOutput();
-    console.log(output.props.children[6])
     expect(output.props.children[6].props.show).toBe(false);
 
   });

@@ -67,7 +67,8 @@ export default class CreateWG extends Component {
         if (results.length === 0) {
           axios.post(config.PARSE_SERVER_URL + 'classes/wgs', {
             name: this.state.wgName,
-            users: [GLOBAL.USER]
+            users: [{"id":GLOBAL.USER.id, "username":GLOBAL.USER.username,
+                     "email":GLOBAL.USER.email}]
           }, {
             headers: config.PARSE_SERVER_HEADERS
           })

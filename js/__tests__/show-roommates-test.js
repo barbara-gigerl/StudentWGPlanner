@@ -1,7 +1,7 @@
 jest.unmock('../pages/wg/Roommates'); // unmock to use the actual implementation of sum
 GLOBAL = require('../auth');
 import axios from 'axios';
-import React from 'react';
+import React, {ListView, Navigator} from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import Roommates from '../pages/wg/Roommates';
@@ -25,9 +25,13 @@ describe('Show roommates test', () => {
   }
 
   it('existing roommates', () => {
-    GLOBAL.WGID = 'ABC';
     const states = {
-          };
+      roommates: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1.id !== r2.id
+      }),
+    };
+    GLOBAL.WGID = 'roommates_ABC';
+
     login_test = renderScreen({}, states);
 
     var {instance} = login_test;
@@ -39,15 +43,17 @@ describe('Show roommates test', () => {
       expect(output.props.children[0].props.children).toBe('In your WG are the following people:');
       expect(output.props.children[1].type.name).toBe("ListView");
       var listview = output.props.children[1];
-      console.log(listview);
   });
 
   });
 
   it('alone in WG', () => {
-    GLOBAL.WGID = 'DEF';
+    GLOBAL.WGID = 'roommates_DEF';
     const states = {
-          };
+      roommates: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1.id !== r2.id
+      }),
+    };
     login_test = renderScreen({}, states);
 
     var {instance} = login_test;

@@ -87,7 +87,6 @@ export default class ShoppingList extends Component {
 
   onNameChange(text) {
     this.setState({listItem: text});
-
   }
 
   showShoppingLists()
@@ -206,7 +205,7 @@ export default class ShoppingList extends Component {
     if(GLOBAL.SHOPPINGLISTID === ''){
       haveShoppingList = false;
     }
-    else 
+    else
     {
       this.showShoppingLists();
     }

@@ -18,9 +18,15 @@ class DataSource {
 }
 
 class ListView extends React.Component {
+<<<<<<< HEAD
     static DataSource() {
     }
 
+=======
+  static DataSource() {
+    return new DataSource();
+  }
+>>>>>>> 1deaca121106a32224f83f079af410ab1887291f
 }
 
 class AppRegistry {

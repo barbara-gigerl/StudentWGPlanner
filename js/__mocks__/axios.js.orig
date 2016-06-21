@@ -24,19 +24,32 @@ let params = [
 
 function mock_show_roommates(data)
 {
+<<<<<<< HEAD
    if(data.params.where.objectId == 'roommates_ABC') {
    return Promise.resolve({"data" : {"results": [ {"users": [
+=======
+   if(data.params.where.objectId == 'ABC') {
+   return Promise.resolve({"results": [ {"users": [
+>>>>>>> 1deaca121106a32224f83f079af410ab1887291f
      {
         "id": "w6IWnikUqm",
         "username": "abc",
         "email": "abc@abc"
+<<<<<<< HEAD
       } ] } ] } } );
     }
     else if(data.params.where.objectId == 'roommates_DEF') {
+=======
+      } ] } ] } );
+    }
+    else if(data.params.where.objectId == 'DEF') {
+>>>>>>> 1deaca121106a32224f83f079af410ab1887291f
       return Promise.resolve({"data" : {"results": [ {"users": [ ] } ] } } );
     }
 }
 
+<<<<<<< HEAD
+=======
 function mock_search_wgs(data)
 {
   //let regex = data.params.where.name['$regex'];
@@ -50,6 +63,7 @@ function mock_search_wgs(data)
   return Promise.resolve({ 'data': {'results': [] }});
 }
 
+>>>>>>> 1deaca121106a32224f83f079af410ab1887291f
 function mock_login(data)
 {
   if(data.params.username === '')
@@ -79,6 +93,7 @@ function mock_login(data)
   else
     return Promise.reject({"data" : {"code":201,"error":"Invalid username/password."}})
 }
+
 
 function mock_shoppinglist(data)
 {
@@ -116,36 +131,27 @@ function mock_shoppinglistitem(data)
     return Promise.reject({ "data" : {"code":400,"error":"elementname is required."}})
   if(data.params.shoppinglistid === '')
     return Promise.reject({"data" : {"code":401,"error":"shoppinglist is required."}})
-  if(data.params.shoppinglistid === "correctListID" &&
-     data.params.state == 1)
-    return Promise.resolve(
-      {"data":
-        {"results":
-          [ { "name": "newElement2",
-              "state": 1,
-              "shoppinglistid": "correctListID"
-            }
-          ]
-        }
-      }
-    )
-  if(data.params.shoppinglistid === "correctListID")
-    return Promise.resolve(
-      {"data":
-        {"results":
-          [ { "name": "newElement",
-              "state": 0,
-              "shoppinglistid": "correctListID"
-            },
-            { "name": "newElement2",
-              "state": 0,
-              "shoppinglistid": "correctListID"
-            }
+  if(data.params.name === "newElement" &&
+     data.params.shoppinglistid === "CorrectID")
+    return Promise.resolve({"data" : {
 
-          ]
-        }
-      }
-    )
+        "ACL": {
+          "*": {
+            "read": true
+          },
+          "ji90Rxs0EB": {
+            "read": true,
+            "write": true
+          }
+        },
+        "name": "newElement",
+        "state": "0",
+        "shoppinglistid": "CorrectID",
+        "updatedAt": "2016-06-08T11:25:26.046Z",
+        "createdAt": "2016-06-08T11:25:26.046Z",
+        "objectId": "ji90Rxs0EB",
+        "sessionToken": "r:1a587e298b9b69b5b2b2ba47a12e9a67"
+    }})
   else
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
 }
@@ -166,7 +172,6 @@ function mock_wg(data)
   else if(data.params.where.name === '')
     return Promise.reject({ "data" : {"code":400,"error":"name is required."}})
   else if(data.params.name === "correctName"){
-    console.log("YEYEYEE")
     return Promise.resolve(
       {"data":
         {"results":
@@ -189,6 +194,36 @@ function mock_wg(data)
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
 }
 
+<<<<<<< HEAD
+function decide(data)
+{
+  if(data.params.where.users && data.params.where.users['$all'][0].id == 'e2R5FTHl3Q') {
+    return Promise.resolve(
+      {"data":
+        {"results":
+          [{
+            "name": "mywg",
+            "objectId": "1234",
+            "users":
+            [{
+              "id": "e2R5FTHl3Q",
+              "username": "CorrectUsername",
+              "email": "correct@cor.co"
+            }]
+          }]
+        }
+      }
+    )
+   }
+
+  if(data.params.where.objectId == 'roommates_ABC' ||
+     data.params.where.objectId == 'roommates_DEF')
+     {
+       return mock_show_roommates(data);
+     }
+
+     return mock_wg(data);
+=======
 function mock_post_shoppinglist(data)
 {
   if(data.name === '')
@@ -202,24 +237,7 @@ function mock_post_shoppinglist(data)
     )
   else
     return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
-}
-
-function mock_post_shoppinglistitem(data)
-{
-  if(data.name === '')
-    return Promise.reject({ "data" : {"code":400,"error":"name is required."}})
-  if(data.shoppinglistid === '')
-    return Promise.reject({"data" : {"code":401,"error":"shoppinglistid is required."}})
-  if(data.name === "newElement" &&
-     data.shoppinglistid === "correctListID"){
-       console.log("YYYYYYYYYYYYYYYEY")
-    return Promise.resolve(
-      { 'data': {'results': [
-          { 'name': 'newElement', state: 0 }
-      ]}}
-    )}
-  else
-    return Promise.reject({"data" : {"code":401,"error":"Invalid element."}})
+>>>>>>> 1deaca121106a32224f83f079af410ab1887291f
 }
 
 module.exports = {
@@ -228,6 +246,9 @@ module.exports = {
     switch(url)
     {
       case urls[0]: return mock_login(data);
+<<<<<<< HEAD
+      case urls[1]: return decide(data);
+=======
       case urls[1]:
         if (data.testCase === 'SEARCHWG')
           return mock_search_wgs(data);
@@ -235,9 +256,9 @@ module.exports = {
           return mock_wg(data);
         else
           return mock_show_roommates(data);
+>>>>>>> 1deaca121106a32224f83f079af410ab1887291f
       case urls[2]: return mock_shoppinglist(data);
-      case urls[3]: return mock_shoppinglistitem(data);
-
+      case urls[3]: return mock_shoppinglistitem(data)
       //If you want to add another request url, add a case here and a function above ;)
     }
   },
@@ -247,7 +268,7 @@ module.exports = {
       //case urls[0]: return mock_login(data);
       //case urls[1]: return mock_wg(data);
       case urls[2]: return mock_post_shoppinglist(data);
-      case urls[3]: return mock_post_shoppinglistitem(data);
+      //case urls[3]: return mock_post_shoppinglistitem(data);
 
       //If you want to add another request url, add a case here and a function above ;)
     }

@@ -73,7 +73,6 @@ export default class Login extends Component {
 
   onPressLogin()
   {
-    console.log("PRESS LOGIN")
     this.state.errormessage = '';
 
       return axios.get(config.PARSE_SERVER_URL + "login/", {
@@ -90,11 +89,6 @@ export default class Login extends Component {
             email: response.data.email
           };
           GLOBAL.USERID = response.data.objectId;
-
-          console.log("id: " + GLOBAL.USER.id + " name: " +
-        GLOBAL.USER.username + " email: " + GLOBAL.USER.email)
-
-
           axios.get(config.PARSE_SERVER_URL + "classes/wgs/", {
               headers: config.PARSE_SERVER_HEADERS,
               params:
@@ -106,7 +100,6 @@ export default class Login extends Component {
             }})
               .then((response) => {
                 console.log(response);
-                console.log("here!!!!!!!!");
                 if(response.data.results.length >= 1 )
                 {
                   GLOBAL.WGID = response.data.results[0].objectId;
@@ -119,8 +112,6 @@ export default class Login extends Component {
 
                 }
 
-                console.log("länge: " +response.data.results.length);
-                console.log(GLOBAL.WGID, GLOBAL.WGNAME);
 
                 this.props.navigator.push({
                    name: "Home"});
