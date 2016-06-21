@@ -2,48 +2,6 @@
 <items version="2" >
 
     <item
-        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-23725e85f5cc2d1e86fc546e9d3794cb82f8314d.jar" />
-    </item>
-    <item
-        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-7a681718ea7beed253e532fe04c18874e5aa1608.jar" />
-    </item>
-    <item
-        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-222d7f4219f42de533d3b3277215243b7104d0c1.jar" />
-    </item>
-    <item
-        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.23.1/jars/libs/infer-annotations-1.5.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="60e1da2c40a60ff372052eba4278e0cb252a3f3a">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/infer-annotations-1.5-bff4e0277201a239eb9f72aedb1568f27d99c471.jar" />
-    </item>
-    <item
-        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/0.8.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="4af24c040b21980e0a80a505816c648e36705bd9">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-912ea89649aa22cf5dc2a0320805e095e7eb8352.jar" />
-    </item>
-    <item
-        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-2e9f32cca20c425bc46bc2a04748ea7d44d8fc59.jar" />
-    </item>
-    <item
         jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp/0.8.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
@@ -51,11 +9,25 @@
         <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-7de45a0c94dc922b75cdda23cae62aba3ad00f04.jar" />
     </item>
     <item
-        jar="/home/sandra/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.5.0/4de2b4ed3445c37ec1720a7d214712e845a24636/okhttp-2.5.0.jar"
+        jar="/home/sandra/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.2.3/1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14/jackson-core-2.2.3.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="4de2b4ed3445c37ec1720a7d214712e845a24636">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/okhttp-2.5.0-a4d8929a2cd74cd31ca312f1c4dde11c87fe0f99.jar" />
+        sha1="1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/jackson-core-2.2.3-acd7f4d18890b7601bd8a064444055589a99aae9.jar" />
+    </item>
+    <item
+        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-23725e85f5cc2d1e86fc546e9d3794cb82f8314d.jar" />
+    </item>
+    <item
+        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.23.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="02f58fb4e333f5f258eedc4d1bc66032059aaf70">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-388096a620d9d7cf8476af185b9801eff83b5883.jar" />
     </item>
     <item
         jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/0.8.1/jars/classes.jar"
@@ -65,25 +37,25 @@
         <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-acdf08287b149b76ca7fa75d2aa98af3d9d47443.jar" />
     </item>
     <item
+        jar="/home/sandra/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp-ws/2.5.0/e9753b7dcae5deca92e871c5c759067070b07bc/okhttp-ws-2.5.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0e9753b7dcae5deca92e871c5c759067070b07bc">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/okhttp-ws-2.5.0-5cbb2fe3d1fa98b466dff2b9cef7d4567c76fd76.jar" />
+    </item>
+    <item
+        jar="/home/sandra/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.2/2bf96b7aa8b611c177d329452af1dc933e14501c/commons-cli-1.2.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="2bf96b7aa8b611c177d329452af1dc933e14501c">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/commons-cli-1.2-570dc1efb14faf3b11d89c8378aad0437cec5c93.jar" />
+    </item>
+    <item
         jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/0.8.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="3836ecca4e31e18ea8fbae8e822d49777b0db4f7">
         <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-490eb0c5279557490eb82fd413eeafe26587fabe.jar" />
-    </item>
-    <item
-        jar="/home/sandra/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.4/129874135e6081269ace2312092031558865de12/bolts-android-1.1.4.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="129874135e6081269ace2312092031558865de12">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/bolts-android-1.1.4-96d63e33308d900a22b9eb5dad3c4d3b9f0dd7cd.jar" />
-    </item>
-    <item
-        jar="/home/sandra/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.2.3/1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14/jackson-core-2.2.3.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="1a0113da2cab5f4c216b4e5e7c1dbfaa67087e14">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/jackson-core-2.2.3-acd7f4d18890b7601bd8a064444055589a99aae9.jar" />
     </item>
     <item
         jar="/home/sandra/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
@@ -100,11 +72,11 @@
         <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/stetho-1.2.0-2204635105016cf231a834cfd52326e62e0f8c28.jar" />
     </item>
     <item
-        jar="/home/sandra/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp-ws/2.5.0/e9753b7dcae5deca92e871c5c759067070b07bc/okhttp-ws-2.5.0.jar"
+        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="0e9753b7dcae5deca92e871c5c759067070b07bc">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/okhttp-ws-2.5.0-5cbb2fe3d1fa98b466dff2b9cef7d4567c76fd76.jar" />
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-7a681718ea7beed253e532fe04c18874e5aa1608.jar" />
     </item>
     <item
         jar="/home/sandra/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
@@ -114,18 +86,11 @@
         <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0-087e2608d1f7bd1507eaf9ed43ad503b40ab6dfa.jar" />
     </item>
     <item
-        jar="/home/sandra/.gradle/caches/modules-2/files-2.1/commons-cli/commons-cli/1.2/2bf96b7aa8b611c177d329452af1dc933e14501c/commons-cli-1.2.jar"
+        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.0.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="2bf96b7aa8b611c177d329452af1dc933e14501c">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/commons-cli-1.2-570dc1efb14faf3b11d89c8378aad0437cec5c93.jar" />
-    </item>
-    <item
-        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.23.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="02f58fb4e333f5f258eedc4d1bc66032059aaf70">
-        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-388096a620d9d7cf8476af185b9801eff83b5883.jar" />
+        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-2e9f32cca20c425bc46bc2a04748ea7d44d8fc59.jar" />
     </item>
     <item
         jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/0.8.1/jars/classes.jar"
@@ -133,6 +98,13 @@
         revision="23.0.1"
         sha1="845a5b3a624946b2068963ba656c117fc453701c">
         <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-c3e8d8cf08d1e2bac1a3124cf6d2bad654d885b3.jar" />
+    </item>
+    <item
+        jar="/home/sandra/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.5.0/4de2b4ed3445c37ec1720a7d214712e845a24636/okhttp-2.5.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4de2b4ed3445c37ec1720a7d214712e845a24636">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/okhttp-2.5.0-a4d8929a2cd74cd31ca312f1c4dde11c87fe0f99.jar" />
     </item>
     <item
         jar="/home/sandra/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
@@ -154,6 +126,34 @@
         revision="23.0.1"
         sha1="6c5c9380e245c4ff5be2b2a49dcbb0200c39798e">
         <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/stetho-okhttp-1.2.0-6dde62418707eefe7850d60bfaa79eeeaee6b9ce.jar" />
+    </item>
+    <item
+        jar="/home/sandra/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.4/129874135e6081269ace2312092031558865de12/bolts-android-1.1.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="129874135e6081269ace2312092031558865de12">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/bolts-android-1.1.4-96d63e33308d900a22b9eb5dad3c4d3b9f0dd7cd.jar" />
+    </item>
+    <item
+        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-222d7f4219f42de533d3b3277215243b7104d0c1.jar" />
+    </item>
+    <item
+        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.23.1/jars/libs/infer-annotations-1.5.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="60e1da2c40a60ff372052eba4278e0cb252a3f3a">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/infer-annotations-1.5-bff4e0277201a239eb9f72aedb1568f27d99c471.jar" />
+    </item>
+    <item
+        jar="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/0.8.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4af24c040b21980e0a80a505816c648e36705bd9">
+        <dex dex="/home/sandra/Dokumente/slany/StudentWGPlanner/android/app/build/intermediates/pre-dexed/debug/classes-912ea89649aa22cf5dc2a0320805e095e7eb8352.jar" />
     </item>
 
 </items>

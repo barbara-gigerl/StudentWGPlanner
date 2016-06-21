@@ -34,7 +34,7 @@ export default class SearchWG extends Component {
         rowHasChanged: (r1, r2) => r1.id !== r2.id
       }),
       //selectedwg: '',
-      joinbutton: '',
+      joinbutton: false,
       errormessage: ''
     }
 
@@ -57,8 +57,9 @@ export default class SearchWG extends Component {
 
   textchangehandler(text)
   {
+    console.log("textchangehandler");
     this.setState({searchterm: text})
-    axios.get(config.PARSE_SERVER_URL + 'classes/wgs', {
+    axios.get(config.PARSE_SERVER_URL + 'classes/wgs/', {
       headers: config.PARSE_SERVER_HEADERS,
       params: {
         "where": {
@@ -68,22 +69,23 @@ export default class SearchWG extends Component {
         }
       }
     })
-    //.then(response => response.data.results)
-      .then(function(response) {
+    .then((response) => {
       var results = response.data.results;
+      console.log(results);
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results])
       })
-    }.bind(this))
+      return Promise.resolve(true);
+    })
     .catch((error) => {
       console.log(error)
+      return Promise.resolve(false);
     })
 
-    //TODO: need to change this if searchWG is finally working
     if (this.state.searchterm !== "") {
-      this.setState({joinbutton: "Join this WG"});
+      this.setState({joinbutton: true});
     } else {
-      this.setState({joinbutton: ""});
+      this.setState({joinbutton: false});
     }
 
   }
@@ -91,16 +93,15 @@ export default class SearchWG extends Component {
   onJoinWG()
   {
     if (this.state.searchterm !== "") {
-      axios.get(config.PARSE_SERVER_URL + "classes/wgs", {
+      axios.get(config.PARSE_SERVER_URL + "classes/wgs/", {
         headers: config.PARSE_SERVER_HEADERS,
         params: {
           "where": {
             "name": this.state.searchterm
           }
         }
-      }).then((response) => {
-        console.log(response);
-
+      })
+      .then((response) => {
         if (response.data.results.length === 1)
         {
           this.insertDatabase(response.data.results[0]);
@@ -109,12 +110,13 @@ export default class SearchWG extends Component {
         {
           this.setState({errormessage: "Couldn't find wg"});
         }
+        return Promise.resolve(true);
 
-        })
+      })
       .catch((error) => {
-
         console.log(error);
         this.setState({errormessage: "Couldn't connect to server."});
+        return Promise.resolve(false);
       });
     } else {
       this.setState({errormessage: 'Please enter a searchterm.'});
@@ -135,18 +137,22 @@ export default class SearchWG extends Component {
     "username":GLOBAL.USER.username,
     "email":GLOBAL.USER.email});
     axios.put(config.PARSE_SERVER_URL + "classes/wgs/" + resultObject.objectId, {
-      'users': resultObject.users
-    }, {
-      headers: config.PARSE_SERVER_HEADERS
-    }).then(response => {
+        'users': resultObject.users
+      }, {
+        headers: config.PARSE_SERVER_HEADERS
+    })
+    .then(response => {
       console.log(response)
       GLOBAL.WGID = resultObject.objectId
       GLOBAL.WGNAME = resultObject.name
       this.props.navigator.push({
          name: "Home"});
-    }).catch(function(error) {
+      return Promise.resolve(true);
+    })
+    .catch(function(error) {
       this.setState({errormessage: "Couldn't connect to server."});
       console.log(error);
+      return Promise.resolve(false);
     });
 
   }
@@ -154,26 +160,8 @@ export default class SearchWG extends Component {
 
   renderWg(wg)
   {
-
-     return <Text>{wg.name}</Text>
-    /*console.log("2:" + this.state.selectedwg);
-    if(wg.name === this.state.selectedwg)
-    {
-      console.log("infiffkl");
-      return (<TouchableOpacity>
-      <Text style={{color: 'red'}}>{wg.name}</Text>
-      </TouchableOpacity>)
-    }
-    else{
-    return (
-      <TouchableOpacity onPress={() => this.setState({selectedwg: wg.name})} >
-      <Text>{wg.name}</Text>
-      </TouchableOpacity>
-    )*/
+    return <Text>{wg.name}</Text>
   }
-    /*return (
-      <Text>{wg.name}</Text>
-    )*/
 
 
   render()
@@ -182,7 +170,9 @@ export default class SearchWG extends Component {
     return (
       <View>
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
-        <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Search WG</Text></View>
+        <View style={styles.viewNavigation}>
+          <Text style={styles.textNavigation}>Search WG</Text>
+        </View>
         <Text style={styles.textMenuHeader}>Search the WG you want to join</Text>
         <TextInput onChangeText={(text) => this.textchangehandler(text)} value={this.state.searchterm} style={styles.basic}></TextInput>
         <Text style={styles.errormessage}>{this.state.errormessage}</Text>
