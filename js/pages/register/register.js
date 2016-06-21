@@ -10,6 +10,7 @@ import React, {
 
 GLOBAL = require('../../auth');
 
+import axios from "axios";
 import config from "../../../config";
 import Button from '../../components/Button';
 import styles from "../../styles/index";
@@ -49,16 +50,13 @@ export default class Register extends Component {
       return;
     }
 
-    fetch(config.PARSE_SERVER_URL + '/users', {
-        method: 'POST',
-        headers: config.PARSE_SERVER_HEADERS,
-        body: JSON.stringify({
+    axios.post(config.PARSE_SERVER_URL + 'classes/users', {
           username: this.state.username,
           password: this.state.password,
-          email: this.state.email
-        })
+          email: this.state.email}, {
+          headers: config.PARSE_SERVER_HEADERS
       })
-      .then(response => response.json())
+
       .then(response => {
         if (response.error) {
           this.setState({errormessage: response.error});
