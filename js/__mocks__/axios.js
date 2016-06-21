@@ -188,9 +188,10 @@ module.exports = {
       case urls[1]:
         if (data.testCase === 'SEARCHWG')
           return mock_search_wgs(data);
+        else if (data.testCase === 'JOINWG')
+          return mock_wg(data);
         else
           return mock_show_roommates(data);
-      case urls[1]: return mock_wg(data);
       case urls[2]: return mock_shoppinglist(data);
       case urls[3]: return mock_shoppinglistitem(data);
 

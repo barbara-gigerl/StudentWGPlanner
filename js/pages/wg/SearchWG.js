@@ -97,6 +97,7 @@ export default class SearchWG extends Component {
     if (this.state.searchterm !== "") {
       axios.get(config.PARSE_SERVER_URL + "classes/wgs/", {
         headers: config.PARSE_SERVER_HEADERS,
+        testCase: 'JOINWG',
         params: {
           "where": {
             "name": this.state.searchterm
