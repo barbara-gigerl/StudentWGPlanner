@@ -101,23 +101,4 @@ describe('Search WG Test', () => {
     expect(instance.state.errormessage).toBe('Please enter a searchterm.');
     //expect(output.props.children[4].props.children).toBe('Please enter a wg name.');
   });
-
-  it('loads result from server after keyinput', () => {
-    const state = {
-      searchterm: '',
-      wgs: new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1.id !== r2.id
-      }),
-      //selectedwg: '',
-      joinbutton: '',
-      errormessage: ''
-    }
-
-    search_wg_test = renderScreen({}, state);
-    let { output, instance } = search_wg_test;
-
-    output.props.children[3].props.onChangeText('ABC');
-    
-    expect(instance.state.wgs[0].name).toBe('ABCD');
-  })
 });
