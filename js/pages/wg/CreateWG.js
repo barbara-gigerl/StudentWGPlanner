@@ -45,7 +45,6 @@ export default class CreateWG extends Component {
   }
 
   onWgTextChange(text) {
-    console.log(text);
     this.setState({ wgName: text });
   }
 
@@ -63,7 +62,6 @@ export default class CreateWG extends Component {
       })
       .then((response) => {
         var results = response.data.results;
-        console.log(results);
         if (results.length === 0) {
           axios.post(config.PARSE_SERVER_URL + 'classes/wgs', {
             name: this.state.wgName,

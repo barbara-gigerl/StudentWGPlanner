@@ -104,17 +104,46 @@ export default class Login extends Component {
                 {
                   GLOBAL.WGID = response.data.results[0].objectId;
                   GLOBAL.WGNAME = response.data.results[0].name;
+
+                  axios.get(config.PARSE_SERVER_URL + 'classes/shoppinglist/', {
+                    headers: config.PARSE_SERVER_HEADERS,
+                    params:
+                    {
+                      "where": {"wgid":GLOBAL.WGID }
+                    }
+                  })
+                  .then((response) => {
+
+                    if(response.data.results.length == 1)
+                    {
+                      GLOBAL.SHOPPINGLISTID = response.data.results[0].objectId;
+
+                    }
+                    else
+                    {
+                      GLOBAL.SHOPPINGLISTID = "";
+                    }
+
+                    console.log("ready." + GLOBAL.SHOPPINGLISTID);
+                    console.log("before push.");
+
+                    this.props.navigator.push({
+                       name: "Home"});
+                  })
+
                 }
                 else
                 {
                   GLOBAL.WGID = "";
                   GLOBAL.WGNAME = "";
+                  console.log("before push.");
+
+                  this.props.navigator.push({
+                     name: "Home"});
 
                 }
 
 
-                this.props.navigator.push({
-                   name: "Home"});
 
               })
               .catch((error) => {

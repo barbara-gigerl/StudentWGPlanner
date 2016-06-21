@@ -179,7 +179,6 @@ export default class ShoppingList extends Component {
 
   deleteNow(results)
   {
-    console.log("delete Now");
     for(var i = 0; i < results.length; i++)
     {
       axios.delete(config.PARSE_SERVER_URL + "classes/shoppinglistitem/" + results[i].objectId,
@@ -187,7 +186,6 @@ export default class ShoppingList extends Component {
           headers: config.PARSE_SERVER_HEADERS
       })
       .then((response) => {
-        console.log(ok);
         this.showShoppingLists();
         return Promise.resolve(true);
       })

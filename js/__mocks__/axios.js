@@ -40,11 +40,8 @@ function mock_show_roommates(data)
 function mock_search_wgs(data)
 {
   //let regex = data.params.where.name['$regex'];
-  console.log(data);
   let regex = 'ABC';
-  console.log('regex: ' + regex);
   if (true) {
-    console.log('test');
     return Promise.resolve({ 'data': {'results': [ { name: 'ABCD' }, { name: 'ABCDE' } ]}});
   }
   return Promise.resolve({ 'data': {'results': [] }});
@@ -224,7 +221,6 @@ function mock_post_shoppinglistitem(data)
 
 module.exports = {
   get: function(url,data){
-    console.log(url, data);
     switch(url)
     {
       case urls[0]: return mock_login(data);

@@ -29,8 +29,6 @@ export default class StudentWGPlanner extends Component {
 
   renderScene(route, navigator)
   {
-    console.log("renderScene");
-    console.log(route);
 
     switch (route.name) {
       case "Login":

@@ -45,7 +45,6 @@ export default class Roommate extends Component {
 
 showroommates()
 {
-    console.log("will now connect to server");
     return axios.get('http://10.0.2.2:1337/parse/classes/wgs/', {
       headers: {'X-Parse-Application-Id': 'StudentWGPlanner',
                 'X-Parse-Master-Key': 'asdf'},
