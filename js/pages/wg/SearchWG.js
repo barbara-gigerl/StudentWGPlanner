@@ -74,9 +74,11 @@ export default class SearchWG extends Component {
     .then((response) => {
       var results = response.data.results;
       console.log(results);
+      if(results.length > 0) {
       this.setState({
         wgs: this.state.wgs.cloneWithRows([...results])
       })
+    }
       return Promise.resolve(true);
     })
     .catch((error) => {
@@ -138,10 +140,12 @@ export default class SearchWG extends Component {
     console.log("insert db: id = " + GLOBAL.USER.id +
   "username = " + GLOBAL.USER.username + "email = " +
 GLOBAL.USER.email);
+
     resultObject.users.push({
     "id": GLOBAL.USER.id,
     "username":GLOBAL.USER.username,
     "email":GLOBAL.USER.email});
+
     axios.put(config.PARSE_SERVER_URL + "classes/wgs/" + resultObject.objectId, {
         'users': resultObject.users
       }, {
