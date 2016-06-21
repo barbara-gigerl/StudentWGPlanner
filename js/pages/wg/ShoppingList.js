@@ -13,7 +13,7 @@ import React, {
 
 import styles from "../../styles/index";
 import Button from "../../components/Button.js";
-
+import HideableView from "../../components/HideableView.js";
 GLOBAL = require('../../auth');
 
 import config from "../../../config";
@@ -117,12 +117,12 @@ export default class ShoppingList extends Component {
   {
     if(element.state == 0){
       return (
-          <TouchableHighlight onPress={(text) => this.onPressElement(element)}><Text style={styles.normal}>{element.name}</Text></TouchableHighlight>
+          <TouchableHighlight underlayColor="transparent" onPress={(text) => this.onPressElement(element)}><Text style={styles.listnormal}>{"> " +element.name}</Text></TouchableHighlight>
       )
     }
     else{
       return (
-          <TouchableHighlight onPress={(text) => this.onPressElement(element)}><Text>{element.name}</Text></TouchableHighlight>
+          <TouchableHighlight underlayColor="transparent" onPress={(text) => this.onPressElement(element)}><Text style={styles.listtobedeleted}>{"> " +element.name}</Text></TouchableHighlight>
       )
     }
   }
@@ -213,12 +213,13 @@ export default class ShoppingList extends Component {
         <Button text="Logout" onPress={this.onPressLogout} show={true} type="logout"></Button>
         <View style={styles.viewNavigation}><Text style={styles.textNavigation}>Shopping List</Text></View>
         <Button text="Create a new Shoppinglist" show={!haveShoppingList} onPress={this.onPressNew}></Button>
-
+        <HideableView hidden={!haveShoppingList}>
         <TextInput onChangeText={(text) => this.onNameChange(text)} value={this.state.listItem} style={styles.basic}></TextInput>
-
+        </HideableView>
+        <Button text="Insert Data" onPress={this.onInsertData} show={haveShoppingList} ></Button>
         <ListView show={haveShoppingList} dataSource={this.state.listElements} renderRow={this.renderElements.bind(this)}/>
 
-        <Button text="Insert Data" onPress={this.onInsertData} show={haveShoppingList} ></Button>
+
         <Button text="Delete Selected Items" onPress={this.onDeleteData} show={haveShoppingList} ></Button>
         <Button text="Back" onPress={this.onPressBack} show={true} type="back"></Button>
       </View>
