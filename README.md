@@ -30,6 +30,50 @@ Install the MongoDB packages
 
     sudo apt-get install -y mongodb-org
 
+### Masterkey for your app
+	MasterKey for parse-server: asdf
+###a ppId
+ 	StudentWGPlanner
+
+### mongodb-runner 	
+mongodb-runner start
+parse-dashboard --appId StudentWGPlanner --masterKey asdf --serverURL "http://localhost:1337/parse" --appName StudentWGPlanner
+parse-server --appId StudentWGPlanner --masterKey asdf
+
+    
+    
+Creation following tables:
+    wgs
+    |-----------------------------------------------------------------------------------------------------|
+    | objectId (String) | updatedAt (Date) | createdAt (Date) | ACL (ACL) | name (String) | users (Array) |
+    |-----------------------------------------------------------------------------------------------------|
+    
+    shoppinglistitem
+    |--------------------------------------------------------------------------------------------------------------------|
+    | objectId (String) | updatedAt (Date) | createdAt (Date) | name (String) | state (Number) | shoppinglistid (String) |
+    |--------------------------------------------------------------------------------------------------------------------|
+    
+    shoppinglist
+    |-----------------------------------------------------------------------------------------------------|
+    | objectId (String) | updatedAt (Date) | createdAt (Date) | ACL (ACL) | name (String) | wgid (String) |
+    |-----------------------------------------------------------------------------------------------------|
+    
+    User
+    |-------------------------------------------------------------------------------------------------
+    | objectId (String) | emailVerified (Boolean) | ACL (ACL) | updatedAt (Date) | authData (Object) |
+    |-------------------------------------------------------------------------------------------------
+                        ----------------------------------------------------------------------------|
+                        | username (String) | createdAt (Date) | password (string) | email (String) |
+                        ----------------------------------------------------------------------------|
+                        
+    Session                        
+    |-------------------------------------------------------------------------------------------------------------------
+    | objectId (String) | sessionToken (String) | expiresAt (Date) | ACL (ACL) | user (KEINEAHNUNG) | updatedAt (Date) |
+    |-------------------------------------------------------------------------------------------------------------------
+                        -------------------------------------------------------------------------------------------|
+                        | createdWith (Object) | installationId (String) | restricted (Boolean) | createdAt (Date) |
+                        -------------------------------------------------------------------------------------------|
+                        
 ### Run MongoDB
 
 Start MongoDB
@@ -121,6 +165,7 @@ To do that, add this to your ~/.bashrc, ~/.bash_profile (or whatever your shell 
 
 Now start your Android emulator, then run this commands to build and start the project
 
+    react-native start
     react-native run-android
     npm start
 
